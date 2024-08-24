@@ -7,7 +7,7 @@ import useLocalStorage from "../../../../hooks/useLocalStorage";
 import { useToast } from "../../../core/design-system/ui/use-toast";
 import useUser from "../../../../hooks/useUser";
 import { LoggedInUser } from "../../../../types/loggedInUser.type";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const PROJECT_LIST = [
   {
@@ -52,6 +52,12 @@ function SideBar() {
         });
       });
   };
+
+  useEffect(() => {
+    if (activeProject) {
+      navigate(`/projects/${activeProject}`);
+    }
+  }, [activeProject]);
 
   return (
     <div className="h-full w-80 flex flex-col justify-between bg-[#f2f2f2] overflow-auto">
