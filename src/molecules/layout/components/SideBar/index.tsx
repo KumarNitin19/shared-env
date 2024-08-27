@@ -8,6 +8,9 @@ import { useToast } from "../../../core/design-system/ui/use-toast";
 import useUser from "../../../../hooks/useUser";
 import { LoggedInUser } from "../../../../types/loggedInUser.type";
 import { useEffect, useState } from "react";
+import { useTheme } from "../../../../providers/theme-providers";
+import LOGO_DARK from "../../../..//assets/images/varvault-dark.svg";
+import LOGO_LIGHT from "../../../..//assets/images/varvault-light.svg";
 
 const PROJECT_LIST = [
   {
@@ -30,6 +33,8 @@ function SideBar() {
   const { removeItem } = useLocalStorage();
 
   const { toast } = useToast();
+
+  const { theme, setTheme } = useTheme();
 
   const loggedInUser: LoggedInUser = useUser();
 
@@ -60,19 +65,23 @@ function SideBar() {
   }, [activeProject]);
 
   return (
-    <div className="h-full w-80 flex flex-col justify-between bg-[#f2f2f2] overflow-auto">
+    <div className="h-full w-80 flex flex-col justify-between bg-card overflow-auto">
       <div className="flex-1 flex flex-col overflow-auto">
         <div className="p-6 flex items-center gap-3">
-          <img className="w-6" src="/varvault_dark.svg" alt="varvault_logo" />
-          <span className="text-lg">VarVault</span>
+          <img
+            className="w-6"
+            src={theme === "light" ? LOGO_DARK : LOGO_LIGHT}
+            alt="varvault_logo"
+          />
+          <span className="text-lg text-default">VarVault</span>
         </div>
 
         <div className="p-6 flex-1 flex flex-col gap-5 overflow-auto">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-[#7b7b7b]">PROJECTS</span>
+            <span className="text-sm font-medium text-subtle">PROJECTS</span>
             <Icon
               icon="fluent:add-square-20-regular"
-              className="w-5 h-5 cursor-pointer text-[#3c7c41] hover:text-[#3da145] transition-all"
+              className="w-5 h-5 cursor-pointer text-accent hover:text-[#3da145] transition-all"
             />
           </div>
 
@@ -82,10 +91,10 @@ function SideBar() {
             ) : (
               PROJECT_LIST.map((project) => (
                 <div
-                  className={`px-4 py-3 flex items-center gap-2 rounded-md  cursor-pointer  transition-all ${
+                  className={`px-4 py-3 flex items-center gap-2 rounded-md cursor-pointer transition-all hover:bg-card-foreground ${
                     activeProject === project.id
-                      ? "bg-[#ddd]"
-                      : " text-[#7b7b7b] hover:bg-[#ddd4]"
+                      ? "text-default bg-card-foreground"
+                      : "text-subtle"
                   }`}
                   onClick={() => setActiveProject(project?.id)}
                 >
@@ -98,26 +107,36 @@ function SideBar() {
         </div>
       </div>
 
-      <div className="p-6 flex items-center justify-between text-[#7b7b7b]">
+      <div className="p-6 flex items-center justify-between">
         <div className="flex h-5 items-center space-x-2">
           <img
             className="h-4 w-4 rounded-full"
             src={loggedInUser?.profile_image}
           />
-          <span>{loggedInUser?.display_name}</span>
+          <span className="text-subtle">{loggedInUser?.display_name}</span>
         </div>
 
-        <div className="flex h-5 items-center space-x-3">
-          <Icon
-            onClick={signOutUser}
-            icon="hugeicons:logout-02"
-            className="w-5 h-5 cursor-pointer hover:text-black transition-all"
-          />
+        <div className="flex h-5 items-center space-x-3 text-subtle hover:text-foreground">
+          <div title="Sign out">
+            <Icon
+              onClick={signOutUser}
+              icon="hugeicons:logout-02"
+              className="w-5 h-5 cursor-pointer transition-all"
+            />
+          </div>
           <Separator orientation="vertical" />
-          <Icon
-            icon="uil:sun"
-            className="w-5 h-5 cursor-pointer hover:text-black transition-all"
-          />
+          <div className="relative flex cursor-pointer" title="Toggle theme">
+            <Icon
+              icon="uil:sun"
+              className="w-5 h-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
+              onClick={() => setTheme("dark")}
+            />
+            <Icon
+              icon="basil:moon-outline"
+              className="absolute w-5 h-5  rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+              onClick={() => setTheme("light")}
+            />
+          </div>
         </div>
       </div>
     </div>

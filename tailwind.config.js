@@ -18,6 +18,8 @@ module.exports = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        default: "hsl(var(--default))",
+        subtle: "hsl(var(--subtle))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -67,8 +69,10 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       backgroundImage: {
-        pattern: "url('/bg-pattern.svg')",
-        "sign-in-card": "url('/sign-in-card-bg.svg')",
+        pattern: "url('src/assets/images/bg-pattern.svg')",
+        "sign-in-card": "url('src/assets/images/sign-in-card-bg.svg')",
+        "sign-in-card-dark":
+          "url('src/assets/images/sign-in-card-bg-dark.svg')",
       },
     },
   },

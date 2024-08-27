@@ -5,7 +5,7 @@ function Container() {
   return (
     <div className="w-screen h-screen flex overflow-auto">
       <SideBar />
-      <div className="w-full overflow-auto">
+      <div className="w-full bg-background overflow-auto">
         <Outlet />
       </div>
     </div>
