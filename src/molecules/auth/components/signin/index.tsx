@@ -59,13 +59,14 @@ function SignIn() {
           src={theme === "light" ? LOGO_DARK : LOGO_LIGHT}
           alt="varvault_logo"
         />
-        <span className="text-4xl font-bold text-default">VarVault</span>
+        <span className="text-4xl font-bold">VarVault</span>
         <span className="text-center text-subtle">
           One stop platform for all your <br /> environment credentials
         </span>
         <Button
           onClick={signInWithGooglePopup}
-          className="mt-6 px-8 flex gap-3 bg-black text-white dark:bg-white dark:text-black"
+          variant="block"
+          className="mt-6 px-8 flex gap-3"
         >
           <Icon icon="logos:google-icon" className="h-5 w-5" />
           Sign In With Google

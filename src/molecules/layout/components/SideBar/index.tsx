@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react";
 import { Separator } from "../../../core/design-system/ui/separator";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../auth/utils/firebase";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useLocalStorage from "../../../../hooks/useLocalStorage";
 import { useToast } from "../../../core/design-system/ui/use-toast";
 import useUser from "../../../../hooks/useUser";
@@ -32,6 +32,8 @@ function SideBar() {
 
   const { removeItem } = useLocalStorage();
 
+  const location = useLocation();
+
   const { toast } = useToast();
 
   const { theme, setTheme } = useTheme();
@@ -59,6 +61,9 @@ function SideBar() {
   };
 
   useEffect(() => {
+    if (location.pathname.match(/\/projects\/.*/g)) {
+      setActiveProject(location.pathname.split("/")[2]);
+    }
     if (activeProject) {
       navigate(`/projects/${activeProject}`);
     }
@@ -73,7 +78,7 @@ function SideBar() {
             src={theme === "light" ? LOGO_DARK : LOGO_LIGHT}
             alt="varvault_logo"
           />
-          <span className="text-lg text-default">VarVault</span>
+          <span className="text-lg">VarVault</span>
         </div>
 
         <div className="p-6 flex-1 flex flex-col gap-5 overflow-auto">
@@ -91,9 +96,10 @@ function SideBar() {
             ) : (
               PROJECT_LIST.map((project) => (
                 <div
+                  key={project.id}
                   className={`px-4 py-3 flex items-center gap-2 rounded-md cursor-pointer transition-all hover:bg-card-foreground ${
                     activeProject === project.id
-                      ? "text-default bg-card-foreground"
+                      ? "bg-card-foreground"
                       : "text-subtle"
                   }`}
                   onClick={() => setActiveProject(project?.id)}
@@ -116,16 +122,19 @@ function SideBar() {
           <span className="text-subtle">{loggedInUser?.display_name}</span>
         </div>
 
-        <div className="flex h-5 items-center space-x-3 text-subtle hover:text-foreground">
+        <div className="flex h-5 items-center space-x-3 text-subtle transition-all">
           <div title="Sign out">
             <Icon
               onClick={signOutUser}
               icon="hugeicons:logout-02"
-              className="w-5 h-5 cursor-pointer transition-all"
+              className="w-5 h-5 hover:text-foreground cursor-pointer"
             />
           </div>
           <Separator orientation="vertical" />
-          <div className="relative flex cursor-pointer" title="Toggle theme">
+          <div
+            className="relative flex hover:text-foreground cursor-pointer"
+            title="Toggle theme"
+          >
             <Icon
               icon="uil:sun"
               className="w-5 h-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"

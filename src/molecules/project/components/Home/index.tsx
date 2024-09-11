@@ -13,13 +13,11 @@ function Home() {
         src={theme === "light" ? COMPUTER_HANDS_DARK : COMPUTER_HANDS_LIGHT}
         alt="computer-hands"
       />
-      <span className="text-default text-3xl font-bold">
-        Welcome to VarVault
-      </span>
+      <span className="text-3xl font-bold">Welcome to VarVault</span>
       <span className="text-center text-subtle">
         Ready to dive in? Start your first <br /> project now
       </span>
-      <Button className="mt-6 px-8 flex gap-2 bg-accent text-white">
+      <Button className="mt-6 px-8 flex gap-2">
         <Icon icon="fluent:add-16-regular" className="h-5 w-5" />
         Create Project
       </Button>

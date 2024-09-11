@@ -15,12 +15,12 @@
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted-foreground: 0, 0%, 48%;
     --accent: 125, 35%, 36%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent-foreground: 124, 35%, 24%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 240, 14%, 18%;
-    --border: 214.3 31.8% 91.4%;
+    --border: 0, 0%, 85%;
     --input: 214.3 31.8% 91.4%;
     --ring: 0, 0%, 91%;
     --radius: 0.5rem;
@@ -45,12 +45,12 @@
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 240, 14%, 18%;
     --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted-foreground: 240, 5%, 65%;
     --accent: 125, 35%, 36%;
-    --accent-foreground: 240, 14%, 18%;
+    --accent-foreground: 124, 35%, 24%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 240, 14%, 18%;
-    --border: 217.2 32.6% 17.5%;
+    --border: 234, 8%, 25%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
     --chart-1: 220 70% 50%;
@@ -68,7 +68,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-base;
+    @apply bg-background text-default;
   }
   @font-face {
     font-family: "Satoshi";
