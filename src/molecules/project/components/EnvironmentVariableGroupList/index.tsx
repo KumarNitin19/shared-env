@@ -1,7 +1,5 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { Button } from "../../../core/design-system/ui/button";
-import { Input } from "../../../core/design-system/ui/input";
-import { Separator } from "../../../core/design-system/ui/separator";
+import { Button, Divider, Input } from "../../../../atoms";
 
 function EnvironmentVariableGroupList() {
   return (
@@ -26,12 +24,11 @@ function EnvironmentVariableGroupList() {
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-3">
               <span className="text-sm font-bold">Variables</span>
-              <Separator orientation="vertical" />
+              <Divider orientation="vertical" />
               <Button
                 className="h-auto p-0 flex items-center gap-1 text-sm"
                 variant={"link"}
-                size={"sm"}
-              >
+                size={"sm"}>
                 <Icon icon="fluent:add-16-regular" className="h-4 w-4" />
                 Add new variable
               </Button>

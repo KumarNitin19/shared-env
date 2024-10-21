@@ -1,9 +1,7 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { Separator } from "../../../core/design-system/ui/separator";
-import { Input } from "../../../core/design-system/ui/input";
-import ZeroState from "../EnvironmentVariableGroupList/zeroState";
 import useCopyToClipboard from "../../../../hooks/useCopyToClipboard";
 import EnvironmentVariableGroupList from "../EnvironmentVariableGroupList";
+import { Divider, Input } from "../../../../atoms";
 
 function Projects() {
   const { copy } = useCopyToClipboard();
@@ -20,7 +18,7 @@ function Projects() {
         <span id="project-id" className="text-subtle">
           78F9A2E7-9C1B-4A8D-AE67-82DF7D1F5C36
         </span>
-        <Separator orientation="vertical" />
+        <Divider orientation="vertical" />
         <Icon
           onClick={() => copy("project-id")}
           icon="fluent:copy-20-regular"

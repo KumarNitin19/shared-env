@@ -1,16 +1,16 @@
 import { Icon } from "@iconify/react";
-import { Separator } from "../../../core/design-system/ui/separator";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../auth/utils/firebase";
 import { useNavigate } from "react-router-dom";
 import useLocalStorage from "../../../../hooks/useLocalStorage";
-import { useToast } from "../../../core/design-system/ui/use-toast";
+import { useToast } from "../../../../hooks/use-toast";
 import useUser from "../../../../hooks/useUser";
 import { LoggedInUser } from "../../../../types/loggedInUser.type";
 import { useCallback, useState } from "react";
 import { useTheme } from "../../../../providers/theme-providers";
 import LOGO_DARK from "../../../..//assets/images/varvault-dark.svg";
 import LOGO_LIGHT from "../../../..//assets/images/varvault-light.svg";
+import { Divider } from "../../../../atoms";
 
 const PROJECT_LIST = [
   {
@@ -123,7 +123,7 @@ function SideBar() {
               className="w-5 h-5 hover:text-foreground cursor-pointer"
             />
           </div>
-          <Separator orientation="vertical" />
+          <Divider orientation="vertical" />
           <div
             className="relative flex hover:text-foreground cursor-pointer"
             title="Toggle theme">
