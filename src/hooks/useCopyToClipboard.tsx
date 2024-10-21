@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useToast } from "../molecules/core/design-system/ui/use-toast";
+import { useToast } from "./use-toast";
 
 export default function useCopyToClipboard() {
   const { toast } = useToast();

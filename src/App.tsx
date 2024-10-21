@@ -1,6 +1,6 @@
 import { RouterProvider } from "react-router-dom";
 import router from "./routes";
-import { Toaster } from "./molecules/core/design-system/ui/toaster";
+import { Toaster } from "./atoms/Toaster";
 import { ThemeProvider } from "./providers/theme-providers";
 
 function App() {

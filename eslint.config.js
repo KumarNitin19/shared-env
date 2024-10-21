@@ -25,6 +25,7 @@ export default [
           ignoreRestSiblings: true,
         },
       ],
+      rules: { "no-empty-interface": false },
     },
   },
 ];

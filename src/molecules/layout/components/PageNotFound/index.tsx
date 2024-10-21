@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Button } from "../../../core/design-system/ui/button";
+import { Button } from "../../../../atoms";
 
 function PageNotFound() {
   return (

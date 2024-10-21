@@ -1,5 +1,5 @@
-import { Button } from "../../../core/design-system/ui/button";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { Button } from "../../../../atoms";
 
 function ZeroState() {
   return (

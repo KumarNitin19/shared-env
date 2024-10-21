@@ -1,13 +1,13 @@
-import { Button } from "../../../core/design-system/ui/button";
 import { auth, googleAuthProvider } from "../../utils/firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
-import { useToast } from "../../../core/design-system/ui/use-toast";
+import { useToast } from "../../../../hooks/use-toast";
 import useLocalStorage from "../../../../hooks/useLocalStorage";
 import { useTheme } from "../../../../providers/theme-providers";
 import LOGO_DARK from "../../../..//assets/images/varvault-dark.svg";
 import LOGO_LIGHT from "../../../..//assets/images/varvault-light.svg";
+import { Button } from "../../../../atoms";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -66,16 +66,14 @@ function SignIn() {
         <Button
           onClick={signInWithGooglePopup}
           variant="block"
-          className="mt-6 px-8 flex gap-3"
-        >
+          className="mt-6 px-8 flex gap-3">
           <Icon icon="logos:google-icon" className="h-5 w-5" />
           Sign In With Google
         </Button>
       </div>
       <div
         className="absolute top-0 right-0 m-4 p-2 flex border rounded-xl text-subtle hover:text-foreground cursor-pointer"
-        onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      >
+        onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
         <Icon
           icon="uil:sun"
           className="w-5 h-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
