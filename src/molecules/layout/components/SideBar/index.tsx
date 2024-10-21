@@ -2,12 +2,12 @@ import { Icon } from "@iconify/react";
 import { Separator } from "../../../core/design-system/ui/separator";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../auth/utils/firebase";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useLocalStorage from "../../../../hooks/useLocalStorage";
 import { useToast } from "../../../core/design-system/ui/use-toast";
 import useUser from "../../../../hooks/useUser";
 import { LoggedInUser } from "../../../../types/loggedInUser.type";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useTheme } from "../../../../providers/theme-providers";
 import LOGO_DARK from "../../../..//assets/images/varvault-dark.svg";
 import LOGO_LIGHT from "../../../..//assets/images/varvault-light.svg";
@@ -31,8 +31,6 @@ function SideBar() {
   const navigate = useNavigate();
 
   const { removeItem } = useLocalStorage();
-
-  const location = useLocation();
 
   const { toast } = useToast();
 
@@ -60,14 +58,10 @@ function SideBar() {
       });
   };
 
-  useEffect(() => {
-    if (location.pathname.match(/\/projects\/.*/g)) {
-      setActiveProject(location.pathname.split("/")[2]);
-    }
-    if (activeProject) {
-      navigate(`/projects/${activeProject}`);
-    }
-  }, [activeProject]);
+  const goToProject = useCallback((projectId: string) => {
+    setActiveProject(projectId);
+    navigate(`/projects/${projectId}`);
+  }, []);
 
   return (
     <div className="h-full w-80 flex flex-col justify-between bg-card overflow-auto">
@@ -102,8 +96,7 @@ function SideBar() {
                       ? "bg-card-foreground"
                       : "text-subtle"
                   }`}
-                  onClick={() => setActiveProject(project?.id)}
-                >
+                  onClick={() => goToProject(project?.id)}>
                   <Icon icon="fluent:document-20-filled" />
                   <span>{project?.name}</span>
                 </div>
@@ -133,8 +126,7 @@ function SideBar() {
           <Separator orientation="vertical" />
           <div
             className="relative flex hover:text-foreground cursor-pointer"
-            title="Toggle theme"
-          >
+            title="Toggle theme">
             <Icon
               icon="uil:sun"
               className="w-5 h-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
