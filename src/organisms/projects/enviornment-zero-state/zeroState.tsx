@@ -1,5 +1,4 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { Button } from "../../../../atoms";
+import { Button, Icon } from "../../../atoms";
 
 function ZeroState() {
   return (

@@ -1,16 +1,21 @@
-import { Icon } from "@iconify/react";
 import { signOut } from "firebase/auth";
-import { auth } from "../../../auth/utils/firebase";
+import { auth } from "../../molecules/auth/utils/firebase";
 import { useNavigate } from "react-router-dom";
-import useLocalStorage from "../../../../hooks/useLocalStorage";
-import { useToast } from "../../../../hooks/use-toast";
-import useUser from "../../../../hooks/useUser";
-import { LoggedInUser } from "../../../../types/loggedInUser.type";
+import useLocalStorage from "../../hooks/useLocalStorage";
+import { useToast } from "../../hooks/use-toast";
+import useUser from "../../hooks/useUser";
+import { LoggedInUser } from "../../types/loggedInUser.type";
 import { useCallback, useState } from "react";
-import { useTheme } from "../../../../providers/theme-providers";
-import LOGO_DARK from "../../../..//assets/images/varvault-dark.svg";
-import LOGO_LIGHT from "../../../..//assets/images/varvault-light.svg";
-import { Divider } from "../../../../atoms";
+import { useTheme } from "../../providers/theme-providers";
+import LOGO_DARK from "../../../src/assets/images/varvault-dark.svg";
+import LOGO_LIGHT from "../../../src/assets/images/varvault-light.svg";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Divider,
+  Icon,
+} from "../../atoms";
 
 const PROJECT_LIST = [
   {
@@ -64,9 +69,9 @@ function SideBar() {
   }, []);
 
   return (
-    <div className="h-full w-80 flex flex-col justify-between bg-card overflow-auto">
+    <div className="h-full w-80 flex flex-col justify-between bg-card overflow-auto border-r light:border-gray-200/40 dark:border-card-border">
       <div className="flex-1 flex flex-col overflow-auto">
-        <div className="p-6 flex items-center gap-3">
+        <div className="p-6 pb-0 flex items-center gap-3">
           <img
             className="w-6"
             src={theme === "light" ? LOGO_DARK : LOGO_LIGHT}
@@ -76,6 +81,17 @@ function SideBar() {
         </div>
 
         <div className="p-6 flex-1 flex flex-col gap-5 overflow-auto">
+          <div
+            className={`px-4 py-3 flex items-center gap-2 rounded-md cursor-pointer transition-all hover:bg-card-foreground ${
+              activeProject === "dashboard"
+                ? "bg-card-foreground"
+                : "text-subtle"
+            }`}
+            onClick={() => goToProject("dashboard")}>
+            <Icon icon="fluent:document-20-filled" />
+            <span>Dashboard</span>
+          </div>
+          <Divider />
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-subtle">PROJECTS</span>
             <Icon
@@ -83,7 +99,6 @@ function SideBar() {
               className="w-5 h-5 cursor-pointer text-accent hover:text-[#3da145] transition-all"
             />
           </div>
-
           <div className="flex flex-col gap-2 items-stretch overflow-auto">
             {PROJECT_LIST.length === 0 ? (
               <span>No projects added</span>
@@ -108,10 +123,13 @@ function SideBar() {
 
       <div className="p-6 flex items-center justify-between">
         <div className="flex h-5 items-center space-x-2">
-          <img
-            className="h-4 w-4 rounded-full"
-            src={loggedInUser?.profile_image}
-          />
+          <Avatar className="h-6 w-6 rounded-full" title="Profile Image">
+            <AvatarImage src={loggedInUser?.profile_image} />
+            <AvatarFallback className="capitalize">
+              {loggedInUser?.email[0]}
+            </AvatarFallback>
+          </Avatar>
+
           <span className="text-subtle">{loggedInUser?.display_name}</span>
         </div>
 

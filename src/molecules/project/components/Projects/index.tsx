@@ -1,7 +1,7 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
 import useCopyToClipboard from "../../../../hooks/useCopyToClipboard";
-import EnvironmentVariableGroupList from "../EnvironmentVariableGroupList";
-import { Divider, Input } from "../../../../atoms";
+import EnvironmentVariableGroupList from "../../../../organisms/projects/environment-variable-group-list";
+import { Divider, Icon, Input } from "../../../../atoms";
+import ZeroState from "../../../../organisms/projects/enviornment-zero-state/zeroState";
 
 function Projects() {
   const { copy } = useCopyToClipboard();
@@ -25,9 +25,9 @@ function Projects() {
           className="cursor-pointer"
         />
       </div>
-      <div className="w-full p-6 flex-1 flex flex-col gap-4 overflow-auto bg-card rounded-xl">
-        {/* <ZeroState /> */}
-        <EnvironmentVariableGroupList />
+      <div className="w-full p-6 flex-1 flex flex-col gap-4 overflow-auto bg-card rounded-xl shadow dark:shadow-[#3b3c45]">
+        <ZeroState />
+        {/* <EnvironmentVariableGroupList /> */}
       </div>
     </div>
   );
