@@ -1,12 +1,11 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { Button, Divider, Input } from "../../../../atoms";
+import { Button, Divider, Icon, Input } from "../../../atoms";
 
 function EnvironmentVariableGroupList() {
   return (
     <>
       <div className="flex items-center justify-between">
         <span className="font-bold">Environment Groups</span>
-        <Button className="flex items-center gap-1" variant={"link"}>
+        <Button className="flex items-center gap-1" variant="link">
           <Icon icon="fluent:add-16-regular" className="h-4 w-4" />
           Create Environment Group
         </Button>
@@ -18,7 +17,7 @@ function EnvironmentVariableGroupList() {
             <Input
               className="max-w-96"
               type="text"
-              placeholder="e.g. Production, DEV, etc."
+              placeholder="e.g. production, dev, etc."
             />
           </div>
           <div className="flex flex-col gap-6">
@@ -42,8 +41,8 @@ function EnvironmentVariableGroupList() {
                   <span className="text-sm">Value</span>
                 </div>
               </div>
-              {[0, 1].map(() => (
-                <div className="grid grid-cols-5 gap-4">
+              {[0, 1].map((el) => (
+                <div key={el} className="grid grid-cols-5 gap-4">
                   <div className="col-span-2">
                     <Input type="text" placeholder="Enter key" />
                   </div>

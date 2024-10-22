@@ -4,7 +4,7 @@ import PublicRoute from "./publicRoute";
 import Container from "../molecules/layout/components/Container";
 import Home from "../molecules/project/components/Home";
 import Projects from "../molecules/project/components/Projects";
-import SignIn from "../molecules/auth/components/signin";
+import SignIn from "../molecules/auth/signin";
 import PageNotFound from "../molecules/layout/components/PageNotFound";
 
 const router = createBrowserRouter([
