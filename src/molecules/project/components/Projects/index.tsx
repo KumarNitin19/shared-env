@@ -2,10 +2,9 @@ import useCopyToClipboard from "../../../../hooks/useCopyToClipboard";
 import EnvironmentVariableGroupList from "../../../../organisms/projects/environment-variable-group-list";
 import { Divider, Icon, Input } from "../../../../atoms";
 import ZeroState from "../../../../organisms/projects/enviornment-zero-state/zeroState";
+import CopyText from "../../../copy-text";
 
 function Projects() {
-  const { copy } = useCopyToClipboard();
-
   return (
     <div className="h-full p-8 flex flex-col items-start gap-4">
       <Input
@@ -19,11 +18,7 @@ function Projects() {
           78F9A2E7-9C1B-4A8D-AE67-82DF7D1F5C36
         </span>
         <Divider orientation="vertical" />
-        <Icon
-          onClick={() => copy("project-id")}
-          icon="fluent:copy-20-regular"
-          className="cursor-pointer"
-        />
+        <CopyText text="78F9A2E7-9C1B-4A8D-AE67-82DF7D1F5C36" />
       </div>
       <div className="w-full p-6 flex-1 flex flex-col gap-4 overflow-auto bg-card rounded-xl shadow dark:shadow-[#3b3c45]">
         <ZeroState />

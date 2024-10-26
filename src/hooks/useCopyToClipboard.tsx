@@ -1,14 +1,19 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useToast } from "./use-toast";
 
 export default function useCopyToClipboard() {
-  const { toast } = useToast();
+  const [isCopied, setIsCopied] = useState<boolean>(false);
+  const { toast, dismiss } = useToast();
 
-  const copy = useCallback((tagId: string) => {
-    const copyText = document.getElementById(tagId);
-
-    if (copyText) {
-      navigator.clipboard.writeText(copyText.innerHTML);
+  const copy = useCallback((text: string) => {
+    if (text) {
+      setIsCopied(true);
+      navigator.clipboard.writeText(text);
+      const timeout = setTimeout(() => {
+        setIsCopied(false);
+        clearTimeout(timeout);
+        dismiss();
+      }, 1500);
 
       toast({
         description: `Copied to clipboard.`,
@@ -16,5 +21,5 @@ export default function useCopyToClipboard() {
     }
   }, []);
 
-  return { copy };
+  return { copy, isCopied };
 }
