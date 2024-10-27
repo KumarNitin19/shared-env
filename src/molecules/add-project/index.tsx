@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 import {
   Button,
   Dialog,
@@ -14,6 +14,7 @@ import {
 
 export function AddProject() {
   const [isAddProject, setIsAddProject] = useState<boolean>(false);
+  const [projectName, setProjectName] = useState<string>("");
 
   const handleOpenProjectDialog = useCallback(() => setIsAddProject(true), []);
 
@@ -21,6 +22,20 @@ export function AddProject() {
     () => setIsAddProject(false),
     []
   );
+
+  const handleProjectName = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => setProjectName(e?.target?.value),
+    []
+  );
+
+  const handleAddProject = useCallback(() => {
+    if (projectName) {
+      setProjectName("");
+      handleCloseProjectDialog();
+    } else {
+      throw new Error("Please add project name");
+    }
+  }, [projectName]);
 
   return (
     <>
@@ -33,38 +48,33 @@ export function AddProject() {
       <Dialog open={isAddProject}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
+            <DialogTitle>Add Project</DialogTitle>
             <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
+              Create project to add environment variables.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
-                Name
+            <div className="grid items-center gap-4">
+              <Label htmlFor="projectName" className="text-start">
+                Project Name
               </Label>
               <Input
                 id="name"
-                value="Pedro Duarte"
+                value={projectName}
                 className="col-span-3"
-                onChange={() => {}}
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="username" className="text-right">
-                Username
-              </Label>
-              <Input
-                id="username"
-                value="@peduarte"
-                className="col-span-3"
-                onChange={() => {}}
+                onChange={handleProjectName}
               />
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit" onClick={handleCloseProjectDialog}>
-              Save changes
+            <Button
+              variant="secondary"
+              type="submit"
+              onClick={handleCloseProjectDialog}>
+              Cancel
+            </Button>
+            <Button type="submit" onClick={handleAddProject}>
+              Add
             </Button>
           </DialogFooter>
         </DialogContent>
