@@ -68,6 +68,8 @@ function SideBar() {
     navigate(`/projects/${projectId}`);
   }, []);
 
+  const goToDashboard = useCallback(() => navigate("/dashboard"), []);
+
   return (
     <div className="h-full w-80 flex flex-col justify-between bg-card overflow-auto border-r light:border-gray-200/40 dark:border-card-border">
       <div className="flex-1 flex flex-col overflow-auto">
@@ -87,7 +89,7 @@ function SideBar() {
                 ? "bg-card-foreground"
                 : "text-subtle"
             }`}
-            onClick={() => goToProject("dashboard")}>
+            onClick={goToDashboard}>
             <Icon icon="fluent:document-20-filled" />
             <span>Dashboard</span>
           </div>

@@ -1,9 +1,9 @@
-import { useTheme } from "../../../../providers/theme-providers";
-import COMPUTER_HANDS_DARK from "../../../..//assets/images/computer-hands-dark.svg";
-import COMPUTER_HANDS_LIGHT from "../../../..//assets/images/computer-hands-light.svg";
-import { Button, Icon } from "../../../../atoms";
+import { useTheme } from "../../../providers/theme-providers";
+import COMPUTER_HANDS_DARK from "../../../assets/images/computer-hands-dark.svg";
+import COMPUTER_HANDS_LIGHT from "../../../assets/images/computer-hands-light.svg";
+import { Button, Icon } from "../../../atoms";
 
-function Home() {
+function DashboardPageZeroState() {
   const { theme } = useTheme();
 
   return (
@@ -24,4 +24,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default DashboardPageZeroState;
