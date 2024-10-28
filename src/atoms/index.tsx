@@ -4,3 +4,5 @@ export * from "./TextField";
 export * from "./Toast";
 export * from "./Icon";
 export * from "./Avatar";
+export * from "./Dialog";
+export * from "./Label";
