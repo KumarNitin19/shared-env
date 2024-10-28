@@ -2,10 +2,11 @@ import { createBrowserRouter } from "react-router-dom";
 import PrivateRoute from "./privateRoute";
 import PublicRoute from "./publicRoute";
 import Container from "../molecules/layout/components/Container";
-import Home from "../molecules/project/components/Home";
+import DashboardPageZeroState from "../organisms/dashboard/dashboard-page-zero-state";
 import Projects from "../molecules/project/components/Projects";
 import SignIn from "../molecules/auth/signin";
 import PageNotFound from "../molecules/layout/components/PageNotFound";
+import DashboardPage from "../pages/dashboard";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
         path: "/",
         element: (
           <PrivateRoute>
-            <Home />
+            <DashboardPage />
           </PrivateRoute>
         ),
       },
