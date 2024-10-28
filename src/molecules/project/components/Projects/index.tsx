@@ -1,17 +1,24 @@
-import useCopyToClipboard from "../../../../hooks/useCopyToClipboard";
-import EnvironmentVariableGroupList from "../../../../organisms/projects/environment-variable-group-list";
-import { Divider, Icon, Input } from "../../../../atoms";
+// import useCopyToClipboard from "../../../../hooks/useCopyToClipboard";
+// import EnvironmentVariableGroupList from "../../../../organisms/projects/environment-variable-group-list";
+import { Divider, Input } from "../../../../atoms";
 import ZeroState from "../../../../organisms/projects/enviornment-zero-state/zeroState";
 import CopyText from "../../../copy-text";
 
-function Projects() {
+type Props = {
+  projects: {
+    projectName: string;
+  };
+};
+
+function Projects({ projects }: Props) {
+  const { projectName } = projects;
   return (
     <div className="h-full p-8 flex flex-col items-start gap-4">
       <Input
         className="w-auto p-0 text-3xl border-0 placeholder:text-xl"
         type="text"
         placeholder="Enter project name"
-        defaultValue={"Project Name"}
+        value={projectName}
       />
       <div className="flex items-center gap-2">
         <span id="project-id" className="text-subtle">
