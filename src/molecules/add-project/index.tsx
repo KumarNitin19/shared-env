@@ -15,7 +15,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export function AddProject({ children }: Props) {
+function AddProject({ children }: Props) {
   const [isAddProject, setIsAddProject] = useState<boolean>(false);
   const [projectName, setProjectName] = useState<string>("");
 
@@ -80,3 +80,5 @@ export function AddProject({ children }: Props) {
     </>
   );
 }
+
+export default AddProject;

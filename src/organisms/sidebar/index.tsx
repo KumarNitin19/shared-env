@@ -16,7 +16,7 @@ import {
   Divider,
   Icon,
 } from "../../atoms";
-import { AddProject } from "../../molecules/add-project";
+import AddProject from "../../molecules/add-project";
 
 const PROJECT_LIST = [
   {
