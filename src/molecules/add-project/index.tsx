@@ -7,12 +7,15 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  Icon,
   Input,
   Label,
 } from "../../atoms";
 
-export function AddProject() {
+type Props = {
+  children: React.ReactNode;
+};
+
+export function AddProject({ children }: Props) {
   const [isAddProject, setIsAddProject] = useState<boolean>(false);
   const [projectName, setProjectName] = useState<string>("");
 
@@ -39,12 +42,7 @@ export function AddProject() {
 
   return (
     <>
-      <Button
-        className="mt-6 px-8 flex gap-2"
-        onClick={handleOpenProjectDialog}>
-        <Icon icon="fluent:add-16-regular" className="h-5 w-5" />
-        Create Project
-      </Button>
+      <div onClick={handleOpenProjectDialog}>{children}</div>
       <Dialog open={isAddProject}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
