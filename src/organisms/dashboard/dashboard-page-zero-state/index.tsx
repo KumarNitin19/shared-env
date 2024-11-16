@@ -1,7 +1,8 @@
 import { useTheme } from "../../../providers/theme-providers";
 import COMPUTER_HANDS_DARK from "../../../assets/images/computer-hands-dark.svg";
 import COMPUTER_HANDS_LIGHT from "../../../assets/images/computer-hands-light.svg";
-import { AddProject } from "../../../molecules/add-project";
+import AddProject from "../../../molecules/add-project";
+import { Button, Icon } from "../../../atoms";
 
 function DashboardPageZeroState() {
   const { theme } = useTheme();
@@ -16,7 +17,12 @@ function DashboardPageZeroState() {
       <span className="text-center text-subtle">
         Ready to dive in? Start your first <br /> project now
       </span>
-      <AddProject />
+      <AddProject>
+        <Button className="mt-6 px-8 flex gap-2">
+          <Icon icon="fluent:add-16-regular" className="h-5 w-5" />
+          Create Project
+        </Button>
+      </AddProject>
     </div>
   );
 }

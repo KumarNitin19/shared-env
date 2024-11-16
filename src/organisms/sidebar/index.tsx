@@ -16,6 +16,7 @@ import {
   Divider,
   Icon,
 } from "../../atoms";
+import AddProject from "../../molecules/add-project";
 
 const PROJECT_LIST = [
   {
@@ -96,10 +97,12 @@ function SideBar() {
           <Divider />
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-subtle">PROJECTS</span>
-            <Icon
-              icon="fluent:add-square-20-regular"
-              className="w-5 h-5 cursor-pointer text-accent hover:text-[#3da145] transition-all"
-            />
+            <AddProject>
+              <Icon
+                icon="fluent:add-square-20-regular"
+                className="w-5 h-5 cursor-pointer text-accent hover:text-[#3da145] transition-all"
+              />
+            </AddProject>
           </div>
           <div className="flex flex-col gap-2 items-stretch overflow-auto">
             {PROJECT_LIST.length === 0 ? (
