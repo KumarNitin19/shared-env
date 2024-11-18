@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
@@ -8,8 +9,13 @@ import {
   CardTitle,
   Label,
 } from "../../../atoms";
+import { useCallback } from "react";
 
 function ProjectCard() {
+  const navigate = useNavigate();
+
+  const handleViewAll = useCallback(() => {}, []);
+
   return (
     <Card className="w-full">
       <CardHeader>
@@ -33,7 +39,7 @@ function ProjectCard() {
         </form>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button>View All</Button>
+        <Button onClick={handleViewAll}>View All</Button>
       </CardFooter>
     </Card>
   );
