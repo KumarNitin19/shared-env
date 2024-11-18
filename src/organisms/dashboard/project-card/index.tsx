@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   Button,
   Card,
@@ -14,17 +13,21 @@ function ProjectCard() {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Create project</CardTitle>
+        <CardTitle className="text-subtle">Create project</CardTitle>
         <CardDescription>Deploy your new project in one-click.</CardDescription>
       </CardHeader>
       <CardContent>
         <form>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Name</Label>
+              <Label htmlFor="name" className="text-subtle">
+                Name
+              </Label>
             </div>
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="framework">Framework</Label>
+              <Label htmlFor="framework" className="text-subtle">
+                Framework
+              </Label>
             </div>
           </div>
         </form>
