@@ -11,6 +11,8 @@ import {
   Input,
   Label,
 } from "../../atoms";
+import { KeyValueProp } from "../../types/commonTypes";
+import { generateUID } from "../../utils/commonUtils";
 
 type Props = {
   children: React.ReactNode;
@@ -20,6 +22,13 @@ function AddEnvironmentGroup({ children }: Props) {
   const [isAddEnvironmentGroup, setIsAddEnvironmentGroup] =
     useState<boolean>(false);
   const [groupName, setGroupName] = useState<string>("");
+  const [envVariable, setEnvVariable] = useState<KeyValueProp<string>[]>([
+    {
+      id: generateUID(),
+      key: "",
+      value: "",
+    },
+  ]);
 
   const handleOpenDialog = useCallback(
     () => setIsAddEnvironmentGroup(true),
@@ -31,10 +40,25 @@ function AddEnvironmentGroup({ children }: Props) {
     []
   );
 
-  const handleProjectName = useCallback(
+  const handleGroupName = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => setGroupName(e?.target?.value),
     []
   );
+
+  const handleChangeEnvVariable = useCallback(
+    (e: ChangeEvent<HTMLInputElement>, itemId: string) =>
+      setEnvVariable((prev) => {
+        return prev.map((variable) => {
+          if (variable.id === itemId) {
+            variable[e.target.name] = e.target.value;
+          }
+          return variable;
+        });
+      }),
+    []
+  );
+
+  const handleAddEnvVariable = useCallback(() => {}, []);
 
   const handleAddEnvironmentGroup = useCallback(() => {
     if (groupName) {
@@ -62,7 +86,7 @@ function AddEnvironmentGroup({ children }: Props) {
                 id="name"
                 value={groupName}
                 className="col-span-3"
-                onChange={handleProjectName}
+                onChange={handleGroupName}
               />
             </div>
             <Divider />
@@ -75,34 +99,36 @@ function AddEnvironmentGroup({ children }: Props) {
                   Add New Variables
                 </Button>
               </div>
-              <div className="flex gap-4 items-center">
-                <div className="grid items-center gap-4 w-full">
-                  <Label htmlFor="key" className="text-start">
-                    Key
-                  </Label>
-                  <Input
-                    id="name"
-                    value={groupName}
-                    className="col-span-3"
-                    onChange={handleProjectName}
+              {envVariable?.map((variable) => (
+                <div key={variable?.id} className="flex gap-4 items-center">
+                  <div className="grid items-center gap-4 w-full">
+                    <Label htmlFor="key" className="text-start">
+                      Key
+                    </Label>
+                    <Input
+                      name="key"
+                      value={variable?.key || ""}
+                      className="col-span-3"
+                      onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
+                    />
+                  </div>
+                  <div className="grid items-center gap-4 w-full">
+                    <Label htmlFor="value" className="text-start">
+                      Value
+                    </Label>
+                    <Input
+                      name="value"
+                      value={variable?.value || ""}
+                      className="col-span-3"
+                      onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
+                    />
+                  </div>
+                  <Icon
+                    icon="fluent:subtract-circle-20-regular"
+                    className="w-5 h-5 cursor-pointer text-red-700 transition-all flex-shrink-0 mt-7"
                   />
                 </div>
-                <div className="grid items-center gap-4 w-full">
-                  <Label htmlFor="value" className="text-start">
-                    Value
-                  </Label>
-                  <Input
-                    id="name"
-                    value={groupName}
-                    className="col-span-3"
-                    onChange={handleProjectName}
-                  />
-                </div>
-                <Icon
-                  icon="fluent:subtract-circle-20-regular"
-                  className="w-5 h-5 cursor-pointer text-red-700 transition-all flex-shrink-0 mt-7"
-                />
-              </div>
+              ))}
             </div>
           </div>
           <DialogFooter>
