@@ -111,10 +111,13 @@ function AddEnvironmentGroup({ children }: Props) {
                   Add New Variables
                 </Button>
               </div>
-              {envVariable?.map((variable) => (
-                <div key={variable?.id} className="flex gap-4 items-center">
-                  <div className="grid items-center gap-4 w-full">
-                    <Label className="text-start">Key</Label>
+              <div className="grid gap-2">
+                <div className="flex gap-4 items-center">
+                  <Label className="text-start w-full">Key</Label>
+                  <Label className="text-start w-full mr-9">Value</Label>
+                </div>
+                {envVariable?.map((variable) => (
+                  <div key={variable?.id} className="flex gap-4 items-center">
                     <Input
                       id={variable?.id}
                       name="key"
@@ -122,9 +125,6 @@ function AddEnvironmentGroup({ children }: Props) {
                       className="col-span-3"
                       onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
                     />
-                  </div>
-                  <div className="grid items-center gap-4 w-full">
-                    <Label className="text-start">Value</Label>
                     <Input
                       id={variable?.id}
                       name="value"
@@ -132,13 +132,13 @@ function AddEnvironmentGroup({ children }: Props) {
                       className="col-span-3"
                       onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
                     />
+                    <Icon
+                      icon="fluent:subtract-circle-20-regular"
+                      className="w-5 h-5 cursor-pointer text-red-700 transition-all flex-shrink-0 mt-7"
+                    />
                   </div>
-                  <Icon
-                    icon="fluent:subtract-circle-20-regular"
-                    className="w-5 h-5 cursor-pointer text-red-700 transition-all flex-shrink-0 mt-7"
-                  />
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
           <DialogFooter>
