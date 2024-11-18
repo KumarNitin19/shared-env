@@ -58,7 +58,16 @@ function AddEnvironmentGroup({ children }: Props) {
     []
   );
 
-  const handleAddEnvVariable = useCallback(() => {}, []);
+  const handleAddEnvVariable = useCallback(() => {
+    setEnvVariable([
+      ...envVariable,
+      {
+        id: generateUID(),
+        key: "",
+        value: "",
+      },
+    ]);
+  }, [envVariable]);
 
   const handleAddEnvironmentGroup = useCallback(() => {
     if (groupName) {
@@ -94,7 +103,10 @@ function AddEnvironmentGroup({ children }: Props) {
               <div className="flex gap-4">
                 <div className="text-sm font-semibold">Variables</div>
                 <Divider orientation="vertical" className="h-3 my-auto" />
-                <Button variant="link" className="p-0 flex gap-2 h-[22px]">
+                <Button
+                  variant="link"
+                  className="p-0 flex gap-2 h-[22px]"
+                  onClick={handleAddEnvVariable}>
                   <Icon icon="fluent:add-16-regular" className="h-5 w-5" />
                   Add New Variables
                 </Button>
@@ -102,10 +114,9 @@ function AddEnvironmentGroup({ children }: Props) {
               {envVariable?.map((variable) => (
                 <div key={variable?.id} className="flex gap-4 items-center">
                   <div className="grid items-center gap-4 w-full">
-                    <Label htmlFor="key" className="text-start">
-                      Key
-                    </Label>
+                    <Label className="text-start">Key</Label>
                     <Input
+                      id={variable?.id}
                       name="key"
                       value={variable?.key || ""}
                       className="col-span-3"
@@ -113,10 +124,9 @@ function AddEnvironmentGroup({ children }: Props) {
                     />
                   </div>
                   <div className="grid items-center gap-4 w-full">
-                    <Label htmlFor="value" className="text-start">
-                      Value
-                    </Label>
+                    <Label className="text-start">Value</Label>
                     <Input
+                      id={variable?.id}
                       name="value"
                       value={variable?.value || ""}
                       className="col-span-3"
