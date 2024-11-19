@@ -73,6 +73,13 @@ function AddEnvironmentGroup({ children }: Props) {
     if (groupName) {
       setGroupName("");
       handleCloseDialog();
+      setEnvVariable([
+        {
+          id: generateUID(),
+          key: "",
+          value: "",
+        },
+      ]);
     } else {
       throw new Error("Please add environment group name");
     }
