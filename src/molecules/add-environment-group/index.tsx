@@ -59,15 +59,19 @@ function AddEnvironmentGroup({ children }: Props) {
   );
 
   const handleAddEnvVariable = useCallback(() => {
-    setEnvVariable([
-      ...envVariable,
+    setEnvVariable((prev) => [
+      ...prev,
       {
         id: generateUID(),
         key: "",
         value: "",
       },
     ]);
-  }, [envVariable]);
+  }, []);
+
+  const handleRemoveEnvVariable = useCallback((id: string) => {
+    setEnvVariable((prev) => prev.filter((item) => item?.id !== id));
+  }, []);
 
   const handleAddEnvironmentGroup = useCallback(() => {
     if (groupName) {
@@ -142,6 +146,7 @@ function AddEnvironmentGroup({ children }: Props) {
                     <Icon
                       icon="fluent:subtract-circle-20-regular"
                       className="w-5 h-5 cursor-pointer text-red-700 transition-all flex-shrink-0 mt-7"
+                      onClick={() => handleRemoveEnvVariable(variable?.id)}
                     />
                   </div>
                 ))}
