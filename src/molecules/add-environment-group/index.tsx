@@ -2,10 +2,12 @@ import { ChangeEvent, useCallback, useState } from "react";
 import {
   Button,
   Dialog,
+  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
   Divider,
   Icon,
   Input,
@@ -97,8 +99,9 @@ function AddEnvironmentGroup({ children }: Props) {
 
   return (
     <>
-      <div onClick={handleOpenDialog}>{children}</div>
-      <Dialog open={isAddEnvironmentGroup}>
+      {/* <div onClick={handleOpenDialog}>{children}</div> */}
+      <Dialog>
+        <DialogTrigger>{children}</DialogTrigger>
         <DialogContent className="min-w-[50%]">
           <DialogHeader>
             <DialogTitle>Add Environment Group</DialogTitle>
@@ -151,7 +154,7 @@ function AddEnvironmentGroup({ children }: Props) {
                     />
                     <Icon
                       icon="fluent:subtract-circle-20-regular"
-                      className="w-5 h-5 cursor-pointer text-red-700 transition-all flex-shrink-0 mt-7"
+                      className="w-5 h-5 cursor-pointer text-red-700 transition-all flex-shrink-0"
                       onClick={() => handleRemoveEnvVariable(variable?.id)}
                     />
                   </div>
@@ -160,12 +163,14 @@ function AddEnvironmentGroup({ children }: Props) {
             </div>
           </div>
           <DialogFooter>
-            <Button
-              variant="secondary"
-              type="submit"
-              onClick={handleCloseDialog}>
-              Cancel
-            </Button>
+            <DialogClose asChild>
+              <Button
+                variant="secondary"
+                type="submit"
+                onClick={handleCloseDialog}>
+                Cancel
+              </Button>
+            </DialogClose>
             <Button type="submit" onClick={handleAddEnvironmentGroup}>
               Add
             </Button>
