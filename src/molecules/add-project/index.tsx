@@ -21,16 +21,19 @@ function AddProject({ children }: Props) {
   const [isAddProject, setIsAddProject] = useState<boolean>(false);
   const [projectName, setProjectName] = useState<string>("");
 
+  // To close the dialog
   const handleCloseProjectDialog = useCallback(
     () => setIsAddProject(false),
     []
   );
 
+  // To handle input value of project name
   const handleProjectName = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => setProjectName(e?.target?.value),
     []
   );
 
+  // To submit form value
   const handleAddProject = useCallback(() => {
     if (projectName) {
       setProjectName("");

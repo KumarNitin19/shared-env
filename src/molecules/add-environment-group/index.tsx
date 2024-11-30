@@ -32,6 +32,7 @@ function AddEnvironmentGroup({ children }: Props) {
     },
   ]);
 
+  // To close the dialog and reset the state
   const handleCloseDialog = useCallback(() => {
     setIsAddEnvironmentGroup(false);
     setEnvVariable([
@@ -43,11 +44,13 @@ function AddEnvironmentGroup({ children }: Props) {
     ]);
   }, []);
 
+  // To add group name
   const handleGroupName = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => setGroupName(e?.target?.value),
     []
   );
 
+  // To manage the variable key value input
   const handleChangeEnvVariable = useCallback(
     (e: ChangeEvent<HTMLInputElement>, itemId: string) =>
       setEnvVariable((prev) => {
@@ -61,6 +64,7 @@ function AddEnvironmentGroup({ children }: Props) {
     []
   );
 
+  // To add key value pair
   const handleAddEnvVariable = useCallback(() => {
     setEnvVariable((prev) => [
       ...prev,
@@ -72,10 +76,12 @@ function AddEnvironmentGroup({ children }: Props) {
     ]);
   }, []);
 
+  // To remove key value pair
   const handleRemoveEnvVariable = useCallback((id: string) => {
     setEnvVariable((prev) => prev.filter((item) => item?.id !== id));
   }, []);
 
+  // To submit the values of form
   const handleAddEnvironmentGroup = useCallback(() => {
     if (groupName) {
       setGroupName("");
