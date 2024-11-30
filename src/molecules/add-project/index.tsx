@@ -2,11 +2,13 @@ import { ChangeEvent, useCallback, useState } from "react";
 import {
   Button,
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
   Input,
   Label,
 } from "../../atoms";
@@ -19,18 +21,19 @@ function AddProject({ children }: Props) {
   const [isAddProject, setIsAddProject] = useState<boolean>(false);
   const [projectName, setProjectName] = useState<string>("");
 
-  const handleOpenProjectDialog = useCallback(() => setIsAddProject(true), []);
-
+  // To close the dialog
   const handleCloseProjectDialog = useCallback(
     () => setIsAddProject(false),
     []
   );
 
+  // To handle input value of project name
   const handleProjectName = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => setProjectName(e?.target?.value),
     []
   );
 
+  // To submit form value
   const handleAddProject = useCallback(() => {
     if (projectName) {
       setProjectName("");
@@ -41,43 +44,43 @@ function AddProject({ children }: Props) {
   }, [projectName]);
 
   return (
-    <>
-      <div onClick={handleOpenProjectDialog}>{children}</div>
-      <Dialog open={isAddProject}>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Add Project</DialogTitle>
-            <DialogDescription>
-              Create project to add environment variables.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid items-center gap-4">
-              <Label htmlFor="projectName" className="text-start">
-                Project Name
-              </Label>
-              <Input
-                id="name"
-                value={projectName}
-                className="col-span-3"
-                onChange={handleProjectName}
-              />
-            </div>
+    <Dialog open={isAddProject} onOpenChange={setIsAddProject}>
+      <DialogTrigger>{children}</DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Add Project</DialogTitle>
+          <DialogDescription>
+            Create project to add environment variables.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className="grid items-center gap-4">
+            <Label htmlFor="projectName" className="text-start">
+              Project Name
+            </Label>
+            <Input
+              id="name"
+              value={projectName}
+              className="col-span-3"
+              onChange={handleProjectName}
+            />
           </div>
-          <DialogFooter>
+        </div>
+        <DialogFooter>
+          <DialogClose asChild>
             <Button
               variant="secondary"
               type="submit"
               onClick={handleCloseProjectDialog}>
               Cancel
             </Button>
-            <Button type="submit" onClick={handleAddProject}>
-              Add
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </>
+          </DialogClose>
+          <Button type="submit" onClick={handleAddProject}>
+            Add
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
 
