@@ -35,10 +35,16 @@ function AddEnvironmentGroup({ children }: Props) {
     []
   );
 
-  const handleCloseDialog = useCallback(
-    () => setIsAddEnvironmentGroup(false),
-    []
-  );
+  const handleCloseDialog = useCallback(() => {
+    setIsAddEnvironmentGroup(false);
+    setEnvVariable([
+      {
+        id: generateUID(),
+        key: "",
+        value: "",
+      },
+    ]);
+  }, []);
 
   const handleGroupName = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => setGroupName(e?.target?.value),
