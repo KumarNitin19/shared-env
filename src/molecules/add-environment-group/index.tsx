@@ -32,11 +32,6 @@ function AddEnvironmentGroup({ children }: Props) {
     },
   ]);
 
-  const handleOpenDialog = useCallback(
-    () => setIsAddEnvironmentGroup(true),
-    []
-  );
-
   const handleCloseDialog = useCallback(() => {
     setIsAddEnvironmentGroup(false);
     setEnvVariable([
@@ -98,86 +93,85 @@ function AddEnvironmentGroup({ children }: Props) {
   }, [groupName]);
 
   return (
-    <>
-      {/* <div onClick={handleOpenDialog}>{children}</div> */}
-      <Dialog>
-        <DialogTrigger>{children}</DialogTrigger>
-        <DialogContent className="min-w-[50%]">
-          <DialogHeader>
-            <DialogTitle>Add Environment Group</DialogTitle>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid items-center gap-4">
-              <Label htmlFor="groupName" className="text-start">
-                Group Name
-              </Label>
-              <Input
-                id="name"
-                value={groupName}
-                className="col-span-3"
-                onChange={handleGroupName}
-              />
+    <Dialog
+      open={isAddEnvironmentGroup}
+      onOpenChange={setIsAddEnvironmentGroup}>
+      <DialogTrigger>{children}</DialogTrigger>
+      <DialogContent className="min-w-[50%]">
+        <DialogHeader>
+          <DialogTitle>Add Environment Group</DialogTitle>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className="grid items-center gap-4">
+            <Label htmlFor="groupName" className="text-start">
+              Group Name
+            </Label>
+            <Input
+              id="name"
+              value={groupName}
+              className="col-span-3"
+              onChange={handleGroupName}
+            />
+          </div>
+          <Divider />
+          <div className="grid gap-6">
+            <div className="flex gap-4">
+              <div className="text-sm font-semibold">Variables</div>
+              <Divider orientation="vertical" className="h-3 my-auto" />
+              <Button
+                variant="link"
+                className="p-0 flex gap-2 h-[22px]"
+                onClick={handleAddEnvVariable}>
+                <Icon icon="fluent:add-16-regular" className="h-5 w-5" />
+                Add New Variables
+              </Button>
             </div>
-            <Divider />
-            <div className="grid gap-6">
-              <div className="flex gap-4">
-                <div className="text-sm font-semibold">Variables</div>
-                <Divider orientation="vertical" className="h-3 my-auto" />
-                <Button
-                  variant="link"
-                  className="p-0 flex gap-2 h-[22px]"
-                  onClick={handleAddEnvVariable}>
-                  <Icon icon="fluent:add-16-regular" className="h-5 w-5" />
-                  Add New Variables
-                </Button>
+            <div className="grid gap-2">
+              <div className="flex gap-4 items-center">
+                <Label className="text-start w-full">Key</Label>
+                <Label className="text-start w-full mr-9">Value</Label>
               </div>
-              <div className="grid gap-2">
-                <div className="flex gap-4 items-center">
-                  <Label className="text-start w-full">Key</Label>
-                  <Label className="text-start w-full mr-9">Value</Label>
+              {envVariable?.map((variable) => (
+                <div key={variable?.id} className="flex gap-4 items-center">
+                  <Input
+                    id={variable?.id}
+                    name="key"
+                    value={variable?.key || ""}
+                    className="col-span-3"
+                    onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
+                  />
+                  <Input
+                    id={variable?.id}
+                    name="value"
+                    value={variable?.value || ""}
+                    className="col-span-3"
+                    onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
+                  />
+                  <Icon
+                    icon="fluent:subtract-circle-20-regular"
+                    className="w-5 h-5 cursor-pointer text-red-700 transition-all flex-shrink-0"
+                    onClick={() => handleRemoveEnvVariable(variable?.id)}
+                  />
                 </div>
-                {envVariable?.map((variable) => (
-                  <div key={variable?.id} className="flex gap-4 items-center">
-                    <Input
-                      id={variable?.id}
-                      name="key"
-                      value={variable?.key || ""}
-                      className="col-span-3"
-                      onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
-                    />
-                    <Input
-                      id={variable?.id}
-                      name="value"
-                      value={variable?.value || ""}
-                      className="col-span-3"
-                      onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
-                    />
-                    <Icon
-                      icon="fluent:subtract-circle-20-regular"
-                      className="w-5 h-5 cursor-pointer text-red-700 transition-all flex-shrink-0"
-                      onClick={() => handleRemoveEnvVariable(variable?.id)}
-                    />
-                  </div>
-                ))}
-              </div>
+              ))}
             </div>
           </div>
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button
-                variant="secondary"
-                type="submit"
-                onClick={handleCloseDialog}>
-                Cancel
-              </Button>
-            </DialogClose>
-            <Button type="submit" onClick={handleAddEnvironmentGroup}>
-              Add
+        </div>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button
+              variant="secondary"
+              type="submit"
+              onClick={handleCloseDialog}>
+              Cancel
             </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </>
+          </DialogClose>
+          <Button type="submit" onClick={handleAddEnvironmentGroup}>
+            Add
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
 
