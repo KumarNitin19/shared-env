@@ -1,4 +1,4 @@
-import { Button, Divider, Icon, Input } from "../../../atoms";
+import { Button, Icon } from "../../../atoms";
 import AddEnvironmentGroup from "../../../molecules/add-environment-group";
 
 function EnvironmentVariableGroupList() {
