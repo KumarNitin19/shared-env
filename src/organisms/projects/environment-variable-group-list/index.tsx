@@ -7,7 +7,7 @@ function EnvironmentVariableGroupList() {
       <div className="flex items-center justify-between">
         <span className="font-bold">Environment Groups</span>
         <AddEnvironmentGroup>
-          <Button variant="link" className="p-0 h-fit">
+          <Button variant="text" className="p-0 h-fit">
             <Icon icon="fluent:add-16-regular" className="h-5 w-5" />
             Create Environment Group
           </Button>

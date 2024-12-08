@@ -125,7 +125,7 @@ function AddEnvironmentGroup({ children }: Props) {
               <div className="text-sm font-semibold">Variables</div>
               <Divider orientation="vertical" className="h-3 my-auto" />
               <Button
-                variant="link"
+                variant="text"
                 className="p-0 flex gap-2 h-[22px]"
                 onClick={handleAddEnvVariable}>
                 <Icon icon="fluent:add-16-regular" className="h-5 w-5" />
@@ -166,7 +166,7 @@ function AddEnvironmentGroup({ children }: Props) {
         <DialogFooter>
           <DialogClose asChild>
             <Button
-              variant="secondary"
+              variant="outlined"
               type="submit"
               onClick={handleCloseDialog}>
               Cancel
