@@ -9,13 +9,7 @@ import { useCallback, useState } from "react";
 import { useTheme } from "../../providers/theme-providers";
 import LOGO_DARK from "../../../src/assets/images/varvault-dark.svg";
 import LOGO_LIGHT from "../../../src/assets/images/varvault-light.svg";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  Divider,
-  Icon,
-} from "../../atoms";
+import { Avatar, Divider, Icon } from "../../atoms";
 import AddProject from "../../molecules/add-project";
 
 const PROJECT_LIST = [
@@ -128,12 +122,11 @@ function SideBar() {
 
       <div className="p-6 flex items-center justify-between">
         <div className="flex h-5 items-center space-x-2">
-          <Avatar className="h-6 w-6 rounded-full" title="Profile Image">
-            <AvatarImage src={loggedInUser?.profile_image} />
-            <AvatarFallback className="capitalize">
-              {loggedInUser?.email[0]}
-            </AvatarFallback>
-          </Avatar>
+          <Avatar
+            name={loggedInUser?.email}
+            src={loggedInUser?.profile_image}
+            alt="Profile Image"
+          />
 
           <span className="text-subtle">{loggedInUser?.display_name}</span>
         </div>
