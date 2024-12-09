@@ -69,13 +69,13 @@ function AddProject({ children }: Props) {
         <DialogFooter>
           <DialogClose asChild>
             <Button
-              variant="secondary"
+              variant="outlined"
               type="submit"
               onClick={handleCloseProjectDialog}>
               Cancel
             </Button>
           </DialogClose>
-          <Button type="submit" onClick={handleAddProject}>
+          <Button variant="contained" type="submit" onClick={handleAddProject}>
             Add
           </Button>
         </DialogFooter>
