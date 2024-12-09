@@ -16,6 +16,10 @@ import {
 import { KeyValueProp } from "../../types/commonTypes";
 import { generateUID } from "../../utils/commonUtils";
 
+const styles = {
+  addVariableButton: { height: "fit-content" },
+};
+
 type Props = {
   children: React.ReactNode;
 };
@@ -126,9 +130,11 @@ function AddEnvironmentGroup({ children }: Props) {
               <Divider orientation="vertical" className="h-3 my-auto" />
               <Button
                 variant="text"
-                className="p-0 flex gap-2 h-[22px]"
-                onClick={handleAddEnvVariable}>
-                <Icon icon="fluent:add-16-regular" className="h-5 w-5" />
+                startIcon={
+                  <Icon icon="fluent:add-16-regular" className="h-5 w-5" />
+                }
+                onClick={handleAddEnvVariable}
+                sx={styles.addVariableButton}>
                 Add New Variables
               </Button>
             </div>
@@ -165,14 +171,14 @@ function AddEnvironmentGroup({ children }: Props) {
         </div>
         <DialogFooter>
           <DialogClose asChild>
-            <Button
-              variant="outlined"
-              type="submit"
-              onClick={handleCloseDialog}>
+            <Button variant="outlined" onClick={handleCloseDialog}>
               Cancel
             </Button>
           </DialogClose>
-          <Button type="submit" onClick={handleAddEnvironmentGroup}>
+          <Button
+            type="submit"
+            variant="contained"
+            onClick={handleAddEnvironmentGroup}>
             Add
           </Button>
         </DialogFooter>
