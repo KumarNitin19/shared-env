@@ -1,11 +1,12 @@
 import { ChangeEvent, useCallback, useState } from "react";
-import { Button, Input, Label } from "../../atoms";
+import { Button, Label } from "../../atoms";
 import Dialog, {
   DialogActions,
   DialogContent,
   DialogTitle,
 } from "../../atoms/Dialog";
 import { Box } from "@mui/material";
+import InputField from "../../atoms/TextField";
 
 type Props = {
   children: React.ReactNode;
@@ -54,7 +55,7 @@ function AddProject({ children }: Props) {
               <Label htmlFor="projectName" className="text-start">
                 Project Name
               </Label>
-              <Input
+              <InputField
                 id="name"
                 value={projectName}
                 className="col-span-3"

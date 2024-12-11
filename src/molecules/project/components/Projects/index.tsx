@@ -1,6 +1,7 @@
 // import useCopyToClipboard from "../../../../hooks/useCopyToClipboard";
 // import EnvironmentVariableGroupList from "../../../../organisms/projects/environment-variable-group-list";
-import { Divider, Input } from "../../../../atoms";
+import { Divider } from "../../../../atoms";
+import InputField from "../../../../atoms/TextField";
 import ZeroState from "../../../../organisms/projects/enviornment-zero-state/zeroState";
 import EnvironmentVariableGroupList from "../../../../organisms/projects/environment-variable-group-list";
 import CopyText from "../../../copy-text";
@@ -15,7 +16,7 @@ function Projects({ projects }: Props) {
   const { projectName } = projects;
   return (
     <div className="h-full p-8 flex flex-col items-start gap-4">
-      <Input
+      <InputField
         className="w-auto p-0 text-3xl border-0 placeholder:text-xl"
         type="text"
         placeholder="Enter project name"

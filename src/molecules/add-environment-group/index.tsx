@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback, useState } from "react";
-import { Button, Divider, Icon, Input, Label } from "../../atoms";
+import { Button, Divider, Icon, Label } from "../../atoms";
 import { KeyValueProp } from "../../types/commonTypes";
 import { generateUID } from "../../utils/commonUtils";
 import Dialog, {
@@ -7,6 +7,7 @@ import Dialog, {
   DialogContent,
   DialogTitle,
 } from "../../atoms/Dialog";
+import InputField from "../../atoms/TextField";
 
 const styles = {
   addVariableButton: { height: "fit-content" },
@@ -47,13 +48,14 @@ function AddEnvironmentGroup({ children }: Props) {
 
   // To add group name
   const handleGroupName = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => setGroupName(e?.target?.value),
+    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setGroupName(e?.target?.value),
     []
   );
 
   // To manage the variable key value input
   const handleChangeEnvVariable = useCallback(
-    (e: ChangeEvent<HTMLInputElement>, itemId: string) =>
+    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, itemId: string) =>
       setEnvVariable((prev) => {
         return prev.map((variable) => {
           if (variable.id === itemId) {
@@ -110,7 +112,7 @@ function AddEnvironmentGroup({ children }: Props) {
               <Label htmlFor="groupName" className="text-start">
                 Group Name
               </Label>
-              <Input
+              <InputField
                 id="name"
                 value={groupName}
                 className="col-span-3"
@@ -139,14 +141,14 @@ function AddEnvironmentGroup({ children }: Props) {
                 </div>
                 {envVariable?.map((variable) => (
                   <div key={variable?.id} className="flex gap-4 items-center">
-                    <Input
+                    <InputField
                       id={variable?.id}
                       name="key"
                       value={variable?.key || ""}
                       className="col-span-3"
                       onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
                     />
-                    <Input
+                    <InputField
                       id={variable?.id}
                       name="value"
                       value={variable?.value || ""}
