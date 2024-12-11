@@ -1,20 +1,12 @@
 import { ChangeEvent, useCallback, useState } from "react";
-import {
-  Button,
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  Divider,
-  Icon,
-  Input,
-  Label,
-} from "../../atoms";
+import { Button, Divider, Icon, Input, Label } from "../../atoms";
 import { KeyValueProp } from "../../types/commonTypes";
 import { generateUID } from "../../utils/commonUtils";
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "../../atoms/Dialog";
 
 const styles = {
   addVariableButton: { height: "fit-content" },
@@ -35,6 +27,11 @@ function AddEnvironmentGroup({ children }: Props) {
       value: "",
     },
   ]);
+
+  // To open the dialog
+  const handleOpenDialog = useCallback(() => {
+    setIsAddEnvironmentGroup(true);
+  }, []);
 
   // To close the dialog and reset the state
   const handleCloseDialog = useCallback(() => {
@@ -103,87 +100,83 @@ function AddEnvironmentGroup({ children }: Props) {
   }, [groupName]);
 
   return (
-    <Dialog
-      open={isAddEnvironmentGroup}
-      onOpenChange={setIsAddEnvironmentGroup}>
-      <DialogTrigger>{children}</DialogTrigger>
-      <DialogContent className="min-w-[50%]">
-        <DialogHeader>
-          <DialogTitle>Add Environment Group</DialogTitle>
-        </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid items-center gap-4">
-            <Label htmlFor="groupName" className="text-start">
-              Group Name
-            </Label>
-            <Input
-              id="name"
-              value={groupName}
-              className="col-span-3"
-              onChange={handleGroupName}
-            />
-          </div>
-          <Divider />
-          <div className="grid gap-6">
-            <div className="flex gap-4">
-              <div className="text-sm font-semibold">Variables</div>
-              <Divider orientation="vertical" className="h-3 my-auto" />
-              <Button
-                variant="text"
-                startIcon={
-                  <Icon icon="fluent:add-16-regular" className="h-5 w-5" />
-                }
-                onClick={handleAddEnvVariable}
-                sx={styles.addVariableButton}>
-                Add New Variables
-              </Button>
+    <>
+      <div onClick={handleOpenDialog}>{children}</div>
+      <Dialog open={isAddEnvironmentGroup}>
+        <DialogTitle>Add Environment Group</DialogTitle>
+        <DialogContent className="min-w-[50%]">
+          <div className="grid gap-4 py-4">
+            <div className="grid items-center gap-4">
+              <Label htmlFor="groupName" className="text-start">
+                Group Name
+              </Label>
+              <Input
+                id="name"
+                value={groupName}
+                className="col-span-3"
+                onChange={handleGroupName}
+              />
             </div>
-            <div className="grid gap-2">
-              <div className="flex gap-4 items-center">
-                <Label className="text-start w-full">Key</Label>
-                <Label className="text-start w-full mr-9">Value</Label>
+            <Divider />
+            <div className="grid gap-6">
+              <div className="flex gap-4">
+                <div className="text-sm font-semibold">Variables</div>
+                <Divider orientation="vertical" className="h-3 my-auto" />
+                <Button
+                  variant="text"
+                  startIcon={
+                    <Icon icon="fluent:add-16-regular" className="h-5 w-5" />
+                  }
+                  onClick={handleAddEnvVariable}
+                  sx={styles.addVariableButton}>
+                  Add New Variables
+                </Button>
               </div>
-              {envVariable?.map((variable) => (
-                <div key={variable?.id} className="flex gap-4 items-center">
-                  <Input
-                    id={variable?.id}
-                    name="key"
-                    value={variable?.key || ""}
-                    className="col-span-3"
-                    onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
-                  />
-                  <Input
-                    id={variable?.id}
-                    name="value"
-                    value={variable?.value || ""}
-                    className="col-span-3"
-                    onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
-                  />
-                  <Icon
-                    icon="fluent:subtract-circle-20-regular"
-                    className="w-5 h-5 cursor-pointer text-red-700 transition-all flex-shrink-0"
-                    onClick={() => handleRemoveEnvVariable(variable?.id)}
-                  />
+              <div className="grid gap-2">
+                <div className="flex gap-4 items-center">
+                  <Label className="text-start w-full">Key</Label>
+                  <Label className="text-start w-full mr-9">Value</Label>
                 </div>
-              ))}
+                {envVariable?.map((variable) => (
+                  <div key={variable?.id} className="flex gap-4 items-center">
+                    <Input
+                      id={variable?.id}
+                      name="key"
+                      value={variable?.key || ""}
+                      className="col-span-3"
+                      onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
+                    />
+                    <Input
+                      id={variable?.id}
+                      name="value"
+                      value={variable?.value || ""}
+                      className="col-span-3"
+                      onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
+                    />
+                    <Icon
+                      icon="fluent:subtract-circle-20-regular"
+                      className="w-5 h-5 cursor-pointer text-red-700 transition-all flex-shrink-0"
+                      onClick={() => handleRemoveEnvVariable(variable?.id)}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outlined" onClick={handleCloseDialog}>
-              Cancel
-            </Button>
-          </DialogClose>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="outlined" onClick={handleCloseDialog}>
+            Cancel
+          </Button>
           <Button
             type="submit"
             variant="contained"
             onClick={handleAddEnvironmentGroup}>
             Add
           </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }
 
