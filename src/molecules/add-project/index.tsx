@@ -1,17 +1,11 @@
 import { ChangeEvent, useCallback, useState } from "react";
-import {
-  Button,
-  Dialog,
-  DialogClose,
+import { Button, Input, Label } from "../../atoms";
+import Dialog, {
+  DialogActions,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
   DialogTitle,
-  DialogTrigger,
-  Input,
-  Label,
-} from "../../atoms";
+} from "../../atoms/Dialog";
+import { Box } from "@mui/material";
 
 type Props = {
   children: React.ReactNode;
@@ -20,6 +14,9 @@ type Props = {
 function AddProject({ children }: Props) {
   const [isAddProject, setIsAddProject] = useState<boolean>(false);
   const [projectName, setProjectName] = useState<string>("");
+
+  // To open the dialog
+  const handleOpenProjectDialog = useCallback(() => setIsAddProject(true), []);
 
   // To close the dialog
   const handleCloseProjectDialog = useCallback(
@@ -44,43 +41,41 @@ function AddProject({ children }: Props) {
   }, [projectName]);
 
   return (
-    <Dialog open={isAddProject} onOpenChange={setIsAddProject}>
-      <DialogTrigger>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
+    <>
+      <div onClick={handleOpenProjectDialog}>{children}</div>
+      <Dialog open={isAddProject}>
+        <Box>
           <DialogTitle>Add Project</DialogTitle>
-          <DialogDescription>
-            Create project to add environment variables.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid items-center gap-4">
-            <Label htmlFor="projectName" className="text-start">
-              Project Name
-            </Label>
-            <Input
-              id="name"
-              value={projectName}
-              className="col-span-3"
-              onChange={handleProjectName}
-            />
+          Create project to add environment variables.
+        </Box>
+        <DialogContent className="sm:max-w-[425px]">
+          <div className="grid gap-4 py-4">
+            <div className="grid items-center gap-4">
+              <Label htmlFor="projectName" className="text-start">
+                Project Name
+              </Label>
+              <Input
+                id="name"
+                value={projectName}
+                className="col-span-3"
+                onChange={handleProjectName}
+              />
+            </div>
           </div>
-        </div>
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button
-              variant="outlined"
-              type="submit"
-              onClick={handleCloseProjectDialog}>
-              Cancel
-            </Button>
-          </DialogClose>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant="outlined"
+            type="submit"
+            onClick={handleCloseProjectDialog}>
+            Cancel
+          </Button>
           <Button variant="contained" type="submit" onClick={handleAddProject}>
             Add
           </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }
 
