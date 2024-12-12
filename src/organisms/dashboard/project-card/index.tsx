@@ -1,21 +1,14 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-  Label,
-} from "../../../atoms";
+import { Box, Typography } from "@mui/material";
+import { Button, CardContent, Label } from "../../../atoms";
+import Card, { CardActions } from "../../../atoms/Card";
 
 function ProjectCard() {
   return (
     <Card className="w-full">
-      <CardHeader>
-        <CardTitle className="text-subtle">Create project</CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
-      </CardHeader>
+      <Box>
+        <Typography className="text-subtle">Create project</Typography>
+        <Typography>Deploy your new project in one-click.</Typography>
+      </Box>
       <CardContent>
         <form>
           <div className="grid w-full items-center gap-4">
@@ -32,9 +25,9 @@ function ProjectCard() {
           </div>
         </form>
       </CardContent>
-      <CardFooter className="flex justify-between">
+      <CardActions className="flex justify-between">
         <Button>View All</Button>
-      </CardFooter>
+      </CardActions>
     </Card>
   );
 }
