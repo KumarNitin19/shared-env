@@ -5,8 +5,8 @@ import Dialog, {
   DialogContent,
   DialogTitle,
 } from "../../atoms/Dialog";
-import { Box } from "@mui/material";
 import InputField from "../../atoms/TextField";
+import { Box } from "../../atoms/Box";
 
 type Props = {
   children: React.ReactNode;

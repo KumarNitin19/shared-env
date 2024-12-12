@@ -1,6 +1,7 @@
-import { Box, Typography } from "@mui/material";
 import { Button, CardContent, Label } from "../../../atoms";
+import { Box } from "../../../atoms/Box";
 import Card, { CardActions } from "../../../atoms/Card";
+import { Typography } from "../../../atoms/Typography";
 
 function ProjectCard() {
   return (
