@@ -3,13 +3,7 @@ import LOGO_DARK from "../../../assets/images/varvault-dark.svg";
 import LOGO_LIGHT from "../../../assets/images/varvault-light.svg";
 import { Button, Icon } from "../../../atoms";
 import { Box } from "../../../atoms/Box";
-
-//  icon="uil:sun"
-//     className="w-5 h-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
-//   />
-//   <Icon
-//     icon="basil:moon-outline"
-//     className="absolute w-5 h-5  rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+import { Typography } from "../../../atoms/Typography";
 
 const styles = {
   signInWithGoogleBtn: {
@@ -48,16 +42,32 @@ type SignInProps = {
 function SignIn({ onSignUp }: SignInProps) {
   const { theme, setTheme } = useTheme();
   return (
-    <div className="w-screen h-screen flex items-center justify-center bg-pattern bg-cover">
-      <div className="w-[566px] h-[348px] flex flex-col items-center justify-center gap-6 rounded-md bg-sign-in-card dark:bg-sign-in-card-dark backdrop-blur-sm">
+    <Box
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      height="100%"
+      width="100%">
+      <Box
+        display="flex"
+        flexDirection="column"
+        width={566}
+        height={348}
+        alignItems="center"
+        justifyContent="center"
+        gap={3}
+        borderRadius={1.5}
+        border={1}>
         <img
           src={theme === "light" ? LOGO_DARK : LOGO_LIGHT}
           alt="varvault_logo"
         />
-        <span className="text-4xl font-bold">VarVault</span>
-        <span className="text-center text-subtle">
+        <Typography variant="h4" fontWeight={700}>
+          VarVault
+        </Typography>
+        <Typography textAlign="center">
           One stop platform for all your <br /> environment credentials
-        </span>
+        </Typography>
         <Button
           variant="outlined"
           onClick={onSignUp}
@@ -65,7 +75,7 @@ function SignIn({ onSignUp }: SignInProps) {
           <Icon icon="logos:google-icon" />
           Sign In With Google
         </Button>
-      </div>
+      </Box>
       <Box
         position="absolute"
         top={0}
@@ -73,17 +83,15 @@ function SignIn({ onSignUp }: SignInProps) {
         m={2}
         p={1}
         borderRadius={2}
-        // className="absolute top-0 right-0 m-4 p-2 flex border rounded-xl text-subtle hover:text-foreground cursor-pointer"
         onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
         <Box sx={styles.darkIcon(theme)}>
           <Icon icon="basil:moon-outline" fontSize={20} />
         </Box>
-
         <Box sx={styles.lightIcon(theme)}>
           <Icon icon="uil:sun" fontSize={20} />
         </Box>
       </Box>
-    </div>
+    </Box>
   );
 }
 

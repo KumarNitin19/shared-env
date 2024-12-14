@@ -12,7 +12,8 @@ export const LoginContainer = () => {
 
   const { setItem } = useLocalStorage();
 
-  const signInWithGooglePopup = () =>
+  const signInWithGooglePopup = () => {
+    console.log("clicked");
     signInWithPopup(auth, googleAuthProvider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -41,5 +42,6 @@ export const LoginContainer = () => {
         // const email = error.customData.email;
         // const credential = GoogleAuthProvider.credentialFromError(error);
       });
+  };
   return <SignIn onSignUp={signInWithGooglePopup} />;
 };
