@@ -2,10 +2,10 @@ import { createBrowserRouter } from "react-router-dom";
 import PrivateRoute from "./privateRoute";
 import PublicRoute from "./publicRoute";
 import Container from "../molecules/layout/components/Container";
-import SignIn from "../molecules/auth/signin";
 import PageNotFound from "../molecules/layout/components/PageNotFound";
 import DashboardPage from "../pages/dashboard";
 import ProjectPage from "../pages/project";
+import { LoginContainer } from "../containers/login-container";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
     path: "/sign-in",
     element: (
       <PublicRoute>
-        <SignIn />
+        <LoginContainer />
       </PublicRoute>
     ),
   },
