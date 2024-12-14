@@ -45,7 +45,7 @@ function SignInWithGoogleButton() {
   return (
     <Button
       onClick={signInWithGooglePopup}
-      variant="block"
+      variant="contained"
       className="mt-6 px-8 flex gap-3">
       <Icon icon="logos:google-icon" className="h-5 w-5" />
       Sign In With Google
