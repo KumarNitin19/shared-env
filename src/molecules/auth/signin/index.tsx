@@ -1,10 +1,13 @@
 import { useTheme } from "../../../providers/theme-providers";
 import LOGO_DARK from "../../../assets/images/varvault-dark.svg";
 import LOGO_LIGHT from "../../../assets/images/varvault-light.svg";
-import SignInWithGoogleButton from "../signin-with-google-btn";
-import { Icon } from "../../../atoms";
+import { Button, Icon } from "../../../atoms";
 
-function SignIn() {
+type SignInProps = {
+  onSignUp: () => void;
+};
+
+function SignIn({ onSignUp }: SignInProps) {
   const { theme, setTheme } = useTheme();
   return (
     <div className="w-screen h-screen flex items-center justify-center bg-pattern bg-cover">
@@ -17,7 +20,13 @@ function SignIn() {
         <span className="text-center text-subtle">
           One stop platform for all your <br /> environment credentials
         </span>
-        <SignInWithGoogleButton />
+        <Button
+          onClick={onSignUp}
+          variant="contained"
+          className="mt-6 px-8 flex gap-3">
+          <Icon icon="logos:google-icon" className="h-5 w-5" />
+          Sign In With Google
+        </Button>
       </div>
       <div
         className="absolute top-0 right-0 m-4 p-2 flex border rounded-xl text-subtle hover:text-foreground cursor-pointer"
