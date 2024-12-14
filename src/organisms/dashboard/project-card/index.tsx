@@ -3,31 +3,40 @@ import { Box } from "../../../atoms/Box";
 import Card, { CardActions } from "../../../atoms/Card";
 import { Typography } from "../../../atoms/Typography";
 
+const styles = {
+  projectCard: {
+    width: "100%",
+  },
+  cardAction: {
+    justifyContent: "end",
+  },
+};
+
 function ProjectCard() {
   return (
-    <Card className="w-full">
+    <Card sx={styles.projectCard}>
       <Box>
-        <Typography className="text-subtle">Create project</Typography>
-        <Typography>Deploy your new project in one-click.</Typography>
+        <Typography>Create project</Typography>
+        <Typography variant="body2">
+          Deploy your new project in one-click.
+        </Typography>
       </Box>
       <CardContent>
-        <form>
-          <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name" className="text-subtle">
-                Name
-              </Label>
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="framework" className="text-subtle">
-                Framework
-              </Label>
-            </div>
-          </div>
-        </form>
+        <Box
+          display="grid"
+          rowGap={1}
+          width="100%"
+          className="grid w-full items-center gap-4">
+          <Label htmlFor="name" className="text-subtle">
+            Name
+          </Label>
+          <Label htmlFor="framework" className="text-subtle">
+            Framework
+          </Label>
+        </Box>
       </CardContent>
-      <CardActions className="flex justify-between">
-        <Button>View All</Button>
+      <CardActions sx={styles.cardAction}>
+        <Button variant="text">View All</Button>
       </CardActions>
     </Card>
   );

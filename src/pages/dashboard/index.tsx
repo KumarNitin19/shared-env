@@ -1,20 +1,32 @@
+import { Box } from "../../atoms/Box";
+import { Typography } from "../../atoms/Typography";
 import DashboardPageZeroState from "../../organisms/dashboard/dashboard-page-zero-state";
 import ProjectCard from "../../organisms/dashboard/project-card";
 
 const DashboardPage = () => {
   return (
-    <div className="h-full">
+    <Box height="100%">
       {/* <DashboardPageZeroState /> */}
-      <div className="h-full p-8 flex flex-col items-start gap-4">
-        <h1 className="text-3xl">Dashboard</h1>
-        <span className="text-subtle">All Projects</span>
-        <div className="grid grid-cols-3 w-full gap-6">
+      <Box
+        display="flex"
+        flexDirection="column"
+        gap={2}
+        alignItems="start"
+        p={4}
+        height="100%">
+        <Typography variant="h6">Dashboard</Typography>
+        <Typography>All Projects</Typography>
+        <Box
+          display="grid"
+          gridTemplateColumns="1fr 1fr 1fr"
+          columnGap={3}
+          width="100%">
           <ProjectCard />
           <ProjectCard />
           <ProjectCard />
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
