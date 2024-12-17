@@ -4,6 +4,7 @@ import LOGO_LIGHT from "../../../assets/images/varvault-light.svg";
 import { Button, Icon } from "../../../atoms";
 import { Box } from "../../../atoms/Box";
 import { Typography } from "../../../atoms/Typography";
+import BACKGROUD_IMAGE from "../../../assets/images/bg-pattern.png";
 
 const styles = {
   signInWithGoogleBtn: {
@@ -33,6 +34,10 @@ const styles = {
     scale: theme === "dark" ? "100%" : 0,
     cursor: "pointer",
   }),
+  signInContainer: {
+    backgroundImage: `url(${BACKGROUD_IMAGE})`,
+    backgroundSize: "cover",
+  },
 };
 
 type SignInProps = {
@@ -47,7 +52,8 @@ function SignIn({ onSignUp }: SignInProps) {
       alignItems="center"
       justifyContent="center"
       height="100%"
-      width="100%">
+      width="100%"
+      sx={styles.signInContainer}>
       <Box
         display="flex"
         flexDirection="column"
