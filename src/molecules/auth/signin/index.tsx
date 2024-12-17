@@ -8,7 +8,7 @@ import BACKGROUD_IMAGE from "../../../assets/images/bg-pattern.png";
 import CARD_BACKGROUND from "../../../assets/images/sign-in-card-bg.svg";
 
 const styles = {
-  signInWithGoogleBtn: {
+  signInWithGoogleBtn: (theme: string) => ({
     display: "flex",
     gap: 1.5,
     mt: 3,
@@ -17,7 +17,11 @@ const styles = {
       height: 20,
       width: 20,
     },
-  },
+    "&.MuiButton-contained": {
+      backgroundColor: theme === "light" ? "#000000" : "#ffffff",
+      color: theme === "light" ? "#ffffff" : "#000000",
+    },
+  }),
   lightIcon: (theme: string) => ({
     transition: "all 0.3s",
     transform: theme === "light" ? "rotate(0deg)" : "rotate(90deg)",
@@ -82,9 +86,9 @@ function SignIn({ onSignUp }: SignInProps) {
           One stop platform for all your <br /> environment credentials
         </Typography>
         <Button
-          variant="outlined"
+          variant="contained"
           onClick={onSignUp}
-          sx={styles.signInWithGoogleBtn}>
+          sx={styles.signInWithGoogleBtn(theme)}>
           <Icon icon="logos:google-icon" />
           Sign In With Google
         </Button>
