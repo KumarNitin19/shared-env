@@ -5,6 +5,7 @@ import { Button, Icon } from "../../../atoms";
 import { Box } from "../../../atoms/Box";
 import { Typography } from "../../../atoms/Typography";
 import BACKGROUD_IMAGE from "../../../assets/images/bg-pattern.png";
+import CARD_BACKGROUND from "../../../assets/images/sign-in-card-bg.svg";
 
 const styles = {
   signInWithGoogleBtn: {
@@ -38,6 +39,11 @@ const styles = {
     backgroundImage: `url(${BACKGROUD_IMAGE})`,
     backgroundSize: "cover",
   },
+  signInCard: {
+    backgroundImage: `url(${CARD_BACKGROUND})`,
+    backgroundSize: "cover",
+    backdropFilter: "blur(62px)",
+  },
 };
 
 type SignInProps = {
@@ -62,8 +68,9 @@ function SignIn({ onSignUp }: SignInProps) {
         alignItems="center"
         justifyContent="center"
         gap={3}
-        borderRadius={1.5}
-        border={1}>
+        // borderRadius={1.5}
+        // border={1}
+        sx={styles.signInCard}>
         <img
           src={theme === "light" ? LOGO_DARK : LOGO_LIGHT}
           alt="varvault_logo"
