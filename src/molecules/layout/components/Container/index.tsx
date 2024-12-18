@@ -1,14 +1,15 @@
 import { Outlet } from "react-router-dom";
 import SideBar from "../../../../organisms/sidebar";
+import { Box } from "../../../../atoms/Box";
 
 function Container() {
   return (
-    <div className="w-screen h-screen flex overflow-auto">
+    <Box>
       <SideBar />
-      <div className="w-full bg-background overflow-auto">
+      <Box maxWidth="calc(100% - 220px)" ml="auto">
         <Outlet />
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
 
