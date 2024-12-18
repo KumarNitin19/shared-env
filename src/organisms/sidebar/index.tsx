@@ -5,29 +5,65 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import { useToast } from "../../hooks/use-toast";
 import useUser from "../../hooks/useUser";
 import { LoggedInUser } from "../../types/loggedInUser.type";
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTheme } from "../../providers/theme-providers";
 import LOGO_DARK from "../../../src/assets/images/varvault-dark.svg";
 import LOGO_LIGHT from "../../../src/assets/images/varvault-light.svg";
 import { Avatar, Divider, Icon } from "../../atoms";
 import AddProject from "../../molecules/add-project";
+import { Drawer } from "../../atoms/Drawer";
+import { Box } from "../../atoms/Box";
+import {
+  Grid,
+  Link,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  ListSubheader,
+} from "@mui/material";
+import { Typography } from "../../atoms/Typography";
 
 const PROJECT_LIST = [
   {
     id: "1",
-    name: "Project 1",
+    label: "Project 1",
   },
   {
     id: "2",
-    name: "Project 2",
+    label: "Project 2",
   },
   {
     id: "3",
-    name: "Project 3",
+    label: "Project 3",
   },
 ];
 
-function SideBar() {
+const ListSubheaderComponent = ({ listItem, isOpenSideBar }: any) => {
+  return isOpenSideBar && listItem.subHeader ? (
+    <ListSubheader component="div" id="nested-list-subheader">
+      {!listItem?.listItems?.length ? (
+        <Box textAlign="center">
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between">
+            <Typography variant="caption">{listItem.subHeader}</Typography>
+            {/* <AddProject /> */}
+          </Box>
+          <Typography variant="caption" color="#fff">
+            Click ‘+’ to create a project
+          </Typography>
+        </Box>
+      ) : (
+        <Typography variant="caption">{listItem.subHeader}</Typography>
+      )}
+    </ListSubheader>
+  ) : null;
+};
+
+function Sidebar() {
   const navigate = useNavigate();
 
   const { removeItem } = useLocalStorage();
@@ -66,98 +102,89 @@ function SideBar() {
   const goToDashboard = useCallback(() => navigate("/dashboard"), []);
 
   return (
-    <div className="h-full w-80 flex flex-col justify-between bg-card overflow-auto border-r light:border-gray-200/40 dark:border-card-border">
-      <div className="flex-1 flex flex-col overflow-auto">
-        <div className="p-6 pb-0 flex items-center gap-3">
+    <Drawer variant="permanent" open={true} drawerWidth={220}>
+      <Box paddingY={2.5}>
+        <Grid
+          container
+          height={24}
+          overflow="hidden"
+          alignItems="center"
+          justifyContent={"space-between"}>
           <img
             className="w-6"
             src={theme === "light" ? LOGO_DARK : LOGO_LIGHT}
             alt="varvault_logo"
           />
-          <span className="text-lg">VarVault</span>
+        </Grid>
+      </Box>
+      <Divider color="#fff" />
+      <Grid
+        container
+        direction="column"
+        justifyContent="space-between"
+        height="100%">
+        <div>
+          {PROJECT_LIST.map((listItem, index: number) => (
+            <React.Fragment key={index}>
+              <List
+                key={listItem.id}
+                subheader={
+                  <ListSubheaderComponent
+                    listItem={listItem}
+                    isOpenSideBar={true}
+                  />
+                }>
+                <ListItem disablePadding title={listItem.label}>
+                  <Link href={""}>
+                    <ListItemButton>
+                      <ListItemIcon>
+                        <Icon icon={""} />
+                      </ListItemIcon>
+                      <ListItemText primary={listItem.label} />
+                    </ListItemButton>
+                  </Link>
+                </ListItem>
+              </List>
+              <Divider />
+            </React.Fragment>
+          ))}
         </div>
 
-        <div className="p-6 flex-1 flex flex-col gap-5 overflow-auto">
-          <div
-            className={`px-4 py-3 flex items-center gap-2 rounded-md cursor-pointer transition-all hover:bg-card-foreground ${
-              activeProject === "dashboard"
-                ? "bg-card-foreground"
-                : "text-subtle"
-            }`}
-            onClick={goToDashboard}>
-            <Icon icon="fluent:document-20-filled" />
-            <span>Dashboard</span>
-          </div>
-          <Divider />
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-subtle">PROJECTS</span>
-            <AddProject>
-              <Icon
-                icon="fluent:add-square-20-regular"
-                className="w-5 h-5 cursor-pointer text-accent hover:text-[#3da145] transition-all"
-              />
-            </AddProject>
-          </div>
-          <div className="flex flex-col gap-2 items-stretch overflow-auto">
-            {PROJECT_LIST.length === 0 ? (
-              <span>No projects added</span>
-            ) : (
-              PROJECT_LIST.map((project) => (
-                <div
-                  key={project.id}
-                  className={`px-4 py-3 flex items-center gap-2 rounded-md cursor-pointer transition-all hover:bg-card-foreground ${
-                    activeProject === project.id
-                      ? "bg-card-foreground"
-                      : "text-subtle"
-                  }`}
-                  onClick={() => goToProject(project?.id)}>
-                  <Icon icon="fluent:document-20-filled" />
-                  <span>{project?.name}</span>
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-      </div>
-
-      <div className="p-6 flex items-center justify-between">
-        <div className="flex h-5 items-center space-x-2">
-          <Avatar
-            name={loggedInUser?.email}
-            src={loggedInUser?.profile_image}
-            alt="Profile Image"
-          />
-
-          <span className="text-subtle">{loggedInUser?.display_name}</span>
-        </div>
-
-        <div className="flex h-5 items-center space-x-3 text-subtle transition-all">
-          <div title="Sign out">
-            <Icon
-              onClick={signOutUser}
-              icon="hugeicons:logout-02"
-              className="w-5 h-5 hover:text-foreground cursor-pointer"
-            />
-          </div>
-          <Divider orientation="vertical" />
-          <div
-            className="relative flex hover:text-foreground cursor-pointer"
-            title="Toggle theme">
-            <Icon
-              icon="uil:sun"
-              className="w-5 h-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
-              onClick={() => setTheme("dark")}
-            />
-            <Icon
-              icon="basil:moon-outline"
-              className="absolute w-5 h-5  rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
-              onClick={() => setTheme("light")}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+        <List>
+          <ListItem disablePadding title="Logout">
+            <ListItemButton>
+              <ListItemIcon>
+                <Icon icon="material-symbols:logout" />
+              </ListItemIcon>
+              <ListItemText primary="Logout" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Grid>
+    </Drawer>
   );
 }
 
-export default SideBar;
+export default Sidebar;
+
+//  <Icon
+//               icon="uil:sun"
+//               onClick={() => setTheme("dark")}
+//             />
+//             <Icon
+//               icon="basil:moon-outline"
+//               onClick={() => setTheme("light")}
+//             />
+
+//  <Icon
+//    onClick={signOutUser}
+//    icon="hugeicons:logout-02"
+//  />;
+
+{
+  /* <Icon
+  icon="fluent:add-square-20-regular"
+/>; */
+}
+
+// <Icon icon="fluent:document-20-filled" />;
