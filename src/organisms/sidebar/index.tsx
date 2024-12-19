@@ -25,7 +25,39 @@ import {
 } from "@mui/material";
 import { Typography } from "../../atoms/Typography";
 
-const styles = {};
+const styles = {
+  drawer: {
+    "& .MuiPaper-root": {
+      paddingX: 3,
+      maxWidth: 172,
+    },
+  },
+  divider: {
+    marginTop: 1.5,
+    marginBottom: 1.5,
+  },
+  listItem: {
+    "& .MuiLink-root": {
+      width: "100%",
+      textDecoration: "none",
+      "& .MuiListItemButton-root": {
+        textAlign: "center",
+        height: 46,
+        background: "#E7E7E7",
+        gap: 1,
+        width: "100%",
+        borderRadius: 2,
+        color: "#0B0B0F",
+        "& .MuiListItemIcon-root": {
+          minWidth: 20,
+        },
+        "& .MuiListItemText-root": {
+          textAlign: "start",
+        },
+      },
+    },
+  },
+};
 
 const PROJECT_LIST = [
   {
@@ -104,13 +136,17 @@ function Sidebar() {
   const goToDashboard = useCallback(() => navigate("/dashboard"), []);
 
   return (
-    <Drawer variant="permanent" open={true} drawerWidth={220}>
+    <Drawer
+      variant="permanent"
+      open={true}
+      drawerWidth={220}
+      sx={styles.drawer}>
       <Box
         display="flex"
         alignItems="center"
         gap={1}
-        paddingY={4.5}
-        paddingX={3}>
+        paddingTop={4.5}
+        paddingBottom={3}>
         <img
           src={theme === "light" ? LOGO_DARK : LOGO_LIGHT}
           alt="varvault_logo"
@@ -121,7 +157,7 @@ function Sidebar() {
           VarVault
         </Typography>
       </Box>
-      <Divider color="#fff" />
+      <Divider color="#fff" sx={styles.divider} />
       <Grid
         container
         direction="column"
@@ -138,18 +174,20 @@ function Sidebar() {
                     isOpenSideBar={true}
                   />
                 }>
-                <ListItem disablePadding title={listItem.label}>
+                <ListItem
+                  disablePadding
+                  title={listItem.label}
+                  sx={styles.listItem}>
                   <Link href={""}>
                     <ListItemButton>
                       <ListItemIcon>
-                        <Icon icon={""} />
+                        <Icon icon="fluent:document-20-filled" />
                       </ListItemIcon>
                       <ListItemText primary={listItem.label} />
                     </ListItemButton>
                   </Link>
                 </ListItem>
               </List>
-              <Divider />
             </React.Fragment>
           ))}
         </div>
