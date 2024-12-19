@@ -4,7 +4,7 @@ import { Box } from "../../../../atoms/Box";
 
 function Container() {
   return (
-    <Box>
+    <Box bgcolor="#f7f7f7" height="100%">
       <SideBar />
       <Box maxWidth="calc(100% - 220px)" ml="auto">
         <Outlet />
