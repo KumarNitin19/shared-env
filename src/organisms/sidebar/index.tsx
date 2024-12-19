@@ -30,6 +30,7 @@ const styles = {
     "& .MuiPaper-root": {
       paddingX: 3,
       maxWidth: 172,
+      bgcolor: "#F2F2F2",
     },
   },
   divider: {
@@ -43,11 +44,13 @@ const styles = {
       "& .MuiListItemButton-root": {
         textAlign: "center",
         height: 46,
-        background: "#E7E7E7",
         gap: 1,
         width: "100%",
         borderRadius: 2,
         color: "#0B0B0F",
+        "&.Mui-selected": {
+          background: "#E7E7E7",
+        },
         "& .MuiListItemIcon-root": {
           minWidth: 20,
         },
@@ -179,7 +182,7 @@ function Sidebar() {
                   title={listItem.label}
                   sx={styles.listItem}>
                   <Link href={""}>
-                    <ListItemButton>
+                    <ListItemButton selected={index === 0}>
                       <ListItemIcon>
                         <Icon icon="fluent:document-20-filled" />
                       </ListItemIcon>
