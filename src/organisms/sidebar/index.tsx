@@ -15,6 +15,7 @@ import { Drawer } from "../../atoms/Drawer";
 import { Box } from "../../atoms/Box";
 import {
   Grid,
+  IconButton,
   Link,
   List,
   ListItem,
@@ -161,6 +162,21 @@ function Sidebar() {
         </Typography>
       </Box>
       <Divider color="#fff" sx={styles.divider} />
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        mb={3}>
+        <Typography
+          variant="subtitle2"
+          color="#7B7B7B"
+          textTransform="uppercase">
+          Projects
+        </Typography>
+        <IconButton sx={{ padding: 0 }}>
+          <Icon icon="fluent:add-square-20-regular" color="#3C7C41" />
+        </IconButton>
+      </Box>
       <Grid
         container
         direction="column"
