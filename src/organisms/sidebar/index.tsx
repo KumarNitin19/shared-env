@@ -25,6 +25,8 @@ import {
 } from "@mui/material";
 import { Typography } from "../../atoms/Typography";
 
+const styles = {};
+
 const PROJECT_LIST = [
   {
     id: "1",
@@ -103,19 +105,21 @@ function Sidebar() {
 
   return (
     <Drawer variant="permanent" open={true} drawerWidth={220}>
-      <Box paddingY={2.5}>
-        <Grid
-          container
-          height={24}
-          overflow="hidden"
-          alignItems="center"
-          justifyContent={"space-between"}>
-          <img
-            className="w-6"
-            src={theme === "light" ? LOGO_DARK : LOGO_LIGHT}
-            alt="varvault_logo"
-          />
-        </Grid>
+      <Box
+        display="flex"
+        alignItems="center"
+        gap={1}
+        paddingY={4.5}
+        paddingX={3}>
+        <img
+          src={theme === "light" ? LOGO_DARK : LOGO_LIGHT}
+          alt="varvault_logo"
+          height="20"
+          width="28"
+        />
+        <Typography fontSize={18} color="#0B0B0F">
+          VarVault
+        </Typography>
       </Box>
       <Divider color="#fff" />
       <Grid
