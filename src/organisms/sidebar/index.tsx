@@ -157,7 +157,10 @@ function Sidebar() {
           height="20"
           width="28"
         />
-        <Typography fontSize={18} color="#0B0B0F">
+        <Typography
+          fontSize={18}
+          color="#0B0B0F"
+          fontFamily="Outfit, sans-serif">
           VarVault
         </Typography>
       </Box>
