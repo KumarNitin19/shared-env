@@ -1,5 +1,14 @@
+@font-face {
+  font-family: 'Satoshi';
+  src: url('../fonts/Satoshi-Variable.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('../fonts/Outfit-Variable.ttf') format('truetype');
+}
+
 :root {
-  font-family: Satoshi, system-ui, Helvetica, Arial, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -9,6 +18,7 @@
 * {
   margin: 0;
   padding: 0;
+  /* font-family: "Outfit", serif; */
 }
 
 body {
