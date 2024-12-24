@@ -7,15 +7,12 @@ export const theme = createTheme({
   },
   components: {
     MuiCssBaseline: {
-      styleOverrides: `
-        @font-face {
-          font-family: 'Satoshi';
-          font-style: normal;
-          font-display: swap;
-          font-weight: 400;
-          src: local('Satoshi'), local('Satoshi-Variable'), url(${SatoshiFont}) format('truetype');
-        }
-      `,
+      styleOverrides: {
+        "@font-face": {
+          fontFamily: "Satoshi",
+          src: `url(${SatoshiFont}) format("truetype")`,
+        },
+      },
     },
   },
 });
