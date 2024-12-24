@@ -27,12 +27,8 @@ function ProjectCard() {
           rowGap={1}
           width="100%"
           className="grid w-full items-center gap-4">
-          <Label htmlFor="name" className="text-subtle">
-            Name
-          </Label>
-          <Label htmlFor="framework" className="text-subtle">
-            Framework
-          </Label>
+          <Typography title="name">Name</Typography>
+          <Typography title="framework">Framework</Typography>
         </Box>
       </CardContent>
       <CardActions sx={styles.cardAction}>
