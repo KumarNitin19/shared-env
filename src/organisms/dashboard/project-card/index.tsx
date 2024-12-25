@@ -6,9 +6,18 @@ import { Typography } from "../../../atoms/Typography";
 const styles = {
   projectCard: {
     width: "100%",
+    p: 2,
+    border: "0.5px solid #00000033",
+    boxShadow: "none",
+    borderRadius: 3,
   },
   cardAction: {
     justifyContent: "end",
+    px: 0,
+    py: 0,
+  },
+  cardContent: {
+    px: 0,
   },
 };
 
@@ -16,19 +25,37 @@ function ProjectCard() {
   return (
     <Card sx={styles.projectCard}>
       <Box>
-        <Typography>Create project</Typography>
+        <Typography variant="subtitle1" fontWeight={500}>
+          Project Name
+        </Typography>
         <Typography variant="body2">
-          Deploy your new project in one-click.
+          Description: Deploy your new project in one-click.
         </Typography>
       </Box>
-      <CardContent>
+      <CardContent sx={styles.cardContent}>
         <Box
-          display="grid"
-          rowGap={1}
+          display="flex"
+          gap={1}
           width="100%"
           className="grid w-full items-center gap-4">
-          <Typography title="name">Name</Typography>
-          <Typography title="framework">Framework</Typography>
+          <Typography title="name" variant="body2">
+            Key :
+          </Typography>
+          <Typography title="framework" variant="body2">
+            Value
+          </Typography>
+        </Box>
+        <Box
+          display="flex"
+          gap={1}
+          width="100%"
+          className="grid w-full items-center gap-4">
+          <Typography title="name" variant="body2">
+            Key :
+          </Typography>
+          <Typography title="framework" variant="body2">
+            Value
+          </Typography>
         </Box>
       </CardContent>
       <CardActions sx={styles.cardAction}>
