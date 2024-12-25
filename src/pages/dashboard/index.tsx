@@ -22,7 +22,9 @@ const DashboardPage = () => {
           alignItems="center"
           justifyContent="space-between"
           width="100%">
-          <Typography variant="h6">Dashboard</Typography>
+          <Typography variant="h4" fontSize={22} fontWeight={500}>
+            Dashboard
+          </Typography>
           <AddProject>
             <Button
               startIcon={
@@ -32,7 +34,9 @@ const DashboardPage = () => {
             </Button>
           </AddProject>
         </Box>
-        <Typography>All Projects</Typography>
+        <Typography fontSize={16} fontWeight={500}>
+          All Projects
+        </Typography>
         <Box
           display="grid"
           gridTemplateColumns="1fr 1fr 1fr"
