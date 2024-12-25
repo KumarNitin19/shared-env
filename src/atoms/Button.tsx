@@ -23,6 +23,12 @@ const styles = {
   },
 };
 
-export const Button = (props: ButtonProps) => {
-  return <MUIButton {...props} sx={{ ...styles.button, ...props?.sx }} />;
+export const Button = ({ variant = "contained", ...props }: ButtonProps) => {
+  return (
+    <MUIButton
+      variant={variant}
+      {...props}
+      sx={{ ...styles.button, ...props?.sx }}
+    />
+  );
 };
