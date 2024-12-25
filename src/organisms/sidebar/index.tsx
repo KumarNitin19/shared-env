@@ -30,8 +30,9 @@ const styles = {
   drawer: {
     "& .MuiPaper-root": {
       paddingX: 3,
-      maxWidth: 172,
+      maxWidth: 220,
       bgcolor: "#F2F2F2",
+      borderRight: 0,
     },
   },
   divider: {
@@ -143,7 +144,7 @@ function Sidebar() {
     <Drawer
       variant="permanent"
       open={true}
-      drawerWidth={220}
+      drawerWidth={268}
       sx={styles.drawer}>
       <Box
         display="flex"
@@ -152,7 +153,7 @@ function Sidebar() {
         paddingTop={4.5}
         paddingBottom={3}>
         <img
-          src={theme === "light" ? LOGO_DARK : LOGO_LIGHT}
+          src={theme === "dark" ? LOGO_LIGHT : LOGO_DARK}
           alt="varvault_logo"
           height="20"
           width="28"
@@ -160,7 +161,8 @@ function Sidebar() {
         <Typography
           fontSize={18}
           color="#0B0B0F"
-          fontFamily="Outfit, sans-serif">
+          fontFamily="Outfit"
+          fontWeight={500}>
           VarVault
         </Typography>
       </Box>

@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import PrivateRoute from "./privateRoute";
 import PublicRoute from "./publicRoute";
-import Container from "../molecules/layout/components/Container";
+import WithSidebar from "../molecules/layout/components/WithSidebar";
 import PageNotFound from "../molecules/layout/components/PageNotFound";
 import ProjectPage from "../pages/project";
 import { LoginContainer } from "../containers/login-container";
@@ -12,7 +12,7 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <PrivateRoute>
-        <Container />
+        <WithSidebar />
       </PrivateRoute>
     ),
     children: [
