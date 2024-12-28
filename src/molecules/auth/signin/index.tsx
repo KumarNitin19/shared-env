@@ -1,4 +1,3 @@
-import { useTheme } from "../../../providers/theme-providers";
 import LOGO_DARK from "../../../assets/images/varvault-dark.svg";
 import LOGO_LIGHT from "../../../assets/images/varvault-light.svg";
 import { Button, Icon } from "../../../atoms";
@@ -55,7 +54,7 @@ type SignInProps = {
 };
 
 function SignIn({ onSignUp }: SignInProps) {
-  const { theme, setTheme } = useTheme();
+  const theme = "light";
   return (
     <Box
       display="flex"
@@ -100,7 +99,8 @@ function SignIn({ onSignUp }: SignInProps) {
         m={2}
         p={1}
         borderRadius={2}
-        onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+        // onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      >
         <Box sx={styles.darkIcon(theme)}>
           <Icon icon="basil:moon-outline" fontSize={20} />
         </Box>

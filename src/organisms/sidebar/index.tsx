@@ -6,7 +6,6 @@ import { useToast } from "../../hooks/use-toast";
 import useUser from "../../hooks/useUser";
 import { LoggedInUser } from "../../types/loggedInUser.type";
 import React, { useCallback, useState } from "react";
-import { useTheme } from "../../providers/theme-providers";
 import LOGO_DARK from "../../../src/assets/images/varvault-dark.svg";
 import LOGO_LIGHT from "../../../src/assets/images/varvault-light.svg";
 import { Avatar, Divider, Icon } from "../../atoms";
@@ -109,7 +108,7 @@ function Sidebar() {
 
   const { toast } = useToast();
 
-  const { theme, setTheme } = useTheme();
+  const theme = "dark";
 
   const loggedInUser: LoggedInUser = useUser();
 

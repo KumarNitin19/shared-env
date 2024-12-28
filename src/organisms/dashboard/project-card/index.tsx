@@ -25,7 +25,11 @@ function ProjectCard() {
   return (
     <Card sx={styles.projectCard}>
       <Box>
-        <Typography variant="subtitle1" fontWeight={500}>
+        <Typography
+          variant="subtitle1"
+          fontSize={20}
+          color="#0B0B0F"
+          fontWeight={500}>
           Project Name
         </Typography>
         <Typography variant="body2">
