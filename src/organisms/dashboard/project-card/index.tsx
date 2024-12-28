@@ -1,3 +1,4 @@
+import { useTheme } from "@mui/material";
 import { Button, CardContent, Icon, Label } from "../../../atoms";
 import { Box } from "../../../atoms/Box";
 import Card, { CardActions } from "../../../atoms/Card";
@@ -22,13 +23,14 @@ const styles = {
 };
 
 function ProjectCard() {
+  const theme = useTheme();
   return (
     <Card sx={styles.projectCard}>
       <Box>
         <Typography
           variant="subtitle1"
           fontSize={20}
-          color="#0B0B0F"
+          color={theme.palette.surface100.main}
           fontWeight={500}>
           Project Name
         </Typography>

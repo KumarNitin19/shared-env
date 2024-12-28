@@ -1,11 +1,14 @@
 import { createTheme } from "@mui/material";
 import SatoshiFont from "./fonts/Satoshi-Variable.ttf"
 import OutfitFont from "./fonts/Outfit-Variable.ttf"
+import { darkThemePalette, lightThemePalette } from "./config/colorConfig";
 
-export const theme = createTheme({
-  components: {
-    MuiCssBaseline: {
-      styleOverrides: `
+const getTheme = (mode: "light" | "dark") => {
+  return createTheme({
+    palette: mode === "light" ? lightThemePalette : darkThemePalette,
+    components: {
+      MuiCssBaseline: {
+        styleOverrides: `
         @font-face {
           font-family: 'Satoshi';
           src: url(${SatoshiFont}) format('truetype');
@@ -16,10 +19,12 @@ export const theme = createTheme({
           src: url(${OutfitFont}) format('truetype');
         }
       `,
+      },
     },
-  },
-  typography: {
-    fontFamily: "Satoshi",
-  },
+    typography: {
+      fontFamily: "Satoshi",
+    },
+  })
+}
 
-});
+export { getTheme }
