@@ -3,11 +3,12 @@ import router from "./routes";
 // import { Toaster } from "./atoms/Toaster";
 import { Box } from "./atoms/Box";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { getTheme } from "./theme";
+import { useThemeToggle } from "./hooks/useThemeToggle";
 
 function App() {
-  const [mode, setMode] = useState<"light" | "dark">("light");
+  const { mode } = useThemeToggle();
   const theme = useMemo(() => getTheme(mode), []);
 
   return (
