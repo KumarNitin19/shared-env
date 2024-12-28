@@ -1,4 +1,4 @@
-import { Button, CardContent, Label } from "../../../atoms";
+import { Button, CardContent, Icon, Label } from "../../../atoms";
 import { Box } from "../../../atoms/Box";
 import Card, { CardActions } from "../../../atoms/Card";
 import { Typography } from "../../../atoms/Typography";
@@ -59,7 +59,12 @@ function ProjectCard() {
         </Box>
       </CardContent>
       <CardActions sx={styles.cardAction}>
-        <Button variant="text">View All</Button>
+        <Button
+          variant="text"
+          size="small"
+          endIcon={<Icon icon="material-symbols:arrow-right-alt" />}>
+          View All
+        </Button>
       </CardActions>
     </Card>
   );

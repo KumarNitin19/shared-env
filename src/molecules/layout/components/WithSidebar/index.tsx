@@ -9,12 +9,9 @@ function WithSidebar() {
       <Box
         maxWidth="calc(100% - 220px)"
         ml="auto"
-        paddingTop={2}
-        bgcolor="#F2F2F2"
+        bgcolor="#f7f7f7"
         height="100%">
-        <Box bgcolor="#ffffff" height="100%" sx={{ borderTopLeftRadius: 12 }}>
-          <Outlet />
-        </Box>
+        <Outlet />
       </Box>
     </Box>
   );

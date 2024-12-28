@@ -22,14 +22,15 @@ const DashboardPage = () => {
           alignItems="center"
           justifyContent="space-between"
           width="100%">
-          <Typography variant="h4" fontSize={22} fontWeight={500}>
+          <Typography
+            variant="h4"
+            fontSize={32}
+            fontWeight={400}
+            color="#0B0B0F">
             Dashboard
           </Typography>
           <AddProject>
-            <Button
-              startIcon={
-                <Icon icon="fluent:add-16-regular" className="h-5 w-5" />
-              }>
+            <Button startIcon={<Icon icon="fluent:add-16-regular" />}>
               Add Project
             </Button>
           </AddProject>

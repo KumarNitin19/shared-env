@@ -3,6 +3,7 @@ import { ButtonProps, Button as MUIButton } from "@mui/material";
 const styles = {
   button: {
     height: 40,
+    borderRadius: 2,
     "&.MuiButton-contained": {
       background: "#3c7c41",
     },
@@ -19,6 +20,15 @@ const styles = {
       "&:hover": {
         backgroundColor: "#3c7c410a",
       },
+    },
+    "&.MuiButton-sizeSmall": {
+      fontSize: 13,
+      "&.MuiButton-text": {
+        height: 24,
+      },
+    },
+    "& .iconify": {
+      fontSize: "18px !important",
     },
   },
 };
