@@ -1,3 +1,4 @@
+import { useTheme } from "@mui/material";
 import { Button, Icon } from "../../atoms";
 import { Box } from "../../atoms/Box";
 import { Typography } from "../../atoms/Typography";
@@ -6,6 +7,7 @@ import DashboardPageZeroState from "../../organisms/dashboard/dashboard-page-zer
 import ProjectCard from "../../organisms/dashboard/project-card";
 
 const DashboardPage = () => {
+  const { palette } = useTheme();
   return (
     <Box height="100%">
       {/* <DashboardPageZeroState /> */}
@@ -26,7 +28,7 @@ const DashboardPage = () => {
             variant="h4"
             fontSize={32}
             fontWeight={400}
-            color="#0B0B0F">
+            color={palette.surface100.main}>
             Dashboard
           </Typography>
           <AddProject>

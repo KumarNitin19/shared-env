@@ -22,23 +22,25 @@ import {
   ListItemIcon,
   ListItemText,
   ListSubheader,
+  Theme,
+  useTheme,
 } from "@mui/material";
 import { Typography } from "../../atoms/Typography";
+import { useThemeToggle } from "../../hooks/useThemeToggle";
 
 const styles = {
-  drawer: {
+  drawer: (theme: Theme) => ({
     "& .MuiPaper-root": {
       paddingX: 3,
       maxWidth: 220,
-      bgcolor: "#F2F2F2",
-      borderRight: 0,
+      bgcolor: theme.palette.sidebarBG.main,
     },
-  },
+  }),
   divider: {
     marginTop: 1.5,
     marginBottom: 1.5,
   },
-  listItem: {
+  listItem: (theme: Theme) => ({
     "& .MuiLink-root": {
       width: "100%",
       textDecoration: "none",
@@ -48,7 +50,7 @@ const styles = {
         gap: 1,
         width: "100%",
         borderRadius: 2,
-        color: "#0B0B0F",
+        color: theme.palette.surface100.main,
         "&.Mui-selected": {
           background: "#E7E7E7",
         },
@@ -60,7 +62,7 @@ const styles = {
         },
       },
     },
-  },
+  }),
 };
 
 const PROJECT_LIST = [
@@ -102,17 +104,13 @@ const ListSubheaderComponent = ({ listItem, isOpenSideBar }: any) => {
 };
 
 function Sidebar() {
-  const navigate = useNavigate();
-
-  const { removeItem } = useLocalStorage();
-
-  const { toast } = useToast();
-
-  const theme = "dark";
-
-  const loggedInUser: LoggedInUser = useUser();
-
   const [activeProject, setActiveProject] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const { removeItem } = useLocalStorage();
+  const { toast } = useToast();
+  const { mode } = useThemeToggle();
+  const theme = useTheme();
+  const loggedInUser: LoggedInUser = useUser();
 
   const signOutUser = () => {
     signOut(auth)
@@ -144,7 +142,7 @@ function Sidebar() {
       variant="permanent"
       open={true}
       drawerWidth={268}
-      sx={styles.drawer}>
+      sx={styles.drawer(theme)}>
       <Box
         display="flex"
         alignItems="center"
@@ -152,14 +150,14 @@ function Sidebar() {
         paddingTop={4.5}
         paddingBottom={3}>
         <img
-          src={theme === "dark" ? LOGO_LIGHT : LOGO_DARK}
+          src={mode === "dark" ? LOGO_LIGHT : LOGO_DARK}
           alt="varvault_logo"
           height="20"
           width="28"
         />
         <Typography
           fontSize={18}
-          color="#0B0B0F"
+          color={theme.palette.surface100.main}
           fontFamily="Outfit"
           fontWeight={500}>
           VarVault
@@ -200,7 +198,7 @@ function Sidebar() {
                 <ListItem
                   disablePadding
                   title={listItem.label}
-                  sx={styles.listItem}>
+                  sx={styles.listItem(theme)}>
                   <Link href={""}>
                     <ListItemButton selected={index === 0}>
                       <ListItemIcon>
