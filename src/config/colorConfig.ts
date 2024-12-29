@@ -29,6 +29,7 @@ export const lightThemePalette = {
     separation: { main: "#d9d9d9" },
     sidebarBG: { main: "#f2f2f2" },
     mainBackground: { main: "#ffffff" },
+    divider: "#dadada",
     mode: "light" as PaletteMode,
 }
 
@@ -44,5 +45,6 @@ export const darkThemePalette = {
     separation: { main: "#3B3C45" },
     sidebarBG: { main: "#16161D" },
     mainBackground: { main: "#0b0b0f" },
+    divider: "#202020",
     mode: "light" as PaletteMode,
 }

@@ -7,7 +7,7 @@ function WithSidebar() {
     <Box bgcolor="#f7f7f7" height="100%">
       <SideBar />
       <Box
-        maxWidth="calc(100% - 220px)"
+        maxWidth="calc(100% - 268px)"
         ml="auto"
         bgcolor="#f7f7f7"
         height="100%">

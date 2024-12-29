@@ -1,10 +1,12 @@
 import { useState } from "react";
 
-export const useThemeToggle = () => {
-  const [mode, setMode] = useState<"light" | "dark">("light");
+export type ThemeMode = "light" | "dark";
 
-  const toggleTheme = () => {
-    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+export const useThemeToggle = () => {
+  const [mode, setMode] = useState<ThemeMode>("light");
+
+  const toggleTheme = (mode: ThemeMode) => {
+    setMode(mode);
   };
   return { mode, toggleTheme };
 };

@@ -8,6 +8,9 @@ interface AvatarProps extends MuiAvatarProps {
 }
 
 export const Avatar = (props: AvatarProps) => {
-  const { name = "" } = props;
+  const { name = "", src = "" } = props;
+  if (src) {
+    <MuiAvatar src={src} {...props} />;
+  }
   return <MuiAvatar {...props}>{name[0]}</MuiAvatar>;
 };

@@ -31,14 +31,14 @@ import { useThemeToggle } from "../../hooks/useThemeToggle";
 const styles = {
   drawer: (theme: Theme) => ({
     "& .MuiPaper-root": {
-      paddingX: 3,
-      maxWidth: 220,
+      maxWidth: 268,
       bgcolor: theme.palette.sidebarBG.main,
     },
   }),
   divider: {
     marginTop: 1.5,
     marginBottom: 1.5,
+    marginX: 3,
   },
   listItem: (theme: Theme) => ({
     "& .MuiLink-root": {
@@ -62,6 +62,27 @@ const styles = {
         },
       },
     },
+  }),
+  logoutButton: {
+    paddingRight: 2,
+    gap: 1,
+    "& .MuiButtonBase-root": {
+      justifyContent: "space-between",
+      gap: 1,
+      "& .MuiListItemIcon-root": {
+        minWidth: 20,
+        "& .MuiAvatar-root": {
+          height: 20,
+          width: 20,
+        },
+      },
+    },
+  },
+  verticalDivider: (theme: Theme) => ({
+    height: 12,
+    width: "1px",
+    borderRightWidth: "thin",
+    borderColor: theme.palette.divider,
   }),
 };
 
@@ -108,7 +129,7 @@ function Sidebar() {
   const navigate = useNavigate();
   const { removeItem } = useLocalStorage();
   const { toast } = useToast();
-  const { mode } = useThemeToggle();
+  const { mode, toggleTheme } = useThemeToggle();
   const theme = useTheme();
   const loggedInUser: LoggedInUser = useUser();
 
@@ -148,7 +169,8 @@ function Sidebar() {
         alignItems="center"
         gap={1}
         paddingTop={4.5}
-        paddingBottom={3}>
+        paddingBottom={3}
+        paddingX={3}>
         <img
           src={mode === "dark" ? LOGO_LIGHT : LOGO_DARK}
           alt="varvault_logo"
@@ -168,7 +190,8 @@ function Sidebar() {
         display="flex"
         alignItems="center"
         justifyContent="space-between"
-        mb={3}>
+        mb={3}
+        paddingX={3}>
         <Typography
           variant="subtitle2"
           color="#7B7B7B"
@@ -183,7 +206,8 @@ function Sidebar() {
         container
         direction="column"
         justifyContent="space-between"
-        height="100%">
+        height="100%"
+        paddingX={3}>
         <div>
           {PROJECT_LIST.map((listItem, index: number) => (
             <React.Fragment key={index}>
@@ -213,14 +237,41 @@ function Sidebar() {
           ))}
         </div>
 
-        <List>
+        <List sx={styles.logoutButton}>
           <ListItem disablePadding title="Logout">
             <ListItemButton>
               <ListItemIcon>
-                <Icon icon="material-symbols:logout" />
+                <Avatar
+                  name={loggedInUser?.display_name}
+                  src={loggedInUser?.profile_image}
+                />
               </ListItemIcon>
               <ListItemText primary="Logout" />
             </ListItemButton>
+            <Box display="flex" gap={1.5} alignItems="center">
+              <IconButton sx={{ padding: 0 }}>
+                <Icon
+                  icon="material-symbols:logout"
+                  color={theme.palette.surface80.main}
+                />
+              </IconButton>
+              <Divider sx={styles.verticalDivider(theme)} />
+              <IconButton sx={{ padding: 0 }}>
+                {mode === "light" ? (
+                  <Icon
+                    icon="uil:sun"
+                    color={theme.palette.surface80.main}
+                    onClick={() => toggleTheme("dark")}
+                  />
+                ) : (
+                  <Icon
+                    icon="basil:moon-outline"
+                    color={theme.palette.surface80.main}
+                    onClick={() => toggleTheme("light")}
+                  />
+                )}
+              </IconButton>
+            </Box>
           </ListItem>
         </List>
       </Grid>
@@ -229,25 +280,3 @@ function Sidebar() {
 }
 
 export default Sidebar;
-
-//  <Icon
-//               icon="uil:sun"
-//               onClick={() => setTheme("dark")}
-//             />
-//             <Icon
-//               icon="basil:moon-outline"
-//               onClick={() => setTheme("light")}
-//             />
-
-//  <Icon
-//    onClick={signOutUser}
-//    icon="hugeicons:logout-02"
-//  />;
-
-{
-  /* <Icon
-  icon="fluent:add-square-20-regular"
-/>; */
-}
-
-// <Icon icon="fluent:document-20-filled" />;
