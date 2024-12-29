@@ -27,6 +27,7 @@ import {
 } from "@mui/material";
 import { Typography } from "../../atoms/Typography";
 import { useThemeToggle } from "../../hooks/useThemeToggle";
+import { ThemeMode } from "../../providers/ThemeProvider";
 
 const styles = {
   drawer: (theme: Theme) => ({
@@ -40,7 +41,7 @@ const styles = {
     marginBottom: 1.5,
     marginX: 3,
   },
-  listItem: (theme: Theme) => ({
+  listItem: (theme: Theme, mode: ThemeMode) => ({
     "& .MuiLink-root": {
       width: "100%",
       textDecoration: "none",
@@ -50,9 +51,16 @@ const styles = {
         gap: 1,
         width: "100%",
         borderRadius: 2,
-        color: theme.palette.surface100.main,
+        color: theme.palette.surface80.main,
+        "& .MuiListItemIcon-root > svg": {
+          color: theme.palette.surface80.main,
+        },
         "&.Mui-selected": {
-          background: "#E7E7E7",
+          background: mode === "light" ? "#E7E7E7" : "#282834",
+          color: theme.palette.main.main,
+          "& .MuiListItemIcon-root > svg": {
+            color: theme.palette.main.main,
+          },
         },
         "& .MuiListItemIcon-root": {
           minWidth: 20,
@@ -63,9 +71,10 @@ const styles = {
       },
     },
   }),
-  logoutButton: {
+  logoutButton: (theme: Theme) => ({
     paddingRight: 2,
     gap: 1,
+    color: theme.palette.surface100.main,
     "& .MuiButtonBase-root": {
       justifyContent: "space-between",
       gap: 1,
@@ -77,12 +86,12 @@ const styles = {
         },
       },
     },
-  },
+  }),
   verticalDivider: (theme: Theme) => ({
     height: 12,
     width: "1px",
     borderRightWidth: "thin",
-    borderColor: theme.palette.divider,
+    borderColor: theme.palette.surface80.main,
   }),
 };
 
@@ -222,7 +231,7 @@ function Sidebar() {
                 <ListItem
                   disablePadding
                   title={listItem.label}
-                  sx={styles.listItem(theme)}>
+                  sx={styles.listItem(theme, mode)}>
                   <Link href={""}>
                     <ListItemButton selected={index === 0}>
                       <ListItemIcon>
@@ -237,7 +246,7 @@ function Sidebar() {
           ))}
         </div>
 
-        <List sx={styles.logoutButton}>
+        <List sx={styles.logoutButton(theme)}>
           <ListItem disablePadding title="Logout">
             <ListItemButton>
               <ListItemIcon>

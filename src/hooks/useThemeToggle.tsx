@@ -1,12 +1,12 @@
-import { useState } from "react";
-
-export type ThemeMode = "light" | "dark";
+import { useContext } from "react";
+import { ThemeContext } from "../providers/ThemeProvider";
 
 export const useThemeToggle = () => {
-  const [mode, setMode] = useState<ThemeMode>("light");
+  const context = useContext(ThemeContext);
 
-  const toggleTheme = (mode: ThemeMode) => {
-    setMode(mode);
-  };
-  return { mode, toggleTheme };
+  if (!context) {
+    throw new Error("useTheme must be used within a ThemeProvider");
+  }
+
+  return context;
 };
