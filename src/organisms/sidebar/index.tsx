@@ -87,12 +87,11 @@ const styles = {
       },
     },
   }),
-  verticalDivider: (theme: Theme) => ({
+  verticalDivider: {
     height: 12,
     width: "1px",
     borderRightWidth: "thin",
-    borderColor: theme.palette.surface80.main,
-  }),
+  },
 };
 
 const PROJECT_LIST = [
@@ -258,13 +257,13 @@ function Sidebar() {
               <ListItemText primary="Logout" />
             </ListItemButton>
             <Box display="flex" gap={1.5} alignItems="center">
-              <IconButton sx={{ padding: 0 }}>
+              <IconButton onClick={signOutUser} sx={{ padding: 0 }}>
                 <Icon
                   icon="material-symbols:logout"
                   color={theme.palette.surface80.main}
                 />
               </IconButton>
-              <Divider sx={styles.verticalDivider(theme)} />
+              <Divider sx={styles.verticalDivider} />
               <IconButton sx={{ padding: 0 }}>
                 {mode === "light" ? (
                   <Icon

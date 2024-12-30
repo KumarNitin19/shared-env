@@ -28,7 +28,7 @@ export const lightThemePalette = {
     buttonHover: { main: "#28532b" },
     separation: { main: "#d9d9d9" },
     sidebarBG: { main: "#f2f2f2" },
-    mainBackground: { main: "#ffffff" },
+    mainBackground: { main: "#f7f7f7" },
     divider: "#dadada",
     mode: "light" as PaletteMode,
 }

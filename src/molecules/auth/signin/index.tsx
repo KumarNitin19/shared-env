@@ -17,16 +17,16 @@ const styles = {
       width: 20,
     },
     "&.MuiButton-contained": {
-      backgroundColor: theme === "light" ? "#000000" : "#ffffff",
-      color: theme === "light" ? "#ffffff" : "#000000",
+      backgroundColor: theme === "dark" ? "#000000" : "#ffffff",
+      color: theme === "dark" ? "#ffffff" : "#000000",
     },
   }),
   lightIcon: (theme: string) => ({
     transition: "all 0.3s",
-    transform: theme === "light" ? "rotate(0deg)" : "rotate(90deg)",
+    transform: theme === "dark" ? "rotate(0deg)" : "rotate(90deg)",
     height: 20,
     width: 20,
-    scale: theme === "light" ? "100%" : 0,
+    scale: theme === "dark" ? "100%" : 0,
     cursor: "pointer",
   }),
   darkIcon: (theme: string) => ({
@@ -54,7 +54,7 @@ type SignInProps = {
 };
 
 function SignIn({ onSignUp }: SignInProps) {
-  const theme = "light";
+  const theme = "dark";
   return (
     <Box
       display="flex"
@@ -75,7 +75,7 @@ function SignIn({ onSignUp }: SignInProps) {
         // border={1}
         sx={styles.signInCard}>
         <img
-          src={theme === "light" ? LOGO_DARK : LOGO_LIGHT}
+          src={theme === "dark" ? LOGO_DARK : LOGO_LIGHT}
           alt="varvault_logo"
         />
         <Typography variant="h4" fontWeight={700}>
