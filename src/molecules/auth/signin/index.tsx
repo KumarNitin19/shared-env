@@ -8,6 +8,7 @@ import CARD_BACKGROUND_LIGHT from "../../../assets/images/sign-in-card-bg.svg";
 import CARD_BACKGROUND_DARK from "../../../assets/images/sign-in-card-bg-dark.svg";
 import { useThemeToggle } from "../../../hooks/useThemeToggle";
 import { useTheme } from "@mui/material";
+import { ToggleThemeIcon } from "../../toggle-theme-button";
 
 const styles = {
   signInWithGoogleBtn: (theme: string) => ({
@@ -24,23 +25,7 @@ const styles = {
       color: theme === "light" ? "#ffffff" : "#000000",
     },
   }),
-  lightIcon: (mode: string) => ({
-    transition: "all 0.3s",
-    transform: mode === "light" ? "rotate(0deg)" : "rotate(90deg)",
-    height: 20,
-    width: 20,
-    scale: mode === "light" ? "100%" : 0,
-    cursor: "pointer",
-  }),
-  darkIcon: (mode: string) => ({
-    position: "absolute",
-    transform: mode === "dark" ? "rotate(0deg)" : "rotate(90deg)",
-    transition: "all 0.3s",
-    height: 20,
-    width: 20,
-    scale: mode === "dark" ? "100%" : 0,
-    cursor: "pointer",
-  }),
+
   signInContainer: {
     backgroundImage: `url(${BACKGROUD_IMAGE})`,
     backgroundSize: "cover",
@@ -60,7 +45,7 @@ type SignInProps = {
 
 function SignIn({ onSignUp }: SignInProps) {
   const theme = useTheme();
-  const { mode, toggleTheme } = useThemeToggle();
+  const { mode } = useThemeToggle();
   return (
     <Box
       display="flex"
@@ -100,20 +85,8 @@ function SignIn({ onSignUp }: SignInProps) {
           Sign In With Google
         </Button>
       </Box>
-      <Box
-        position="absolute"
-        top={0}
-        right={0}
-        m={2}
-        p={1}
-        borderRadius={2}
-        onClick={() => toggleTheme(mode === "light" ? "dark" : "light")}>
-        <Box sx={styles.darkIcon(mode)}>
-          <Icon icon="basil:moon-outline" color="#ffffff" fontSize={20} />
-        </Box>
-        <Box sx={styles.lightIcon(mode)}>
-          <Icon icon="uil:sun" fontSize={20} />
-        </Box>
+      <Box position="absolute" top={0} right={0} m={2} p={1} borderRadius={2}>
+        <ToggleThemeIcon />
       </Box>
     </Box>
   );

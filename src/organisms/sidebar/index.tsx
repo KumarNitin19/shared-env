@@ -28,6 +28,7 @@ import {
 import { Typography } from "../../atoms/Typography";
 import { useThemeToggle } from "../../hooks/useThemeToggle";
 import { ThemeMode } from "../../providers/ThemeProvider";
+import { ToggleThemeIcon } from "../../molecules/toggle-theme-button";
 
 const styles = {
   drawer: (theme: Theme) => ({
@@ -76,6 +77,7 @@ const styles = {
     gap: 1,
     color: theme.palette.surface100.main,
     "& .MuiButtonBase-root": {
+      borderRadius: 2,
       justifyContent: "space-between",
       gap: 1,
       "& .MuiListItemIcon-root": {
@@ -83,6 +85,7 @@ const styles = {
         "& .MuiAvatar-root": {
           height: 20,
           width: 20,
+          fontSize: 12,
         },
       },
     },
@@ -137,7 +140,7 @@ function Sidebar() {
   const navigate = useNavigate();
   const { removeItem } = useLocalStorage();
   const { toast } = useToast();
-  const { mode, toggleTheme } = useThemeToggle();
+  const { mode } = useThemeToggle();
   const theme = useTheme();
   const loggedInUser: LoggedInUser = useUser();
 
@@ -265,19 +268,7 @@ function Sidebar() {
               </IconButton>
               <Divider sx={styles.verticalDivider} />
               <IconButton sx={{ padding: 0 }}>
-                {mode === "light" ? (
-                  <Icon
-                    icon="uil:sun"
-                    color={theme.palette.surface80.main}
-                    onClick={() => toggleTheme("dark")}
-                  />
-                ) : (
-                  <Icon
-                    icon="basil:moon-outline"
-                    color={theme.palette.surface80.main}
-                    onClick={() => toggleTheme("light")}
-                  />
-                )}
+                <ToggleThemeIcon />
               </IconButton>
             </Box>
           </ListItem>
