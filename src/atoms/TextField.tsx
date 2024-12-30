@@ -9,7 +9,12 @@ const styles = {
   inputField: (theme: Theme) => ({
     "& .MuiInputBase-root": {
       background: theme.palette.mainBackground.main,
-
+      "& .MuiInputAdornment-root": {
+        color: "#717174",
+        "& svg": {
+          fontSize: 20,
+        },
+      },
       "& .MuiInputBase-input": {
         paddingY: 0,
         paddingX: 2,

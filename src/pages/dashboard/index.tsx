@@ -1,4 +1,4 @@
-import { useTheme } from "@mui/material";
+import { InputAdornment, useTheme } from "@mui/material";
 import { Button, Icon } from "../../atoms";
 import { Box } from "../../atoms/Box";
 import { Typography } from "../../atoms/Typography";
@@ -6,6 +6,22 @@ import AddProject from "../../molecules/add-project";
 import DashboardPageZeroState from "../../organisms/dashboard/dashboard-page-zero-state";
 import ProjectCard from "../../organisms/dashboard/project-card";
 import InputField from "../../atoms/TextField";
+
+const styles = {
+  searchField: {
+    "&.search-project": {
+      "& .MuiInputBase-root": {
+        borderRadius: 2,
+        background: "rgba(0, 0, 0, 0.03)",
+        width: 244,
+        height: 44,
+        "& .MuiInputBase-input": {
+          padding: 0,
+        },
+      },
+    },
+  },
+};
 
 const DashboardPage = () => {
   const { palette } = useTheme();
@@ -32,8 +48,21 @@ const DashboardPage = () => {
             color={palette.surface100.main}>
             Dashboard
           </Typography>
-          <Box>
-            <InputField placeholder="Search" />
+          <Box display="flex" gap={1} alignItems="center">
+            <InputField
+              className="search-project"
+              placeholder="Search"
+              slotProps={{
+                input: {
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Icon icon="material-symbols:search-rounded" />
+                    </InputAdornment>
+                  ),
+                },
+              }}
+              sx={styles.searchField}
+            />
             <AddProject>
               <Button startIcon={<Icon icon="fluent:add-16-regular" />}>
                 Add Project
