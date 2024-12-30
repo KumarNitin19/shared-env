@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback, useState } from "react";
-import { Button, Label } from "../../atoms";
+import { Button, Icon } from "../../atoms";
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -7,6 +7,28 @@ import Dialog, {
 } from "../../atoms/Dialog";
 import InputField from "../../atoms/TextField";
 import { Box } from "../../atoms/Box";
+import { Typography } from "../../atoms/Typography";
+import { IconButton, Theme, useTheme } from "@mui/material";
+
+const styles = {
+  dialog: (theme: Theme) => ({
+    "& .MuiPaper-root": {
+      width: 520,
+      backgroundColor: theme.palette.sidebarBG.main,
+    },
+  }),
+  dialogTitle: {
+    display: "flex",
+    justifyContent: "space-between",
+    padding: 3,
+  },
+  dialogContent: {
+    paddingBottom: 0,
+  },
+  dialogAction: {
+    padding: 3,
+  },
+};
 
 type Props = {
   children: React.ReactNode;
@@ -15,6 +37,7 @@ type Props = {
 function AddProject({ children }: Props) {
   const [isAddProject, setIsAddProject] = useState<boolean>(false);
   const [projectName, setProjectName] = useState<string>("");
+  const theme = useTheme();
 
   // To open the dialog
   const handleOpenProjectDialog = useCallback(() => setIsAddProject(true), []);
@@ -44,27 +67,61 @@ function AddProject({ children }: Props) {
   return (
     <>
       <div onClick={handleOpenProjectDialog}>{children}</div>
-      <Dialog open={isAddProject}>
-        <Box>
-          <DialogTitle>Add Project</DialogTitle>
-          Create project to add environment variables.
-        </Box>
-        <DialogContent className="sm:max-w-[425px]">
-          <div className="grid gap-4 py-4">
-            <div className="grid items-center gap-4">
-              <Label htmlFor="projectName" className="text-start">
+      <Dialog open={isAddProject} sx={styles.dialog(theme)}>
+        <DialogTitle sx={styles.dialogTitle}>
+          <Box>
+            <Typography
+              variant="h6"
+              fontWeight={600}
+              color={theme.palette.surface100.main}>
+              Add Project
+            </Typography>
+            <Typography
+              variant="subtitle2"
+              color={theme.palette.surface80.main}>
+              Create project to add environment variables.
+            </Typography>
+          </Box>
+          <IconButton
+            onClick={handleCloseProjectDialog}
+            sx={{ height: "fit-content" }}>
+            <Icon
+              icon="material-symbols:close-rounded"
+              color={theme.palette.surface100.main}
+            />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent sx={styles.dialogContent}>
+          <Box display="grid" rowGap={2}>
+            <Box display="grid" rowGap={1}>
+              <Typography
+                title="projectName"
+                variant="subtitle2"
+                color={theme.palette.surface100.main}>
                 Project Name
-              </Label>
+              </Typography>
               <InputField
                 id="name"
                 value={projectName}
-                className="col-span-3"
                 onChange={handleProjectName}
               />
-            </div>
-          </div>
+            </Box>
+            <Box display="grid" rowGap={1}>
+              <Typography
+                title="projectName"
+                variant="subtitle2"
+                color={theme.palette.surface100.main}>
+                Project Description
+              </Typography>
+              <InputField
+                id="name"
+                value={projectName}
+                onChange={handleProjectName}
+              />
+            </Box>
+          </Box>
         </DialogContent>
-        <DialogActions>
+        <DialogActions sx={styles.dialogAction}>
           <Button
             variant="outlined"
             type="submit"

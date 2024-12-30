@@ -12,6 +12,7 @@ declare module "@mui/material/styles" {
         separation: Palette["primary"]
         sidebarBG: Palette["primary"]
         mainBackground: Palette["primary"]
+        inputBorder: Palette["primary"]
         surfaceCard: Palette["primary"];
     }
 }
@@ -30,6 +31,7 @@ export const lightThemePalette = {
     separation: { main: "#d9d9d9" },
     sidebarBG: { main: "#f2f2f2" },
     mainBackground: { main: "#f7f7f7" },
+    inputBorder: { main: "#B7B7B7" },
     divider: "#dadada",
     mode: "light" as PaletteMode,
 }
@@ -47,6 +49,7 @@ export const darkThemePalette = {
     separation: { main: "#3B3C45" },
     sidebarBG: { main: "#16161D" },
     mainBackground: { main: "#0b0b0f" },
+    inputBorder: { main: "#282834" },
     divider: "#202020",
     mode: "light" as PaletteMode,
 }
