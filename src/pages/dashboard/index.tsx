@@ -5,6 +5,7 @@ import { Typography } from "../../atoms/Typography";
 import AddProject from "../../molecules/add-project";
 import DashboardPageZeroState from "../../organisms/dashboard/dashboard-page-zero-state";
 import ProjectCard from "../../organisms/dashboard/project-card";
+import InputField from "../../atoms/TextField";
 
 const DashboardPage = () => {
   const { palette } = useTheme();
@@ -14,7 +15,7 @@ const DashboardPage = () => {
       <Box
         display="flex"
         flexDirection="column"
-        gap={2}
+        gap={4}
         alignItems="start"
         px={3}
         py={2}
@@ -31,15 +32,15 @@ const DashboardPage = () => {
             color={palette.surface100.main}>
             Dashboard
           </Typography>
-          <AddProject>
-            <Button startIcon={<Icon icon="fluent:add-16-regular" />}>
-              Add Project
-            </Button>
-          </AddProject>
+          <Box>
+            <InputField placeholder="Search" />
+            <AddProject>
+              <Button startIcon={<Icon icon="fluent:add-16-regular" />}>
+                Add Project
+              </Button>
+            </AddProject>
+          </Box>
         </Box>
-        <Typography fontSize={16} fontWeight={500}>
-          All Projects
-        </Typography>
         <Box
           display="grid"
           gridTemplateColumns="1fr 1fr 1fr"

@@ -1,17 +1,18 @@
-import { useTheme } from "@mui/material";
-import { Button, CardContent, Icon, Label } from "../../../atoms";
+import { Theme, useTheme } from "@mui/material";
+import { Button, CardContent, Icon } from "../../../atoms";
 import { Box } from "../../../atoms/Box";
 import Card, { CardActions } from "../../../atoms/Card";
 import { Typography } from "../../../atoms/Typography";
 
 const styles = {
-  projectCard: {
+  projectCard: (theme: Theme) => ({
+    backgroundColor: theme.palette.sidebarBG.main,
     width: "100%",
     p: 2,
     border: "0.5px solid #00000033",
     boxShadow: "none",
     borderRadius: 3,
-  },
+  }),
   cardAction: {
     justifyContent: "end",
     px: 0,
@@ -25,7 +26,7 @@ const styles = {
 function ProjectCard() {
   const theme = useTheme();
   return (
-    <Card sx={styles.projectCard}>
+    <Card sx={styles.projectCard(theme)}>
       <Box>
         <Typography
           variant="subtitle1"
@@ -34,7 +35,7 @@ function ProjectCard() {
           fontWeight={500}>
           Project Name
         </Typography>
-        <Typography variant="body2">
+        <Typography variant="body2" color={theme.palette.surface80.main}>
           Description: Deploy your new project in one-click.
         </Typography>
       </Box>
@@ -44,10 +45,16 @@ function ProjectCard() {
           gap={1}
           width="100%"
           className="grid w-full items-center gap-4">
-          <Typography title="name" variant="body2">
+          <Typography
+            title="name"
+            variant="body2"
+            color={theme.palette.surface100.main}>
             Key :
           </Typography>
-          <Typography title="framework" variant="body2">
+          <Typography
+            title="framework"
+            variant="body2"
+            color={theme.palette.surface80.main}>
             Value
           </Typography>
         </Box>
@@ -56,10 +63,16 @@ function ProjectCard() {
           gap={1}
           width="100%"
           className="grid w-full items-center gap-4">
-          <Typography title="name" variant="body2">
+          <Typography
+            title="name"
+            variant="body2"
+            color={theme.palette.surface100.main}>
             Key :
           </Typography>
-          <Typography title="framework" variant="body2">
+          <Typography
+            title="framework"
+            variant="body2"
+            color={theme.palette.surface80.main}>
             Value
           </Typography>
         </Box>
