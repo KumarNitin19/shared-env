@@ -4,7 +4,10 @@ import { Button, Icon } from "../../../atoms";
 import { Box } from "../../../atoms/Box";
 import { Typography } from "../../../atoms/Typography";
 import BACKGROUD_IMAGE from "../../../assets/images/bg-pattern.png";
-import CARD_BACKGROUND from "../../../assets/images/sign-in-card-bg.svg";
+import CARD_BACKGROUND_LIGHT from "../../../assets/images/sign-in-card-bg.svg";
+import CARD_BACKGROUND_DARK from "../../../assets/images/sign-in-card-bg-dark.svg";
+import { useThemeToggle } from "../../../hooks/useThemeToggle";
+import { useTheme } from "@mui/material";
 
 const styles = {
   signInWithGoogleBtn: (theme: string) => ({
@@ -17,36 +20,38 @@ const styles = {
       width: 20,
     },
     "&.MuiButton-contained": {
-      backgroundColor: theme === "dark" ? "#000000" : "#ffffff",
-      color: theme === "dark" ? "#ffffff" : "#000000",
+      backgroundColor: theme === "light" ? "#000000" : "#ffffff",
+      color: theme === "light" ? "#ffffff" : "#000000",
     },
   }),
-  lightIcon: (theme: string) => ({
+  lightIcon: (mode: string) => ({
     transition: "all 0.3s",
-    transform: theme === "dark" ? "rotate(0deg)" : "rotate(90deg)",
+    transform: mode === "light" ? "rotate(0deg)" : "rotate(90deg)",
     height: 20,
     width: 20,
-    scale: theme === "dark" ? "100%" : 0,
+    scale: mode === "light" ? "100%" : 0,
     cursor: "pointer",
   }),
-  darkIcon: (theme: string) => ({
+  darkIcon: (mode: string) => ({
     position: "absolute",
-    transform: theme === "dark" ? "rotate(0deg)" : "rotate(90deg)",
+    transform: mode === "dark" ? "rotate(0deg)" : "rotate(90deg)",
     transition: "all 0.3s",
     height: 20,
     width: 20,
-    scale: theme === "dark" ? "100%" : 0,
+    scale: mode === "dark" ? "100%" : 0,
     cursor: "pointer",
   }),
   signInContainer: {
     backgroundImage: `url(${BACKGROUD_IMAGE})`,
     backgroundSize: "cover",
   },
-  signInCard: {
-    backgroundImage: `url(${CARD_BACKGROUND})`,
+  signInCard: (theme: string) => ({
+    backgroundImage: `url(${
+      theme === "light" ? CARD_BACKGROUND_LIGHT : CARD_BACKGROUND_DARK
+    })`,
     backgroundSize: "cover",
     backdropFilter: "blur(62px)",
-  },
+  }),
 };
 
 type SignInProps = {
@@ -54,7 +59,8 @@ type SignInProps = {
 };
 
 function SignIn({ onSignUp }: SignInProps) {
-  const theme = "dark";
+  const theme = useTheme();
+  const { mode, toggleTheme } = useThemeToggle();
   return (
     <Box
       display="flex"
@@ -62,6 +68,7 @@ function SignIn({ onSignUp }: SignInProps) {
       justifyContent="center"
       height="100%"
       width="100%"
+      bgcolor={theme.palette.mainBackground.main}
       sx={styles.signInContainer}>
       <Box
         display="flex"
@@ -71,23 +78,24 @@ function SignIn({ onSignUp }: SignInProps) {
         alignItems="center"
         justifyContent="center"
         gap={3}
-        // borderRadius={1.5}
-        // border={1}
-        sx={styles.signInCard}>
+        sx={styles.signInCard(mode)}>
         <img
-          src={theme === "dark" ? LOGO_DARK : LOGO_LIGHT}
+          src={mode === "light" ? LOGO_DARK : LOGO_LIGHT}
           alt="varvault_logo"
         />
-        <Typography variant="h4" fontWeight={700}>
+        <Typography
+          variant="h4"
+          fontWeight={700}
+          color={theme.palette.surface100.main}>
           VarVault
         </Typography>
-        <Typography textAlign="center">
+        <Typography textAlign="center" color={theme.palette.surface80.main}>
           One stop platform for all your <br /> environment credentials
         </Typography>
         <Button
           variant="contained"
           onClick={onSignUp}
-          sx={styles.signInWithGoogleBtn(theme)}>
+          sx={styles.signInWithGoogleBtn(mode)}>
           <Icon icon="logos:google-icon" />
           Sign In With Google
         </Button>
@@ -99,12 +107,11 @@ function SignIn({ onSignUp }: SignInProps) {
         m={2}
         p={1}
         borderRadius={2}
-        // onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      >
-        <Box sx={styles.darkIcon(theme)}>
-          <Icon icon="basil:moon-outline" fontSize={20} />
+        onClick={() => toggleTheme(mode === "light" ? "dark" : "light")}>
+        <Box sx={styles.darkIcon(mode)}>
+          <Icon icon="basil:moon-outline" color="#ffffff" fontSize={20} />
         </Box>
-        <Box sx={styles.lightIcon(theme)}>
+        <Box sx={styles.lightIcon(mode)}>
           <Icon icon="uil:sun" fontSize={20} />
         </Box>
       </Box>
