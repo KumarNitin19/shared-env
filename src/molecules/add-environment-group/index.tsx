@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback, useState } from "react";
-import { Button, Divider, Icon, Label } from "../../atoms";
+import { Button, Divider, Icon } from "../../atoms";
 import { KeyValueProp } from "../../types/commonTypes";
 import { generateUID } from "../../utils/commonUtils";
 import Dialog, {
@@ -8,6 +8,7 @@ import Dialog, {
   DialogTitle,
 } from "../../atoms/Dialog";
 import InputField from "../../atoms/TextField";
+import { Typography } from "../../atoms/Typography";
 
 const styles = {
   addVariableButton: { height: "fit-content" },
@@ -109,9 +110,9 @@ function AddEnvironmentGroup({ children }: Props) {
         <DialogContent className="min-w-[50%]">
           <div className="grid gap-4 py-4">
             <div className="grid items-center gap-4">
-              <Label htmlFor="groupName" className="text-start">
+              <Typography title="groupName" className="text-start">
                 Group Name
-              </Label>
+              </Typography>
               <InputField
                 id="name"
                 value={groupName}
@@ -136,8 +137,10 @@ function AddEnvironmentGroup({ children }: Props) {
               </div>
               <div className="grid gap-2">
                 <div className="flex gap-4 items-center">
-                  <Label className="text-start w-full">Key</Label>
-                  <Label className="text-start w-full mr-9">Value</Label>
+                  <Typography className="text-start w-full">Key</Typography>
+                  <Typography className="text-start w-full mr-9">
+                    Value
+                  </Typography>
                 </div>
                 {envVariable?.map((variable) => (
                   <div key={variable?.id} className="flex gap-4 items-center">
