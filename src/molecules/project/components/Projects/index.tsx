@@ -46,8 +46,8 @@ function Projects({ projects }: Props) {
         p={2.5}
         borderRadius={3}
         bgcolor={palette.surface20.main}>
-        <ProjectPageZeroState />
-        {/* <EnvironmentVariableGroupList /> */}
+        {/* <ProjectPageZeroState /> */}
+        <EnvironmentVariableGroupList />
       </Box>
     </Box>
   );
