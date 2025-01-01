@@ -196,6 +196,22 @@ function Sidebar() {
           VarVault
         </Typography>
       </Box>
+
+      <List sx={{ marginX: 3 }}>
+        <ListItem
+          disablePadding
+          title="Dashboard"
+          sx={styles.listItem(theme, mode)}>
+          <Link href={""}>
+            <ListItemButton selected={true}>
+              <ListItemIcon>
+                <Icon icon="material-symbols:space-dashboard-rounded" />
+              </ListItemIcon>
+              <ListItemText primary="Dashboard" />
+            </ListItemButton>
+          </Link>
+        </ListItem>
+      </List>
       <Divider color="#fff" sx={styles.divider} />
       <Box
         display="flex"
