@@ -4,12 +4,6 @@ import AddEnvironmentGroup from "../../../molecules/add-environment-group";
 import { Typography } from "../../../atoms/Typography";
 import { Box } from "../../../atoms/Box";
 
-const styles = {
-  createEnvironmentGroupButton: {
-    height: "fit-content",
-  },
-};
-
 function EnvironmentVariableGroupList() {
   const { palette } = useTheme();
   return (
@@ -20,29 +14,6 @@ function EnvironmentVariableGroupList() {
         fontWeight="600">
         Environment Groups
       </Typography>
-      <Box
-        display="flex"
-        flexDirection="column"
-        gap={5.5}
-        alignItems="center"
-        margin="auto">
-        <Typography
-          textAlign="center"
-          fontSize={32}
-          color={palette.surface80.main}>
-          Create environment group to <br /> add variables!
-        </Typography>
-        <AddEnvironmentGroup>
-          <Button
-            variant="contained"
-            startIcon={
-              <Icon icon="fluent:add-16-regular" className="h-5 w-5" />
-            }
-            sx={styles.createEnvironmentGroupButton}>
-            Create Environment Group
-          </Button>
-        </AddEnvironmentGroup>
-      </Box>
     </Box>
   );
 }

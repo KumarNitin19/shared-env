@@ -6,6 +6,7 @@ import { Typography } from "../../../../atoms/Typography";
 import EnvironmentVariableGroupList from "../../../../organisms/projects/environment-variable-group-list";
 import CopyText from "../../../copy-text";
 import { Box } from "../../../../atoms/Box";
+import ProjectPageZeroState from "../../../../organisms/projects/project-page-zero-state";
 
 type Props = {
   projects: {
@@ -32,7 +33,7 @@ function Projects({ projects }: Props) {
           {projectName}
         </Typography>
         <Box display="flex" gap={1.25} alignItems="center">
-          <Typography color={palette.surface80.main}>
+          <Typography color={palette.surface80.main} variant="subtitle1">
             78F9A2E7-9C1B-4A8D-AE67-82DF7D1F5C36
           </Typography>
           <Divider orientation="vertical" sx={{ height: 12 }} />
@@ -45,8 +46,8 @@ function Projects({ projects }: Props) {
         p={2.5}
         borderRadius={3}
         bgcolor={palette.surface20.main}>
-        {/* <ZeroState /> */}
-        <EnvironmentVariableGroupList />
+        <ProjectPageZeroState />
+        {/* <EnvironmentVariableGroupList /> */}
       </Box>
     </Box>
   );
