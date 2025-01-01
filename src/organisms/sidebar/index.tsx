@@ -1,11 +1,11 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../../molecules/auth/utils/firebase";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { useToast } from "../../hooks/use-toast";
 import useUser from "../../hooks/useUser";
 import { LoggedInUser } from "../../types/loggedInUser.type";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import LOGO_DARK from "../../../src/assets/images/varvault-dark.svg";
 import LOGO_LIGHT from "../../../src/assets/images/varvault-light.svg";
 import { Avatar, Divider, Icon } from "../../atoms";
@@ -137,12 +137,18 @@ const ListSubheaderComponent = ({ listItem, isOpenSideBar }: any) => {
 
 function Sidebar() {
   const [activeProject, setActiveProject] = useState<string | null>(null);
+  const [selectedMenuItem, setSelectedMenuItem] = useState<string>("/");
+  const location = useLocation();
   const navigate = useNavigate();
   const { removeItem } = useLocalStorage();
   const { toast } = useToast();
   const { mode } = useThemeToggle();
   const theme = useTheme();
   const loggedInUser: LoggedInUser = useUser();
+
+  useEffect(() => {
+    setSelectedMenuItem(location.pathname);
+  }, [location.pathname]);
 
   const signOutUser = () => {
     signOut(auth)
@@ -203,7 +209,7 @@ function Sidebar() {
           title="Dashboard"
           sx={styles.listItem(theme, mode)}>
           <Link href={""}>
-            <ListItemButton selected={true}>
+            <ListItemButton selected={selectedMenuItem === "/"}>
               <ListItemIcon>
                 <Icon icon="material-symbols:space-dashboard-rounded" />
               </ListItemIcon>
@@ -250,8 +256,9 @@ function Sidebar() {
                   disablePadding
                   title={listItem.label}
                   sx={styles.listItem(theme, mode)}>
-                  <Link href={""}>
-                    <ListItemButton selected={index === 0}>
+                  <Link href={`/project/${listItem.id}`}>
+                    <ListItemButton
+                      selected={selectedMenuItem === `/project/${listItem.id}`}>
                       <ListItemIcon>
                         <Icon icon="fluent:document-20-filled" />
                       </ListItemIcon>
