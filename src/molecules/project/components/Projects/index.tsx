@@ -1,10 +1,11 @@
 // import useCopyToClipboard from "../../../../hooks/useCopyToClipboard";
 // import EnvironmentVariableGroupList from "../../../../organisms/projects/environment-variable-group-list";
+import { useTheme } from "@mui/material";
 import { Divider } from "../../../../atoms";
-import InputField from "../../../../atoms/TextField";
-import ZeroState from "../../../../organisms/projects/enviornment-zero-state/zeroState";
+import { Typography } from "../../../../atoms/Typography";
 import EnvironmentVariableGroupList from "../../../../organisms/projects/environment-variable-group-list";
 import CopyText from "../../../copy-text";
+import { Box } from "../../../../atoms/Box";
 
 type Props = {
   projects: {
@@ -14,26 +15,40 @@ type Props = {
 
 function Projects({ projects }: Props) {
   const { projectName } = projects;
+  const { palette } = useTheme();
   return (
-    <div className="h-full p-8 flex flex-col items-start gap-4">
-      <InputField
-        className="w-auto p-0 text-3xl border-0 placeholder:text-xl"
-        type="text"
-        placeholder="Enter project name"
-        value={projectName}
-      />
-      <div className="flex items-center gap-2">
-        <span id="project-id" className="text-subtle">
-          78F9A2E7-9C1B-4A8D-AE67-82DF7D1F5C36
-        </span>
-        <Divider orientation="vertical" />
-        <CopyText text="78F9A2E7-9C1B-4A8D-AE67-82DF7D1F5C36" />
-      </div>
-      <div className="w-full p-4 flex-1 flex flex-col gap-4 overflow-auto bg-card rounded-xl shadow dark:shadow-[#3b3c45]">
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap={2.5}
+      height="100%"
+      width="100%">
+      <Box display="grid" rowGap={1}>
+        <Typography
+          variant="h4"
+          fontSize={32}
+          fontWeight={400}
+          color={palette.surface100.main}>
+          {projectName}
+        </Typography>
+        <Box display="flex" gap={1.25} alignItems="center">
+          <Typography color={palette.surface80.main}>
+            78F9A2E7-9C1B-4A8D-AE67-82DF7D1F5C36
+          </Typography>
+          <Divider orientation="vertical" sx={{ height: 12 }} />
+          <CopyText text="78F9A2E7-9C1B-4A8D-AE67-82DF7D1F5C36" />
+        </Box>
+      </Box>
+      <Box
+        flex={1}
+        width="100%"
+        p={2.5}
+        borderRadius={3}
+        bgcolor={palette.surface20.main}>
         {/* <ZeroState /> */}
         <EnvironmentVariableGroupList />
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
 

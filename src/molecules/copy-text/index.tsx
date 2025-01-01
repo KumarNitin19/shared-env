@@ -1,3 +1,4 @@
+import { IconButton } from "@mui/material";
 import { Icon } from "../../atoms";
 import useCopyToClipboard from "../../hooks/useCopyToClipboard";
 
@@ -11,11 +12,13 @@ function CopyText({ text = "" }: Props) {
     return <Icon icon="material-symbols:check" color="green" />;
   }
   return (
-    <Icon
-      onClick={() => copy(text)}
-      icon="fluent:copy-20-regular"
-      className="cursor-pointer"
-    />
+    <IconButton sx={{ padding: 0 }}>
+      <Icon
+        onClick={() => copy(text)}
+        icon="fluent:copy-20-regular"
+        className="cursor-pointer"
+      />
+    </IconButton>
   );
 }
 

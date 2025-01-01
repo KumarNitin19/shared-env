@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import Projects from "../../molecules/project/components/Projects";
 import { KeyValueProp } from "../../types/commonTypes";
+import { Box } from "../../atoms/Box";
 
 const PROJECT_DATA: KeyValueProp<{ projectName: string }> = {
   ["1"]: {
@@ -17,9 +18,16 @@ const PROJECT_DATA: KeyValueProp<{ projectName: string }> = {
 const ProjectPage = () => {
   const { projectId = "1" } = useParams<{ projectId: string }>();
   return (
-    <div className="h-full">
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap={4}
+      alignItems="start"
+      px={3}
+      py={2}
+      height="100%">
       <Projects projects={PROJECT_DATA[projectId]} />
-    </div>
+    </Box>
   );
 };
 
