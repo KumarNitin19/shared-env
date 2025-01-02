@@ -31,6 +31,9 @@ const styles = {
     padding: 3,
   },
   addVariableButton: { height: "fit-content" },
+  iconButton: {
+    padding: 0,
+  },
 };
 
 type Props = {
@@ -149,59 +152,62 @@ function AddEnvironmentGroup({ children }: Props) {
             />
           </IconButton>
         </DialogTitle>
-        <DialogContent>
-          <div>
-            <div>
-              <Typography title="groupName">Group Name</Typography>
+        <DialogContent sx={styles.dialogContent}>
+          <Box display="grid" rowGap={2}>
+            <Box display="grid" rowGap={1}>
+              <Typography
+                title="projectName"
+                variant="subtitle2"
+                color={theme.palette.surface100.main}>
+                Group Name
+              </Typography>
               <InputField
-                id="name"
+                id="groupName"
                 value={groupName}
                 onChange={handleGroupName}
               />
-            </div>
-            <Divider />
-            <div>
-              <div>
-                <div>Variables</div>
-                <Divider orientation="vertical" />
-                <Button
-                  variant="text"
-                  startIcon={<Icon icon="fluent:add-16-regular" />}
-                  onClick={handleAddEnvVariable}
-                  sx={styles.addVariableButton}>
-                  Add New Variables
-                </Button>
-              </div>
-              <div>
-                <div>
-                  <Typography>Key</Typography>
-                  <Typography>Value</Typography>
-                </div>
-                {envVariable?.map((variable) => (
-                  <div key={variable?.id}>
-                    <InputField
-                      id={variable?.id}
-                      name="key"
-                      value={variable?.key || ""}
-                      onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
-                    />
-                    <InputField
-                      id={variable?.id}
-                      name="value"
-                      value={variable?.value || ""}
-                      onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
-                    />
+            </Box>
+            <Box display="grid" rowGap={1}>
+              <Typography
+                title="projectName"
+                variant="subtitle2"
+                color={theme.palette.surface100.main}>
+                Add New Variables
+              </Typography>
+              {envVariable?.map((variable) => (
+                <Box key={variable?.id} display="flex" gap={1}>
+                  <InputField
+                    id={variable?.id}
+                    name="key"
+                    value={variable?.key || ""}
+                    onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
+                  />
+                  <InputField
+                    id={variable?.id}
+                    name="value"
+                    value={variable?.value || ""}
+                    onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
+                  />
+
+                  <IconButton sx={styles.iconButton}>
                     <Icon
                       icon="fluent:subtract-circle-20-regular"
                       onClick={() => handleRemoveEnvVariable(variable?.id)}
                     />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+                  </IconButton>
+                  <IconButton sx={styles.iconButton}>
+                    <Icon
+                      icon="fluent:add-circle-20-regular"
+                      onClick={() => handleAddEnvVariable()}
+                    />
+                  </IconButton>
+                </Box>
+              ))}
+            </Box>
+          </Box>
         </DialogContent>
-        <DialogActions>
+
+        <DialogActions sx={styles.dialogAction}>
           <Button variant="outlined" onClick={handleCloseDialog}>
             Cancel
           </Button>
