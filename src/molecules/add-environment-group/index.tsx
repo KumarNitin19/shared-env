@@ -9,8 +9,27 @@ import Dialog, {
 } from "../../atoms/Dialog";
 import InputField from "../../atoms/TextField";
 import { Typography } from "../../atoms/Typography";
+import { IconButton, Theme, useTheme } from "@mui/material";
+import { Box } from "../../atoms/Box";
 
 const styles = {
+  dialog: (theme: Theme) => ({
+    "& .MuiPaper-root": {
+      width: 520,
+      backgroundColor: theme.palette.sidebarBG.main,
+    },
+  }),
+  dialogTitle: {
+    display: "flex",
+    justifyContent: "space-between",
+    padding: 3,
+  },
+  dialogContent: {
+    paddingBottom: 0,
+  },
+  dialogAction: {
+    padding: 3,
+  },
   addVariableButton: { height: "fit-content" },
 };
 
@@ -29,6 +48,7 @@ function AddEnvironmentGroup({ children }: Props) {
       value: "",
     },
   ]);
+  const theme = useTheme();
 
   // To open the dialog
   const handleOpenDialog = useCallback(() => {
@@ -105,8 +125,30 @@ function AddEnvironmentGroup({ children }: Props) {
   return (
     <>
       <div onClick={handleOpenDialog}>{children}</div>
-      <Dialog open={isAddEnvironmentGroup}>
-        <DialogTitle>Add Environment Group</DialogTitle>
+      <Dialog open={isAddEnvironmentGroup} sx={styles.dialog(theme)}>
+        <DialogTitle sx={styles.dialogTitle}>
+          <Box>
+            <Typography
+              variant="h6"
+              fontWeight={600}
+              color={theme.palette.surface100.main}>
+              Add Environment Group
+            </Typography>
+            <Typography
+              variant="subtitle2"
+              color={theme.palette.surface80.main}>
+              Create project to add environment variables.
+            </Typography>
+          </Box>
+          <IconButton
+            onClick={handleCloseDialog}
+            sx={{ height: "fit-content" }}>
+            <Icon
+              icon="material-symbols:close-rounded"
+              color={theme.palette.surface100.main}
+            />
+          </IconButton>
+        </DialogTitle>
         <DialogContent>
           <div>
             <div>
