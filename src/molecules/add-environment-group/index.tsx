@@ -107,60 +107,50 @@ function AddEnvironmentGroup({ children }: Props) {
       <div onClick={handleOpenDialog}>{children}</div>
       <Dialog open={isAddEnvironmentGroup}>
         <DialogTitle>Add Environment Group</DialogTitle>
-        <DialogContent className="min-w-[50%]">
-          <div className="grid gap-4 py-4">
-            <div className="grid items-center gap-4">
-              <Typography title="groupName" className="text-start">
-                Group Name
-              </Typography>
+        <DialogContent>
+          <div>
+            <div>
+              <Typography title="groupName">Group Name</Typography>
               <InputField
                 id="name"
                 value={groupName}
-                className="col-span-3"
                 onChange={handleGroupName}
               />
             </div>
             <Divider />
-            <div className="grid gap-6">
-              <div className="flex gap-4">
-                <div className="text-sm font-semibold">Variables</div>
-                <Divider orientation="vertical" className="h-3 my-auto" />
+            <div>
+              <div>
+                <div>Variables</div>
+                <Divider orientation="vertical" />
                 <Button
                   variant="text"
-                  startIcon={
-                    <Icon icon="fluent:add-16-regular" className="h-5 w-5" />
-                  }
+                  startIcon={<Icon icon="fluent:add-16-regular" />}
                   onClick={handleAddEnvVariable}
                   sx={styles.addVariableButton}>
                   Add New Variables
                 </Button>
               </div>
-              <div className="grid gap-2">
-                <div className="flex gap-4 items-center">
-                  <Typography className="text-start w-full">Key</Typography>
-                  <Typography className="text-start w-full mr-9">
-                    Value
-                  </Typography>
+              <div>
+                <div>
+                  <Typography>Key</Typography>
+                  <Typography>Value</Typography>
                 </div>
                 {envVariable?.map((variable) => (
-                  <div key={variable?.id} className="flex gap-4 items-center">
+                  <div key={variable?.id}>
                     <InputField
                       id={variable?.id}
                       name="key"
                       value={variable?.key || ""}
-                      className="col-span-3"
                       onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
                     />
                     <InputField
                       id={variable?.id}
                       name="value"
                       value={variable?.value || ""}
-                      className="col-span-3"
                       onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
                     />
                     <Icon
                       icon="fluent:subtract-circle-20-regular"
-                      className="w-5 h-5 cursor-pointer text-red-700 transition-all flex-shrink-0"
                       onClick={() => handleRemoveEnvVariable(variable?.id)}
                     />
                   </div>
