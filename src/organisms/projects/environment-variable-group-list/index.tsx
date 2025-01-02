@@ -29,9 +29,7 @@ function EnvironmentVariableGroupList() {
           <Button
             variant="text"
             size="small"
-            startIcon={
-              <Icon icon="fluent:add-16-regular" className="h-5 w-5" />
-            }
+            startIcon={<Icon icon="fluent:add-16-regular" />}
             sx={styles.createEnvironmentGroupBtn}>
             Create Environment Group
           </Button>
