@@ -102,6 +102,7 @@ function AddProject({ children }: Props) {
               </Typography>
               <InputField
                 id="name"
+                placeholder="Enter Project Name"
                 value={projectName}
                 onChange={handleProjectName}
               />

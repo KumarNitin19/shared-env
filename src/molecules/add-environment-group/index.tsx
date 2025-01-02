@@ -36,6 +36,9 @@ const styles = {
   },
   inputField: {
     flex: 1,
+    "& .MuiInputBase-input": {
+      fontSize: 14,
+    },
   },
 };
 
@@ -166,8 +169,10 @@ function AddEnvironmentGroup({ children }: Props) {
               </Typography>
               <InputField
                 id="groupName"
+                placeholder="Enter Group Name"
                 value={groupName}
                 onChange={handleGroupName}
+                sx={styles.inputField}
               />
             </Box>
             <Box display="grid" rowGap={1}>
@@ -177,11 +182,12 @@ function AddEnvironmentGroup({ children }: Props) {
                 color={theme.palette.surface100.main}>
                 Add New Variables
               </Typography>
-              {envVariable?.map((variable) => (
+              {envVariable?.map((variable, index) => (
                 <Box key={variable?.id} display="flex" gap={1}>
                   <InputField
                     id={variable?.id}
                     name="key"
+                    placeholder="Enter Variable Key"
                     value={variable?.key || ""}
                     onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
                     sx={styles.inputField}
@@ -189,27 +195,34 @@ function AddEnvironmentGroup({ children }: Props) {
                   <InputField
                     id={variable?.id}
                     name="value"
+                    placeholder="Enter Variable Value"
                     value={variable?.value || ""}
                     onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
                     sx={styles.inputField}
                   />
 
                   <IconButton sx={styles.iconButton}>
-                    <Icon
-                      icon="fluent:subtract-circle-20-regular"
-                      color="red"
-                      fontSize={20}
-                      onClick={() => handleRemoveEnvVariable(variable?.id)}
-                    />
+                    {envVariable?.length > 1 ? (
+                      <Icon
+                        icon="fluent:subtract-circle-20-regular"
+                        color="red"
+                        fontSize={20}
+                        onClick={() => handleRemoveEnvVariable(variable?.id)}
+                      />
+                    ) : null}
                   </IconButton>
-                  <IconButton sx={styles.iconButton}>
-                    <Icon
-                      icon="fluent:add-circle-20-regular"
-                      color={theme.palette.surface100.main}
-                      fontSize={20}
-                      onClick={() => handleAddEnvVariable()}
-                    />
-                  </IconButton>
+                  {index === envVariable?.length - 1 ? (
+                    <IconButton sx={styles.iconButton}>
+                      <Icon
+                        icon="fluent:add-circle-20-regular"
+                        color={theme.palette.surface100.main}
+                        fontSize={20}
+                        onClick={() => handleAddEnvVariable()}
+                      />
+                    </IconButton>
+                  ) : (
+                    <Box width={20}></Box>
+                  )}
                 </Box>
               ))}
             </Box>
