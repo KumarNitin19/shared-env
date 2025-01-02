@@ -34,6 +34,9 @@ const styles = {
   iconButton: {
     padding: 0,
   },
+  inputField: {
+    flex: 1,
+  },
 };
 
 type Props = {
@@ -181,23 +184,29 @@ function AddEnvironmentGroup({ children }: Props) {
                     name="key"
                     value={variable?.key || ""}
                     onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
+                    sx={styles.inputField}
                   />
                   <InputField
                     id={variable?.id}
                     name="value"
                     value={variable?.value || ""}
                     onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
+                    sx={styles.inputField}
                   />
 
                   <IconButton sx={styles.iconButton}>
                     <Icon
                       icon="fluent:subtract-circle-20-regular"
+                      color="red"
+                      fontSize={20}
                       onClick={() => handleRemoveEnvVariable(variable?.id)}
                     />
                   </IconButton>
                   <IconButton sx={styles.iconButton}>
                     <Icon
                       icon="fluent:add-circle-20-regular"
+                      color={theme.palette.surface100.main}
+                      fontSize={20}
                       onClick={() => handleAddEnvVariable()}
                     />
                   </IconButton>
