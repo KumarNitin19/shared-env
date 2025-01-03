@@ -1,15 +1,11 @@
 import { ChangeEvent, useCallback, useState } from "react";
-import { Button, Divider, Icon } from "../../atoms";
+import { Button, Icon } from "../../atoms";
 import { KeyValueProp } from "../../types/commonTypes";
 import { generateUID } from "../../utils/commonUtils";
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from "../../atoms/Dialog";
+
 import InputField from "../../atoms/TextField";
 import { Typography } from "../../atoms/Typography";
-import { IconButton, Theme, useTheme } from "@mui/material";
+import { Divider, IconButton, Theme, useTheme } from "@mui/material";
 import { Box } from "../../atoms/Box";
 
 const styles = {
@@ -42,13 +38,7 @@ const styles = {
   },
 };
 
-type Props = {
-  children: React.ReactNode;
-};
-
-function AddEnvironmentGroup({ children }: Props) {
-  const [isAddEnvironmentGroup, setIsAddEnvironmentGroup] =
-    useState<boolean>(false);
+function AddEnvironmentGroup() {
   const [groupName, setGroupName] = useState<string>("");
   const [envVariable, setEnvVariable] = useState<KeyValueProp<string>[]>([
     {
@@ -59,14 +49,8 @@ function AddEnvironmentGroup({ children }: Props) {
   ]);
   const theme = useTheme();
 
-  // To open the dialog
-  const handleOpenDialog = useCallback(() => {
-    setIsAddEnvironmentGroup(true);
-  }, []);
-
   // To close the dialog and reset the state
-  const handleCloseDialog = useCallback(() => {
-    setIsAddEnvironmentGroup(false);
+  const onCancel = useCallback(() => {
     setEnvVariable([
       {
         id: generateUID(),
@@ -118,7 +102,7 @@ function AddEnvironmentGroup({ children }: Props) {
   const handleAddEnvironmentGroup = useCallback(() => {
     if (groupName) {
       setGroupName("");
-      handleCloseDialog();
+      onCancel();
       setEnvVariable([
         {
           id: generateUID(),
@@ -132,116 +116,93 @@ function AddEnvironmentGroup({ children }: Props) {
   }, [groupName]);
 
   return (
-    <>
-      <div onClick={handleOpenDialog}>{children}</div>
-      <Dialog open={isAddEnvironmentGroup} sx={styles.dialog(theme)}>
-        <DialogTitle sx={styles.dialogTitle}>
-          <Box>
+    <Box>
+      <Box>
+        <Typography
+          variant="h6"
+          fontWeight={600}
+          color={theme.palette.surface100.main}>
+          Add Environment Group
+        </Typography>
+        <Typography variant="subtitle2" color={theme.palette.surface80.main}>
+          Create project to add environment variables.
+        </Typography>
+      </Box>
+
+      <Box display="grid" rowGap={2}>
+        <Box display="grid" rowGap={1}>
+          <Typography
+            title="projectName"
+            variant="subtitle2"
+            color={theme.palette.surface100.main}>
+            Group Name
+          </Typography>
+          <InputField
+            id="groupName"
+            placeholder="Enter Group Name"
+            value={groupName}
+            onChange={handleGroupName}
+            sx={styles.inputField}
+          />
+        </Box>
+        <Box display="grid" rowGap={1}>
+          <Box display="flex" gap={2} alignItems="center">
             <Typography
-              variant="h6"
-              fontWeight={600}
-              color={theme.palette.surface100.main}>
-              Add Environment Group
-            </Typography>
-            <Typography
+              title="projectName"
               variant="subtitle2"
-              color={theme.palette.surface80.main}>
-              Create project to add environment variables.
+              color={theme.palette.surface100.main}>
+              Variables
             </Typography>
+            <Divider orientation="vertical" sx={{ height: 12 }} />
+            <Button variant="text" onClick={handleAddEnvVariable}>
+              Add new Variable
+            </Button>
           </Box>
-          <IconButton
-            onClick={handleCloseDialog}
-            sx={{ height: "fit-content" }}>
-            <Icon
-              icon="material-symbols:close-rounded"
-              color={theme.palette.surface100.main}
-            />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent sx={styles.dialogContent}>
-          <Box display="grid" rowGap={2}>
-            <Box display="grid" rowGap={1}>
-              <Typography
-                title="projectName"
-                variant="subtitle2"
-                color={theme.palette.surface100.main}>
-                Group Name
-              </Typography>
+          {envVariable?.map((variable, index) => (
+            <Box key={variable?.id} display="flex" gap={1}>
               <InputField
-                id="groupName"
-                placeholder="Enter Group Name"
-                value={groupName}
-                onChange={handleGroupName}
+                id={variable?.id}
+                name="key"
+                placeholder="Enter Variable Key"
+                value={variable?.key || ""}
+                onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
                 sx={styles.inputField}
               />
-            </Box>
-            <Box display="grid" rowGap={1}>
-              <Typography
-                title="projectName"
-                variant="subtitle2"
-                color={theme.palette.surface100.main}>
-                Add New Variables
-              </Typography>
-              {envVariable?.map((variable, index) => (
-                <Box key={variable?.id} display="flex" gap={1}>
-                  <InputField
-                    id={variable?.id}
-                    name="key"
-                    placeholder="Enter Variable Key"
-                    value={variable?.key || ""}
-                    onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
-                    sx={styles.inputField}
+              <InputField
+                id={variable?.id}
+                name="value"
+                placeholder="Enter Variable Value"
+                value={variable?.value || ""}
+                onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
+                sx={styles.inputField}
+              />
+              <IconButton sx={styles.iconButton}>
+                {envVariable?.length > 1 ? (
+                  <Icon
+                    icon="fluent:subtract-circle-20-regular"
+                    color="red"
+                    fontSize={20}
+                    onClick={() => handleRemoveEnvVariable(variable?.id)}
                   />
-                  <InputField
-                    id={variable?.id}
-                    name="value"
-                    placeholder="Enter Variable Value"
-                    value={variable?.value || ""}
-                    onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
-                    sx={styles.inputField}
-                  />
-
-                  <IconButton sx={styles.iconButton}>
-                    {envVariable?.length > 1 ? (
-                      <Icon
-                        icon="fluent:subtract-circle-20-regular"
-                        color="red"
-                        fontSize={20}
-                        onClick={() => handleRemoveEnvVariable(variable?.id)}
-                      />
-                    ) : null}
-                  </IconButton>
-                  {index === envVariable?.length - 1 ? (
-                    <IconButton sx={styles.iconButton}>
-                      <Icon
-                        icon="fluent:add-circle-20-regular"
-                        color={theme.palette.surface100.main}
-                        fontSize={20}
-                        onClick={() => handleAddEnvVariable()}
-                      />
-                    </IconButton>
-                  ) : (
-                    <Box width={20}></Box>
-                  )}
-                </Box>
-              ))}
+                ) : null}
+              </IconButton>
             </Box>
-          </Box>
-        </DialogContent>
+          ))}
+        </Box>
+      </Box>
 
-        <DialogActions sx={styles.dialogAction}>
-          <Button variant="outlined" onClick={handleCloseDialog}>
-            Cancel
-          </Button>
-          <Button
-            type="submit"
-            variant="contained"
-            onClick={handleAddEnvironmentGroup}>
-            Add
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
+      <Box display="flex" gap={1.5} justifyContent="end">
+        <Button variant="outlined" onClick={onCancel}>
+          Cancel
+        </Button>
+        <Button
+          type="submit"
+          variant="contained"
+          onClick={handleAddEnvironmentGroup}>
+          Add
+        </Button>
+      </Box>
+    </Box>
   );
 }
 
