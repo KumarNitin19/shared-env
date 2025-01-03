@@ -5,28 +5,11 @@ import { generateUID } from "../../utils/commonUtils";
 
 import InputField from "../../atoms/TextField";
 import { Typography } from "../../atoms/Typography";
-import { Divider, IconButton, Theme, useTheme } from "@mui/material";
+import { Divider, IconButton, useTheme } from "@mui/material";
 import { Box } from "../../atoms/Box";
 
 const styles = {
-  dialog: (theme: Theme) => ({
-    "& .MuiPaper-root": {
-      width: 520,
-      backgroundColor: theme.palette.sidebarBG.main,
-    },
-  }),
-  dialogTitle: {
-    display: "flex",
-    justifyContent: "space-between",
-    padding: 3,
-  },
-  dialogContent: {
-    paddingBottom: 0,
-  },
-  dialogAction: {
-    padding: 3,
-  },
-  addVariableButton: { height: "fit-content" },
+  addVariableButton: { height: "fit-content", fontSize: 14 },
   iconButton: {
     padding: 0,
   },
@@ -116,7 +99,7 @@ function AddEnvironmentGroup() {
   }, [groupName]);
 
   return (
-    <Box>
+    <Box display="grid" rowGap={3}>
       <Box>
         <Typography
           variant="h6"
@@ -145,7 +128,7 @@ function AddEnvironmentGroup() {
             sx={styles.inputField}
           />
         </Box>
-        <Box display="grid" rowGap={1}>
+        <Box display="grid" rowGap={4}>
           <Box display="flex" gap={2} alignItems="center">
             <Typography
               title="projectName"
@@ -154,40 +137,63 @@ function AddEnvironmentGroup() {
               Variables
             </Typography>
             <Divider orientation="vertical" sx={{ height: 12 }} />
-            <Button variant="text" onClick={handleAddEnvVariable}>
+            <Button
+              variant="text"
+              startIcon={
+                <Icon icon="fluent:add-16-regular" className="h-5 w-5" />
+              }
+              onClick={handleAddEnvVariable}
+              sx={styles.addVariableButton}>
               Add new Variable
             </Button>
           </Box>
-          {envVariable?.map((variable, index) => (
-            <Box key={variable?.id} display="flex" gap={1}>
-              <InputField
-                id={variable?.id}
-                name="key"
-                placeholder="Enter Variable Key"
-                value={variable?.key || ""}
-                onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
-                sx={styles.inputField}
-              />
-              <InputField
-                id={variable?.id}
-                name="value"
-                placeholder="Enter Variable Value"
-                value={variable?.value || ""}
-                onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
-                sx={styles.inputField}
-              />
-              <IconButton sx={styles.iconButton}>
-                {envVariable?.length > 1 ? (
-                  <Icon
-                    icon="fluent:subtract-circle-20-regular"
-                    color="red"
-                    fontSize={20}
-                    onClick={() => handleRemoveEnvVariable(variable?.id)}
-                  />
-                ) : null}
-              </IconButton>
+          <Box display="gird" rowGap={2}>
+            <Box display="flex" gap={1}>
+              <Typography
+                variant="body2"
+                flex={1}
+                color={theme.palette.surface100.main}>
+                Key
+              </Typography>
+              <Typography
+                variant="body2"
+                flex={1}
+                color={theme.palette.surface100.main}>
+                Value
+              </Typography>
+              <Box width={20}></Box>
             </Box>
-          ))}
+            {envVariable?.map((variable, index) => (
+              <Box key={variable?.id} display="flex" gap={1}>
+                <InputField
+                  id={variable?.id}
+                  name="key"
+                  placeholder="Enter Variable Key"
+                  value={variable?.key || ""}
+                  onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
+                  sx={styles.inputField}
+                />
+                <InputField
+                  id={variable?.id}
+                  name="value"
+                  placeholder="Enter Variable Value"
+                  value={variable?.value || ""}
+                  onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
+                  sx={styles.inputField}
+                />
+                <IconButton sx={styles.iconButton}>
+                  {envVariable?.length > 1 ? (
+                    <Icon
+                      icon="fluent:subtract-circle-20-regular"
+                      color="red"
+                      fontSize={20}
+                      onClick={() => handleRemoveEnvVariable(variable?.id)}
+                    />
+                  ) : null}
+                </IconButton>
+              </Box>
+            ))}
+          </Box>
         </Box>
       </Box>
 

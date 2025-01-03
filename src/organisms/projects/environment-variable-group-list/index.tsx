@@ -25,15 +25,7 @@ function EnvironmentVariableGroupList() {
           fontWeight="600">
           Environment Groups
         </Typography>
-        <AddEnvironmentGroup>
-          <Button
-            variant="text"
-            size="small"
-            startIcon={<Icon icon="fluent:add-16-regular" />}
-            sx={styles.createEnvironmentGroupBtn}>
-            Create Environment Group
-          </Button>
-        </AddEnvironmentGroup>
+        <AddEnvironmentGroup />
       </Box>
     </Box>
   );
