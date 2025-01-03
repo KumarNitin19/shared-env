@@ -3,6 +3,11 @@ import { Button, Icon } from "../../../atoms";
 import AddEnvironmentGroup from "../../../molecules/add-environment-group";
 import { Typography } from "../../../atoms/Typography";
 import { Box } from "../../../atoms/Box";
+import Accordion, {
+  AccordionDetails,
+  AccordionSummary,
+} from "../../../atoms/Accordion";
+import VariableAccordion from "../variable-accordion";
 
 const styles = {
   createEnvironmentGroupBtn: {
@@ -13,7 +18,13 @@ const styles = {
 function EnvironmentVariableGroupList() {
   const { palette } = useTheme();
   return (
-    <Box display="flex" flexDirection="column" height="100%" width="100%">
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap={5}
+      height="100%"
+      width="100%"
+      overflow="hidden">
       <Box
         display="flex"
         justifyContent="space-between"
@@ -25,7 +36,18 @@ function EnvironmentVariableGroupList() {
           fontWeight="600">
           Environment Groups
         </Typography>
-        <AddEnvironmentGroup />
+        <Button
+          variant="text"
+          size="small"
+          startIcon={<Icon icon="fluent:add-16-regular" />}
+          sx={styles.createEnvironmentGroupBtn}>
+          Create Environment Group
+        </Button>
+      </Box>
+      <Box height="100%" overflow="auto">
+        <VariableAccordion>
+          <AddEnvironmentGroup />
+        </VariableAccordion>
       </Box>
     </Box>
   );
