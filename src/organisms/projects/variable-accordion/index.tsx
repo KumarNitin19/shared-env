@@ -8,8 +8,22 @@ import { Divider } from "../../../atoms";
 
 const styles = {
   accordion: (theme: Theme) => ({
-    background: theme.palette.mainBackground.main,
+    "&.MuiAccordion-root": {
+      background: theme.palette.mainBackground.main,
+      border: `1px solid ${theme.palette.separation.main}`,
+      borderRadius: 2,
+      padding: 2,
+    },
   }),
+  accordionSummary: {
+    padding: 0,
+    minHeight: "auto",
+    "& .MuiAccordionSummary-content": {
+      alignItems: "center",
+      gap: 2,
+      margin: 0,
+    },
+  },
 };
 
 type Props = {
@@ -20,7 +34,7 @@ const VariableAccordion = ({ children }: Props) => {
   const theme = useTheme();
   return (
     <Accordion sx={styles.accordion}>
-      <AccordionSummary>
+      <AccordionSummary sx={styles.accordionSummary}>
         <Typography fontSize={20} color={theme.palette.surface100.main}>
           Production
         </Typography>
