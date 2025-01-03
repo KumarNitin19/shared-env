@@ -1,10 +1,16 @@
-import { useTheme } from "@mui/material";
+import { Theme, useTheme } from "@mui/material";
 import Accordion, {
   AccordionDetails,
   AccordionSummary,
 } from "../../../atoms/Accordion";
 import { Typography } from "../../../atoms/Typography";
 import { Divider } from "../../../atoms";
+
+const styles = {
+  accordion: (theme: Theme) => ({
+    background: theme.palette.mainBackground.main,
+  }),
+};
 
 type Props = {
   children: React.ReactElement;
@@ -13,7 +19,7 @@ type Props = {
 const VariableAccordion = ({ children }: Props) => {
   const theme = useTheme();
   return (
-    <Accordion>
+    <Accordion sx={styles.accordion}>
       <AccordionSummary>
         <Typography fontSize={20} color={theme.palette.surface100.main}>
           Production
