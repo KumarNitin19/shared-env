@@ -1,10 +1,12 @@
-import { Theme, useTheme } from "@mui/material";
+import { IconButton, Theme, useTheme } from "@mui/material";
 import Accordion, {
   AccordionDetails,
   AccordionSummary,
 } from "../../../atoms/Accordion";
 import { Typography } from "../../../atoms/Typography";
-import { Divider } from "../../../atoms";
+import { Divider, Icon } from "../../../atoms";
+import { Box } from "../../../atoms/Box";
+import { useState } from "react";
 
 const styles = {
   accordion: (theme: Theme) => ({
@@ -17,13 +19,27 @@ const styles = {
   }),
   accordionSummary: {
     padding: 0,
-    minHeight: "auto",
+    minHeight: "auto !important",
     "& .MuiAccordionSummary-content": {
       alignItems: "center",
+      justifyContent: "space-between",
       gap: 2,
       margin: 0,
+      "&.Mui-expanded": {
+        margin: 0,
+      },
     },
   },
+  divider: {
+    height: 12,
+  },
+  iconButton: {
+    padding: 0,
+  },
+  expandIcon: (isExpanded: boolean) => ({
+    transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
+    transition: "all 0.3s",
+  }),
 };
 
 type Props = {
@@ -31,15 +47,45 @@ type Props = {
 };
 
 const VariableAccordion = ({ children }: Props) => {
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const theme = useTheme();
   return (
-    <Accordion sx={styles.accordion}>
+    <Accordion expanded={isExpanded} sx={styles.accordion}>
       <AccordionSummary sx={styles.accordionSummary}>
-        <Typography fontSize={20} color={theme.palette.surface100.main}>
-          Production
-        </Typography>
-        <Divider orientation="vertical" />
-        <Typography color={theme.palette.surface40.main}>6</Typography>
+        <Box display="flex" alignItems="center" gap={2}>
+          <Typography fontSize={20} color={theme.palette.surface100.main}>
+            Production
+          </Typography>
+          <Divider
+            orientation="vertical"
+            color={theme.palette.divider}
+            sx={styles.divider}
+          />
+          <Typography color={theme.palette.surface40.main}>6</Typography>
+        </Box>
+        <Box display="flex" alignItems="center" gap={2}>
+          <IconButton
+            sx={{ ...styles.iconButton, ...styles.expandIcon(isExpanded) }}>
+            <Icon
+              icon="fluent:chevron-down-20-regular"
+              color={theme.palette.surface100.main}
+              fontSize={20}
+              onClick={() => setIsExpanded(!isExpanded)}
+            />
+          </IconButton>
+          <Divider
+            orientation="vertical"
+            color={theme.palette.divider}
+            sx={styles.divider}
+          />
+          <IconButton sx={styles.iconButton}>
+            <Icon
+              icon="fluent:edit-20-regular"
+              color={theme.palette.surface100.main}
+              fontSize={20}
+            />
+          </IconButton>
+        </Box>
       </AccordionSummary>
       <AccordionDetails>{children}</AccordionDetails>
     </Accordion>
