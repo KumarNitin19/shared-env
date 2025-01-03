@@ -6,7 +6,7 @@ import Accordion, {
 import { Typography } from "../../../atoms/Typography";
 import { Divider, Icon } from "../../../atoms";
 import { Box } from "../../../atoms/Box";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 const styles = {
   accordion: (theme: Theme) => ({
@@ -20,6 +20,7 @@ const styles = {
   accordionSummary: {
     padding: 0,
     minHeight: "auto !important",
+    cursor: "default",
     "& .MuiAccordionSummary-content": {
       alignItems: "center",
       justifyContent: "space-between",
@@ -44,14 +45,21 @@ const styles = {
 
 type Props = {
   children: React.ReactElement;
+  expanded?: boolean;
 };
 
-const VariableAccordion = ({ children }: Props) => {
-  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+const VariableAccordion = ({ children, expanded = false }: Props) => {
+  const [isExpanded, setIsExpanded] = useState<boolean>(expanded || false);
   const theme = useTheme();
+
+  const toggleAccordion = useCallback(
+    () => setIsExpanded((prev: boolean) => !prev),
+    []
+  );
+
   return (
     <Accordion expanded={isExpanded} sx={styles.accordion}>
-      <AccordionSummary sx={styles.accordionSummary}>
+      <AccordionSummary component="div" sx={styles.accordionSummary}>
         <Box display="flex" alignItems="center" gap={2}>
           <Typography fontSize={20} color={theme.palette.surface100.main}>
             Production
@@ -65,12 +73,12 @@ const VariableAccordion = ({ children }: Props) => {
         </Box>
         <Box display="flex" alignItems="center" gap={2}>
           <IconButton
+            onClick={toggleAccordion}
             sx={{ ...styles.iconButton, ...styles.expandIcon(isExpanded) }}>
             <Icon
               icon="fluent:chevron-down-20-regular"
               color={theme.palette.surface100.main}
               fontSize={20}
-              onClick={() => setIsExpanded(!isExpanded)}
             />
           </IconButton>
           <Divider

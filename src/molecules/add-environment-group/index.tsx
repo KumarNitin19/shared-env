@@ -180,13 +180,14 @@ function AddEnvironmentGroup() {
                 onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
                 sx={styles.inputField}
               />
-              <IconButton sx={styles.iconButton}>
+              <IconButton
+                onClick={() => handleRemoveEnvVariable(variable?.id)}
+                sx={styles.iconButton}>
                 {envVariable?.length > 1 ? (
                   <Icon
                     icon="fluent:subtract-circle-20-regular"
                     color="red"
                     fontSize={20}
-                    onClick={() => handleRemoveEnvVariable(variable?.id)}
                   />
                 ) : null}
               </IconButton>
