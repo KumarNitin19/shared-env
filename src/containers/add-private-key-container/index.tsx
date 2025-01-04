@@ -1,48 +1,75 @@
 import AddPrivateKey from "../../organisms/add-private-key";
 
 const AddPrivateKeyContainer = () => {
-  // const uploadToGoogleDrive = async () => {
-  //   const accessToken = await signInWithGoogle();
-  //   if (!accessToken) {
-  //     alert("Failed to get access token");
-  //     return;
-  //   }
-
+  // const uploadJsonFile = async (jsonObject, fileName, accessToken) => {
   //   const metadata = {
-  //     name: file.name, // File name on Google Drive
-  //     mimeType: file.type, // File type
+  //     name: fileName, // Name of the file on Google Drive
+  //     mimeType: "application/json", // JSON file type
   //   };
 
-  //   const form = new FormData();
-  //   form.append(
+  //   const fileContent = JSON.stringify(jsonObject); // Convert JSON to string
+  //   const formData = new FormData();
+  //   formData.append(
   //     "metadata",
   //     new Blob([JSON.stringify(metadata)], { type: "application/json" })
   //   );
-  //   form.append("file", file);
+  //   formData.append(
+  //     "file",
+  //     new Blob([fileContent], { type: "application/json" })
+  //   );
 
   //   try {
   //     const response = await fetch(
   //       "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
   //       {
   //         method: "POST",
-  //         headers: new Headers({
+  //         headers: {
   //           Authorization: `Bearer ${accessToken}`,
-  //         }),
-  //         body: form,
+  //         },
+  //         body: formData,
   //       }
   //     );
 
-  //     const data = await response.json();
   //     if (response.ok) {
-  //       alert(`File uploaded successfully! File ID: ${data.id}`);
+  //       const data = await response.json();
+  //       console.log("JSON File Uploaded Successfully:", data);
+  //       return data; // Returns file metadata, including the file ID
   //     } else {
-  //       console.error("Upload failed", data);
+  //       const error = await response.json();
+  //       console.error("Error uploading JSON file:", error);
   //     }
   //   } catch (error) {
-  //     console.error("Error uploading file:", error);
+  //     console.error("Error:", error);
   //   }
   // };
   return <AddPrivateKey />;
 };
 
 export default AddPrivateKeyContainer;
+
+// Function to read file from drive
+// const readJsonFile = async (fileId, accessToken) => {
+//   try {
+//     const response = await fetch(
+//       `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`,
+//       {
+//         method: "GET",
+//         headers: {
+//           Authorization: `Bearer ${accessToken}`,
+//         },
+//       }
+//     );
+
+//     if (response.ok) {
+//       const content = await response.text(); // Get the file content as a string
+//       const jsonObject = JSON.parse(content); // Parse it back into a JSON object
+//       console.log("JSON File Content:", jsonObject);
+//       return jsonObject;
+//     } else {
+//       const error = await response.json();
+//       console.error("Error reading JSON file:", error);
+//     }
+//   } catch (error) {
+//     console.error("Error:", error);
+//   }
+// };
