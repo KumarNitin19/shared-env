@@ -10,8 +10,6 @@ function App() {
   const { mode } = useThemeToggle();
   const theme = useMemo(() => getTheme(mode), [mode]);
 
-  console.log(theme, mode);
-
   return (
     <Box className="App" height="100%" width="full">
       <MuiThemeProvider theme={theme}>
