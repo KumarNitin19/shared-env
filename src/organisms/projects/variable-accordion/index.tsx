@@ -7,6 +7,7 @@ import { Typography } from "../../../atoms/Typography";
 import { Divider, Icon } from "../../../atoms";
 import { Box } from "../../../atoms/Box";
 import { useCallback, useState } from "react";
+import AddEnvironmentGroup from "../../../molecules/add-environment-group";
 
 const styles = {
   accordion: (theme: Theme) => ({
@@ -15,6 +16,12 @@ const styles = {
       border: `1px solid ${theme.palette.separation.main}`,
       borderRadius: 2,
       padding: 2,
+      "&::before": {
+        display: "none",
+      },
+    },
+    "&.Mui-expanded": {
+      margin: 0,
     },
   }),
   accordionSummary: {
@@ -47,17 +54,72 @@ const styles = {
 };
 
 type Props = {
-  title: string | React.ReactNode;
-  children: React.ReactElement;
+  title: string;
+  variableCount?: number;
   expanded?: boolean;
+  isAddVariable?: boolean;
+};
+
+const ViewGroup = () => {
+  const theme = useTheme();
+  return (
+    <Box display="grid" rowGap={1.5} mt={3}>
+      <Box display="flex" gap={1}>
+        <Typography
+          variant="subtitle2"
+          flex={1}
+          color={theme.palette.surface100.main}
+          border={1}
+          borderColor={theme.palette.divider}
+          borderRadius={1}
+          p={1}>
+          Nitin
+        </Typography>
+        <Typography
+          variant="subtitle2"
+          flex={1}
+          color={theme.palette.surface100.main}
+          border={1}
+          borderColor={theme.palette.divider}
+          borderRadius={1}
+          p={1}>
+          Kumar
+        </Typography>
+      </Box>
+      <Box display="flex" gap={1}>
+        <Typography
+          variant="subtitle2"
+          flex={1}
+          color={theme.palette.surface100.main}
+          border={1}
+          borderColor={theme.palette.divider}
+          borderRadius={1}
+          p={1}>
+          Nitin
+        </Typography>
+        <Typography
+          variant="subtitle2"
+          flex={1}
+          color={theme.palette.surface100.main}
+          border={1}
+          borderColor={theme.palette.divider}
+          borderRadius={1}
+          p={1}>
+          Kumar
+        </Typography>
+      </Box>
+    </Box>
+  );
 };
 
 const VariableAccordion = ({
   title = "",
-  children,
+  variableCount,
+  isAddVariable = false,
   expanded = false,
 }: Props) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(expanded || false);
+  const [isEditGroup, setIsEditGroup] = useState<boolean>(false);
   const theme = useTheme();
 
   const toggleAccordion = useCallback(
@@ -69,19 +131,19 @@ const VariableAccordion = ({
     <Accordion expanded={isExpanded} sx={styles.accordion}>
       <AccordionSummary component="div" sx={styles.accordionSummary}>
         <Box display="flex" alignItems="center" gap={2}>
-          {typeof title === "string" ? (
-            <Typography fontSize={20} color={theme.palette.surface100.main}>
-              {title}
-            </Typography>
-          ) : (
-            title
-          )}
-          <Divider
-            orientation="vertical"
-            color={theme.palette.divider}
-            sx={styles.divider}
-          />
-          <Typography color={theme.palette.surface40.main}>6</Typography>
+          <Typography fontSize={20} color={theme.palette.surface100.main}>
+            {title}
+          </Typography>
+          {variableCount ? (
+            <>
+              <Divider
+                orientation="vertical"
+                color={theme.palette.divider}
+                sx={styles.divider}
+              />
+              <Typography color={theme.palette.surface40.main}>6</Typography>{" "}
+            </>
+          ) : null}
         </Box>
         <Box display="flex" alignItems="center" gap={2}>
           <IconButton
@@ -108,7 +170,11 @@ const VariableAccordion = ({
         </Box>
       </AccordionSummary>
       <AccordionDetails sx={styles.accordionDetails}>
-        {children}
+        {isAddVariable ? (
+          <AddEnvironmentGroup isEdit={isEditGroup} />
+        ) : (
+          <ViewGroup />
+        )}
       </AccordionDetails>
     </Accordion>
   );

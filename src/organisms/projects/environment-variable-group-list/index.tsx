@@ -40,8 +40,14 @@ function EnvironmentVariableGroupList() {
           Create Environment Group
         </Button>
       </Box>
-      <Box height="100%" overflow="auto">
-        <AddEnvironmentGroup isEdit />
+      <Box
+        display="flex"
+        flexDirection="column"
+        gap={3}
+        height="100%"
+        overflow="auto">
+        <VariableAccordion title="Add Environment Variable" isAddVariable />
+        <VariableAccordion title="Production" variableCount={4} />
       </Box>
     </Box>
   );
