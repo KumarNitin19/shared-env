@@ -25,7 +25,8 @@ const ProjectPage = () => {
       alignItems="start"
       px={3}
       py={2}
-      height="100%">
+      height="100%"
+      overflow="hidden">
       <Projects projects={PROJECT_DATA[projectId]} />
     </Box>
   );

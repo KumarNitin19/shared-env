@@ -45,6 +45,7 @@ function Projects({ projects }: Props) {
         width="100%"
         p={2.5}
         borderRadius={3}
+        overflow="auto"
         bgcolor={palette.surface20.main}>
         {/* <ProjectPageZeroState /> */}
         <EnvironmentVariableGroupList />

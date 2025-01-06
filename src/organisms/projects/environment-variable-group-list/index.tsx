@@ -41,7 +41,7 @@ function EnvironmentVariableGroupList() {
         </Button>
       </Box>
       <Box height="100%" overflow="auto">
-        <AddEnvironmentGroup />
+        <AddEnvironmentGroup isEdit />
       </Box>
     </Box>
   );

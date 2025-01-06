@@ -22,7 +22,11 @@ const styles = {
   },
 };
 
-function AddEnvironmentGroup() {
+type Props = {
+  isEdit?: boolean;
+};
+
+function AddEnvironmentGroup({ isEdit = false }: Props) {
   const [groupName, setGroupName] = useState<string>("");
   const [envVariable, setEnvVariable] = useState<KeyValueProp<string>[]>([
     {
@@ -107,14 +111,16 @@ function AddEnvironmentGroup() {
             variant="h6"
             fontWeight={600}
             color={theme.palette.surface100.main}>
-            Add Environment Group
+            {isEdit ? "Edit Environment Group" : "Add Environment Group"}
           </Typography>
           <Typography variant="subtitle2" color={theme.palette.surface80.main}>
-            Create project to add environment variables.
+            {isEdit
+              ? "Make changes to environment group"
+              : "Create project to add environment variables."}
           </Typography>
         </div>
       }>
-      <Box display="grid" rowGap={3}>
+      <Box display="grid" rowGap={3} mt={3}>
         <Box display="grid" rowGap={1}>
           <Typography
             title="projectName"
@@ -207,7 +213,7 @@ function AddEnvironmentGroup() {
             type="submit"
             variant="contained"
             onClick={handleAddEnvironmentGroup}>
-            Add
+            {isEdit ? "Save" : "Add"}
           </Button>
         </Box>
       </Box>

@@ -31,6 +31,9 @@ const styles = {
       },
     },
   },
+  accordionDetails: {
+    padding: 0,
+  },
   divider: {
     height: 12,
   },
@@ -104,7 +107,9 @@ const VariableAccordion = ({
           </IconButton>
         </Box>
       </AccordionSummary>
-      <AccordionDetails>{children}</AccordionDetails>
+      <AccordionDetails sx={styles.accordionDetails}>
+        {children}
+      </AccordionDetails>
     </Accordion>
   );
 };
