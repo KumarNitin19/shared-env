@@ -44,11 +44,16 @@ const styles = {
 };
 
 type Props = {
+  title: string | React.ReactNode;
   children: React.ReactElement;
   expanded?: boolean;
 };
 
-const VariableAccordion = ({ children, expanded = false }: Props) => {
+const VariableAccordion = ({
+  title = "",
+  children,
+  expanded = false,
+}: Props) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(expanded || false);
   const theme = useTheme();
 
@@ -61,9 +66,13 @@ const VariableAccordion = ({ children, expanded = false }: Props) => {
     <Accordion expanded={isExpanded} sx={styles.accordion}>
       <AccordionSummary component="div" sx={styles.accordionSummary}>
         <Box display="flex" alignItems="center" gap={2}>
-          <Typography fontSize={20} color={theme.palette.surface100.main}>
-            Production
-          </Typography>
+          {typeof title === "string" ? (
+            <Typography fontSize={20} color={theme.palette.surface100.main}>
+              {title}
+            </Typography>
+          ) : (
+            title
+          )}
           <Divider
             orientation="vertical"
             color={theme.palette.divider}

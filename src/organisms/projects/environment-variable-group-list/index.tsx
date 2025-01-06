@@ -3,10 +3,6 @@ import { Button, Icon } from "../../../atoms";
 import AddEnvironmentGroup from "../../../molecules/add-environment-group";
 import { Typography } from "../../../atoms/Typography";
 import { Box } from "../../../atoms/Box";
-import Accordion, {
-  AccordionDetails,
-  AccordionSummary,
-} from "../../../atoms/Accordion";
 import VariableAccordion from "../variable-accordion";
 
 const styles = {
@@ -45,9 +41,7 @@ function EnvironmentVariableGroupList() {
         </Button>
       </Box>
       <Box height="100%" overflow="auto">
-        <VariableAccordion>
-          <AddEnvironmentGroup />
-        </VariableAccordion>
+        <AddEnvironmentGroup />
       </Box>
     </Box>
   );
