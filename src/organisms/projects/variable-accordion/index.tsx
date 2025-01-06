@@ -8,6 +8,7 @@ import { Divider, Icon } from "../../../atoms";
 import { Box } from "../../../atoms/Box";
 import { useCallback, useState } from "react";
 import AddEnvironmentGroup from "../../../molecules/add-environment-group";
+import CopyText from "../../../molecules/copy-text";
 
 const styles = {
   accordion: (theme: Theme) => ({
@@ -63,50 +64,42 @@ type Props = {
 const ViewGroup = () => {
   const theme = useTheme();
   return (
-    <Box display="grid" rowGap={1.5} mt={3}>
+    <Box display="flex" flexDirection="column" gap={1.5} mt={3}>
       <Box display="flex" gap={1}>
-        <Typography
-          variant="subtitle2"
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
           flex={1}
-          color={theme.palette.surface100.main}
           border={1}
           borderColor={theme.palette.divider}
           borderRadius={1}
           p={1}>
-          Nitin
-        </Typography>
-        <Typography
-          variant="subtitle2"
+          <Typography
+            variant="subtitle2"
+            flex={1}
+            color={theme.palette.surface100.main}>
+            Nitin
+          </Typography>
+          <CopyText text="78F9A2E7-9C1B-4A8D-AE67-82DF7D1F5C36" />
+        </Box>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
           flex={1}
-          color={theme.palette.surface100.main}
           border={1}
           borderColor={theme.palette.divider}
           borderRadius={1}
           p={1}>
-          Kumar
-        </Typography>
-      </Box>
-      <Box display="flex" gap={1}>
-        <Typography
-          variant="subtitle2"
-          flex={1}
-          color={theme.palette.surface100.main}
-          border={1}
-          borderColor={theme.palette.divider}
-          borderRadius={1}
-          p={1}>
-          Nitin
-        </Typography>
-        <Typography
-          variant="subtitle2"
-          flex={1}
-          color={theme.palette.surface100.main}
-          border={1}
-          borderColor={theme.palette.divider}
-          borderRadius={1}
-          p={1}>
-          Kumar
-        </Typography>
+          <Typography
+            variant="subtitle2"
+            flex={1}
+            color={theme.palette.surface100.main}>
+            Kumar
+          </Typography>
+          <CopyText text="78F9A2E7-9C1B-4A8D-AE67-82DF7D1F5C36" />
+        </Box>
       </Box>
     </Box>
   );
@@ -145,29 +138,32 @@ const VariableAccordion = ({
             </>
           ) : null}
         </Box>
-        <Box display="flex" alignItems="center" gap={2}>
-          <IconButton
-            onClick={toggleAccordion}
-            sx={{ ...styles.iconButton, ...styles.expandIcon(isExpanded) }}>
-            <Icon
-              icon="fluent:chevron-down-20-regular"
-              color={theme.palette.surface100.main}
-              fontSize={20}
+        {!isAddVariable ? (
+          <Box display="flex" alignItems="center" gap={2}>
+            <IconButton
+              onClick={toggleAccordion}
+              sx={{ ...styles.iconButton, ...styles.expandIcon(isExpanded) }}>
+              <Icon
+                icon="fluent:chevron-down-20-regular"
+                color={theme.palette.surface100.main}
+                fontSize={20}
+              />
+            </IconButton>
+
+            <Divider
+              orientation="vertical"
+              color={theme.palette.divider}
+              sx={styles.divider}
             />
-          </IconButton>
-          <Divider
-            orientation="vertical"
-            color={theme.palette.divider}
-            sx={styles.divider}
-          />
-          <IconButton sx={styles.iconButton}>
-            <Icon
-              icon="fluent:edit-20-regular"
-              color={theme.palette.surface100.main}
-              fontSize={20}
-            />
-          </IconButton>
-        </Box>
+            <IconButton sx={styles.iconButton}>
+              <Icon
+                icon="fluent:edit-20-regular"
+                color={theme.palette.surface100.main}
+                fontSize={20}
+              />
+            </IconButton>
+          </Box>
+        ) : null}
       </AccordionSummary>
       <AccordionDetails sx={styles.accordionDetails}>
         {isAddVariable ? (

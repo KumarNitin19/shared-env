@@ -46,7 +46,11 @@ function EnvironmentVariableGroupList() {
         gap={3}
         height="100%"
         overflow="auto">
-        <VariableAccordion title="Add Environment Variable" isAddVariable />
+        <VariableAccordion
+          title="Add Environment Variable"
+          isAddVariable
+          expanded
+        />
         <VariableAccordion title="Production" variableCount={4} />
       </Box>
     </Box>
