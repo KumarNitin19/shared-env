@@ -208,7 +208,7 @@ function Sidebar() {
           disablePadding
           title="Dashboard"
           sx={styles.listItem(theme, mode)}>
-          <Link href={""}>
+          <Link onClick={goToDashboard}>
             <ListItemButton selected={selectedMenuItem === "/"}>
               <ListItemIcon>
                 <Icon icon="material-symbols:space-dashboard-rounded" />
