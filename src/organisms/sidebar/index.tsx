@@ -136,7 +136,6 @@ const ListSubheaderComponent = ({ listItem, isOpenSideBar }: any) => {
 };
 
 function Sidebar() {
-  const [activeProject, setActiveProject] = useState<string | null>(null);
   const [selectedMenuItem, setSelectedMenuItem] = useState<string>("/");
   const location = useLocation();
   const navigate = useNavigate();
@@ -144,20 +143,16 @@ function Sidebar() {
   const { toast } = useToast();
   const { mode } = useThemeToggle();
   const theme = useTheme();
-  const loggedInUser: LoggedInUser = useUser();
+  // const loggedInUser: LoggedInUser = useUser();
 
-  useEffect(() => {
-    setSelectedMenuItem(location.pathname);
-  }, [location.pathname]);
+  // useEffect(() => {
+  //   setSelectedMenuItem(location.pathname);
+  // }, [location.pathname]);
 
   const signOutUser = () => {
     signOut(auth)
       .then(() => {
         removeItem("userDetails");
-
-        toast({
-          description: `${loggedInUser?.display_name} logged out.`,
-        });
         navigate("/sign-in");
       })
       .catch((error) => {
@@ -169,11 +164,12 @@ function Sidebar() {
   };
 
   const goToProject = useCallback((projectId: string) => {
-    setActiveProject(projectId);
-    navigate(`/projects/${projectId}`);
+    navigate(`/project/${projectId}`);
   }, []);
 
-  const goToDashboard = useCallback(() => navigate("/dashboard"), []);
+  const goToDashboard = useCallback(() => {
+    navigate("/dashboard");
+  }, []);
 
   return (
     <Drawer
@@ -208,8 +204,10 @@ function Sidebar() {
           disablePadding
           title="Dashboard"
           sx={styles.listItem(theme, mode)}>
-          <Link onClick={goToDashboard}>
-            <ListItemButton selected={selectedMenuItem === "/"}>
+          <Link>
+            <ListItemButton
+              selected={location.pathname === "/dashboard"}
+              onClick={goToDashboard}>
               <ListItemIcon>
                 <Icon icon="material-symbols:space-dashboard-rounded" />
               </ListItemIcon>
@@ -256,9 +254,10 @@ function Sidebar() {
                   disablePadding
                   title={listItem.label}
                   sx={styles.listItem(theme, mode)}>
-                  <Link href={`/project/${listItem.id}`}>
+                  <Link>
                     <ListItemButton
-                      selected={selectedMenuItem === `/project/${listItem.id}`}>
+                      selected={location.pathname === `/project/${listItem.id}`}
+                      onClick={() => goToProject(listItem.id)}>
                       <ListItemIcon>
                         <Icon icon="fluent:document-20-filled" />
                       </ListItemIcon>
@@ -275,10 +274,10 @@ function Sidebar() {
           <ListItem disablePadding title="Logout">
             <ListItemButton>
               <ListItemIcon>
-                <Avatar
+                {/* <Avatar
                   name={loggedInUser?.display_name}
                   src={loggedInUser?.profile_image}
-                />
+                /> */}
               </ListItemIcon>
               <ListItemText primary="Logout" />
             </ListItemButton>

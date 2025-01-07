@@ -9,7 +9,6 @@ import { useThemeToggle } from "./hooks/useThemeToggle";
 function App() {
   const { mode } = useThemeToggle();
   const theme = useMemo(() => getTheme(mode), [mode]);
-
   return (
     <Box className="App" height="100%" width="full">
       <MuiThemeProvider theme={theme}>
