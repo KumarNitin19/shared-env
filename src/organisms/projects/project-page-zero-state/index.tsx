@@ -26,7 +26,7 @@ function ProjectPageZeroState() {
           color={palette.surface80.main}>
           Create environment group to <br /> add variables!
         </Typography>
-        <AddEnvironmentGroup />
+        <AddEnvironmentGroup onCancel={() => {}} />
         <Button
           variant="contained"
           startIcon={<Icon icon="fluent:add-16-regular" className="h-5 w-5" />}>

@@ -23,9 +23,10 @@ const styles = {
 
 type Props = {
   isEdit?: boolean;
+  onCancel: () => void;
 };
 
-function AddEnvironmentGroup({ isEdit = false }: Props) {
+function AddEnvironmentGroup({ isEdit = false, onCancel }: Props) {
   const [groupName, setGroupName] = useState<string>("");
   const [envVariable, setEnvVariable] = useState<KeyValueProp<string>[]>([
     {
@@ -37,7 +38,8 @@ function AddEnvironmentGroup({ isEdit = false }: Props) {
   const theme = useTheme();
 
   // To close the dialog and reset the state
-  const onCancel = useCallback(() => {
+  const onDiscard = useCallback(() => {
+    onCancel();
     setEnvVariable([
       {
         id: generateUID(),
@@ -189,7 +191,7 @@ function AddEnvironmentGroup({ isEdit = false }: Props) {
       </Box>
 
       <Box display="flex" gap={1.5} justifyContent="end">
-        <Button variant="outlined" onClick={onCancel}>
+        <Button variant="outlined" onClick={onDiscard}>
           Cancel
         </Button>
         <Button

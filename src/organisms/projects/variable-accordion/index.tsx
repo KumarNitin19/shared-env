@@ -165,7 +165,10 @@ const VariableAccordion = ({
               color={theme.palette.divider}
               sx={styles.divider}
             />
-            <IconButton onClick={handleOpenEdit} sx={styles.iconButton}>
+            <IconButton
+              disabled={isEditGroup}
+              onClick={handleOpenEdit}
+              sx={styles.iconButton}>
               <Icon
                 icon="fluent:edit-20-regular"
                 color={theme.palette.surface100.main}
