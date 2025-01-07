@@ -120,14 +120,24 @@ const VariableAccordion = ({
     []
   );
 
+  const handleOpenEdit = useCallback(() => {
+    setIsEditGroup(true);
+    setIsExpanded(true);
+  }, []);
+
+  const handleCloseEdit = useCallback(() => {
+    setIsEditGroup(false);
+    setIsExpanded(false);
+  }, []);
+
   return (
     <Accordion expanded={isExpanded} sx={styles.accordion}>
       <AccordionSummary component="div" sx={styles.accordionSummary}>
         <Box display="flex" alignItems="center" gap={2}>
           <Typography fontSize={20} color={theme.palette.surface100.main}>
-            {title}
+            {isEditGroup ? "Edit Variable" : title}
           </Typography>
-          {variableCount ? (
+          {variableCount && !isEditGroup ? (
             <>
               <Divider
                 orientation="vertical"
@@ -155,7 +165,7 @@ const VariableAccordion = ({
               color={theme.palette.divider}
               sx={styles.divider}
             />
-            <IconButton sx={styles.iconButton}>
+            <IconButton onClick={handleOpenEdit} sx={styles.iconButton}>
               <Icon
                 icon="fluent:edit-20-regular"
                 color={theme.palette.surface100.main}
@@ -166,8 +176,11 @@ const VariableAccordion = ({
         ) : null}
       </AccordionSummary>
       <AccordionDetails sx={styles.accordionDetails}>
-        {isAddVariable ? (
-          <AddEnvironmentGroup isEdit={isEditGroup} />
+        {isAddVariable || isEditGroup ? (
+          <AddEnvironmentGroup
+            isEdit={isEditGroup}
+            onCancel={handleCloseEdit}
+          />
         ) : (
           <ViewGroup />
         )}
