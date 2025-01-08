@@ -1,5 +1,3 @@
-import AddPrivateKey from "../../organisms/add-private-key";
-
 const AddPrivateKeyContainer = () => {
   // const uploadJsonFile = async (jsonObject, fileName, accessToken) => {
   //   const metadata = {
@@ -42,7 +40,7 @@ const AddPrivateKeyContainer = () => {
   //     console.error("Error:", error);
   //   }
   // };
-  return <AddPrivateKey />;
+  return "";
 };
 
 export default AddPrivateKeyContainer;

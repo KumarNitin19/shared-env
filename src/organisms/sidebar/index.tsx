@@ -229,9 +229,11 @@ function Sidebar() {
           textTransform="uppercase">
           Projects
         </Typography>
-        <IconButton sx={{ padding: 0 }}>
-          <Icon icon="fluent:add-square-20-regular" color="#3C7C41" />
-        </IconButton>
+        <AddProject>
+          <IconButton sx={{ padding: 0 }}>
+            <Icon icon="fluent:add-square-20-regular" color="#3C7C41" />
+          </IconButton>
+        </AddProject>
       </Box>
       <Grid
         container
@@ -274,7 +276,10 @@ function Sidebar() {
           <ListItem disablePadding title="Private Key">
             <ListItemButton>
               <ListItemIcon>
-                <Icon icon="material-symbols:passkey" />
+                <Icon
+                  icon="material-symbols:passkey"
+                  color={theme.palette.surface80.main}
+                />
               </ListItemIcon>
               <ListItemText primary="Private Key" />
             </ListItemButton>
