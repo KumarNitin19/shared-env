@@ -143,11 +143,11 @@ function Sidebar() {
   const { toast } = useToast();
   const { mode } = useThemeToggle();
   const theme = useTheme();
-  // const loggedInUser: LoggedInUser = useUser();
+  const loggedInUser: LoggedInUser = useUser();
 
-  // useEffect(() => {
-  //   setSelectedMenuItem(location.pathname);
-  // }, [location.pathname]);
+  useEffect(() => {
+    setSelectedMenuItem(location.pathname);
+  }, [location.pathname]);
 
   const signOutUser = () => {
     signOut(auth)
@@ -206,7 +206,7 @@ function Sidebar() {
           sx={styles.listItem(theme, mode)}>
           <Link>
             <ListItemButton
-              selected={location.pathname === "/dashboard"}
+              selected={selectedMenuItem === "/dashboard"}
               onClick={goToDashboard}>
               <ListItemIcon>
                 <Icon icon="material-symbols:space-dashboard-rounded" />
@@ -256,7 +256,7 @@ function Sidebar() {
                   sx={styles.listItem(theme, mode)}>
                   <Link>
                     <ListItemButton
-                      selected={location.pathname === `/project/${listItem.id}`}
+                      selected={selectedMenuItem === `/project/${listItem.id}`}
                       onClick={() => goToProject(listItem.id)}>
                       <ListItemIcon>
                         <Icon icon="fluent:document-20-filled" />
@@ -271,13 +271,21 @@ function Sidebar() {
         </div>
 
         <List sx={styles.logoutButton(theme)}>
+          <ListItem disablePadding title="Private Key">
+            <ListItemButton>
+              <ListItemIcon>
+                <Icon icon="fluent:document-20-filled" />
+              </ListItemIcon>
+              <ListItemText primary="Private Key" />
+            </ListItemButton>
+          </ListItem>
           <ListItem disablePadding title="Logout">
             <ListItemButton>
               <ListItemIcon>
-                {/* <Avatar
+                <Avatar
                   name={loggedInUser?.display_name}
                   src={loggedInUser?.profile_image}
-                /> */}
+                />
               </ListItemIcon>
               <ListItemText primary="Logout" />
             </ListItemButton>
