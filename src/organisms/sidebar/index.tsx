@@ -135,8 +135,13 @@ const ListSubheaderComponent = ({ listItem, isOpenSideBar }: any) => {
   ) : null;
 };
 
-function Sidebar() {
+function Sidebar({
+  handleViewPrivateKey,
+}: {
+  handleViewPrivateKey: () => void;
+}) {
   const [selectedMenuItem, setSelectedMenuItem] = useState<string>("/");
+
   const location = useLocation();
   const navigate = useNavigate();
   const { removeItem } = useLocalStorage();
@@ -149,7 +154,7 @@ function Sidebar() {
     setSelectedMenuItem(location.pathname);
   }, [location.pathname]);
 
-  const signOutUser = () => {
+  const signOutUser = useCallback(() => {
     signOut(auth)
       .then(() => {
         removeItem("userDetails");
@@ -161,7 +166,7 @@ function Sidebar() {
           description: `Something went wrong, please try again.`,
         });
       });
-  };
+  }, []);
 
   const goToProject = useCallback((projectId: string) => {
     navigate(`/project/${projectId}`);
@@ -274,7 +279,7 @@ function Sidebar() {
 
         <List sx={styles.logoutButton(theme)}>
           <ListItem disablePadding title="Private Key">
-            <ListItemButton>
+            <ListItemButton onClick={handleViewPrivateKey}>
               <ListItemIcon>
                 <Icon
                   icon="material-symbols:passkey"
