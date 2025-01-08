@@ -274,7 +274,7 @@ function Sidebar() {
           <ListItem disablePadding title="Private Key">
             <ListItemButton>
               <ListItemIcon>
-                <Icon icon="fluent:document-20-filled" />
+                <Icon icon="material-symbols:passkey" />
               </ListItemIcon>
               <ListItemText primary="Private Key" />
             </ListItemButton>
