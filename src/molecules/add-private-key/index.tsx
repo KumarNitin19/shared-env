@@ -17,9 +17,7 @@ const styles = {
     justifyContent: "space-between",
     padding: 3,
   },
-  dialogContent: {
-    paddingBottom: 0,
-  },
+
   dialogAction: {
     padding: 3,
   },
@@ -48,7 +46,7 @@ const AddPrivateKey = ({ open = false, onClose = () => {} }: Props) => {
           />
         </IconButton>
       </DialogTitle>
-      <DialogContent sx={styles.dialogContent}>
+      <DialogContent>
         <Box display="grid" rowGap={2}>
           <Typography
             title="projectName"
