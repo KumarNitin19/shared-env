@@ -4,19 +4,23 @@ import useCopyToClipboard from "../../hooks/useCopyToClipboard";
 
 type Props = {
   text: string;
+  fontSize?: number;
 };
 
-function CopyText({ text = "" }: Props) {
+function CopyText({ text = "", fontSize = 16 }: Props) {
   const theme = useTheme();
   const { copy, isCopied } = useCopyToClipboard();
   if (isCopied) {
-    return <Icon icon="material-symbols:check" color="green" />;
+    return (
+      <Icon icon="material-symbols:check" color="green" fontSize={fontSize} />
+    );
   }
   return (
     <IconButton onClick={() => copy(text)} sx={{ padding: 0 }}>
       <Icon
         icon="fluent:copy-20-regular"
         color={theme.palette.surface100.main}
+        fontSize={fontSize}
       />
     </IconButton>
   );

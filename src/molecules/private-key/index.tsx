@@ -12,7 +12,8 @@ const styles = {
   dialog: (theme: string) => ({
     "& .MuiPaper-root": {
       minWidth: 566,
-      // backgroundColor: theme.palette.sidebarBG.main,
+      width: 566,
+      backgroundColor: "unset",
       backgroundImage: `url(${
         theme === "light" ? CARD_BACKGROUND_LIGHT : CARD_BACKGROUND_DARK
       })`,
@@ -24,6 +25,8 @@ const styles = {
 
   dialogContent: {
     padding: 5.5,
+    display: "grid",
+    gap: 6,
   },
   closeButton: {
     height: "fit-content",
@@ -50,30 +53,45 @@ const PrivateKey = ({ open = false, onClose = () => {} }: Props) => {
         />
       </IconButton>
       <DialogContent sx={styles.dialogContent}>
-        <Box display="grid" rowGap={2}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          textAlign="center"
+          gap={4}>
           <Typography
             title="projectName"
             variant="subtitle2"
+            fontSize={32}
             color={theme.palette.surface100.main}>
-            Project Description
+            Private Key!
           </Typography>
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
+          <Typography
+            title="projectName"
+            variant="body2"
+            fontSize={18}
+            color={theme.palette.surface60.main}>
+            Here’s your unique private key,
+            <br /> keep it safe.
+          </Typography>
+        </Box>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          flex={1}
+          borderRadius={2}
+          py={2}
+          px={3}
+          bgcolor={theme.palette.mainBackground.main}>
+          <Typography
+            variant="subtitle2"
             flex={1}
-            border={1}
-            borderColor={theme.palette.divider}
-            borderRadius={1}
-            p={1}>
-            <Typography
-              variant="subtitle2"
-              flex={1}
-              color={theme.palette.surface100.main}>
-              Nitin
-            </Typography>
-            <CopyText text="78F9A2E7-9C1B-4A8D-AE67-82DF7D1F5C36" />
-          </Box>
+            fontSize={20}
+            color={theme.palette.surface100.main}>
+            Nitin
+          </Typography>
+          <CopyText text="78F9A2E7-9C1B-4A8D-AE67-82DF7D1F5C36" fontSize={20} />
         </Box>
       </DialogContent>
     </Dialog>
