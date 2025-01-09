@@ -66,6 +66,20 @@ const ViewGroup = () => {
   return (
     <Box display="flex" flexDirection="column" gap={1.5} mt={3}>
       <Box display="flex" gap={1}>
+        <Typography
+          variant="subtitle2"
+          flex={1}
+          color={theme.palette.surface100.main}>
+          Key
+        </Typography>
+        <Typography
+          variant="subtitle2"
+          flex={1}
+          color={theme.palette.surface100.main}>
+          Value
+        </Typography>
+      </Box>
+      <Box display="flex" gap={1}>
         <Box
           display="flex"
           alignItems="center"
