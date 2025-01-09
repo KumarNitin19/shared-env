@@ -21,14 +21,15 @@ const styles = {
       minHeight: 348,
     },
   }),
-  dialogTitle: {
-    display: "flex",
-    justifyContent: "space-between",
-    padding: 3,
-  },
 
-  dialogAction: {
-    padding: 3,
+  dialogContent: {
+    padding: 5.5,
+  },
+  closeButton: {
+    height: "fit-content",
+    position: "absolute",
+    top: 24,
+    right: 24,
   },
 };
 
@@ -42,21 +43,13 @@ const PrivateKey = ({ open = false, onClose = () => {} }: Props) => {
   const { mode } = useThemeToggle();
   return (
     <Dialog open={open} sx={styles.dialog(mode)}>
-      <DialogTitle sx={styles.dialogTitle}>
-        <Typography
-          variant="h6"
-          fontWeight={600}
-          color={theme.palette.surface100.main}>
-          Private Key
-        </Typography>
-        <IconButton onClick={onClose} sx={{ height: "fit-content" }}>
-          <Icon
-            icon="material-symbols:close-rounded"
-            color={theme.palette.surface100.main}
-          />
-        </IconButton>
-      </DialogTitle>
-      <DialogContent>
+      <IconButton onClick={onClose} sx={styles.closeButton}>
+        <Icon
+          icon="material-symbols:close-rounded"
+          color={theme.palette.surface100.main}
+        />
+      </IconButton>
+      <DialogContent sx={styles.dialogContent}>
         <Box display="grid" rowGap={2}>
           <Typography
             title="projectName"
