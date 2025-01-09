@@ -1,5 +1,5 @@
 import { IconButton, useTheme } from "@mui/material";
-import Dialog, { DialogContent, DialogTitle } from "../../atoms/Dialog";
+import Dialog, { DialogContent } from "../../atoms/Dialog";
 import { Box } from "../../atoms/Box";
 import { Typography } from "../../atoms/Typography";
 import { Icon } from "../../atoms";
@@ -10,16 +10,21 @@ import { useThemeToggle } from "../../hooks/useThemeToggle";
 
 const styles = {
   dialog: (theme: string) => ({
+    "& .MuiBackdrop-root ": {
+      backgroundColor:
+        theme === "light" ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)",
+    },
     "& .MuiPaper-root": {
       minWidth: 566,
       width: 566,
-      backgroundColor: "unset",
+      backgroundColor: theme === "light" ? "#f2f2f2" : "unset",
       backgroundImage: `url(${
         theme === "light" ? CARD_BACKGROUND_LIGHT : CARD_BACKGROUND_DARK
       })`,
       backdropFilter: "blur(62px)",
       backgroundSize: "cover",
       minHeight: 348,
+      borderRadius: 6,
     },
   }),
 
@@ -60,17 +65,16 @@ const PrivateKey = ({ open = false, onClose = () => {} }: Props) => {
           textAlign="center"
           gap={4}>
           <Typography
-            title="projectName"
+            title="Private Key!"
             variant="subtitle2"
             fontSize={32}
             color={theme.palette.surface100.main}>
             Private Key!
           </Typography>
           <Typography
-            title="projectName"
             variant="body2"
             fontSize={18}
-            color={theme.palette.surface60.main}>
+            color={theme.palette.surface80.main}>
             Here’s your unique private key,
             <br /> keep it safe.
           </Typography>
@@ -83,7 +87,7 @@ const PrivateKey = ({ open = false, onClose = () => {} }: Props) => {
           borderRadius={2}
           py={2}
           px={3}
-          bgcolor={theme.palette.mainBackground.main}>
+          bgcolor={mode === "light" ? "#fff" : "#000"}>
           <Typography
             variant="subtitle2"
             flex={1}
