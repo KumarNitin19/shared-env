@@ -1,15 +1,24 @@
-import { IconButton, Theme, useTheme } from "@mui/material";
+import { IconButton, useTheme } from "@mui/material";
 import Dialog, { DialogContent, DialogTitle } from "../../atoms/Dialog";
 import { Box } from "../../atoms/Box";
 import { Typography } from "../../atoms/Typography";
 import { Icon } from "../../atoms";
 import CopyText from "../copy-text";
+import CARD_BACKGROUND_LIGHT from "../../assets/images/sign-in-card-bg.svg";
+import CARD_BACKGROUND_DARK from "../../assets/images/sign-in-card-bg-dark.svg";
+import { useThemeToggle } from "../../hooks/useThemeToggle";
 
 const styles = {
-  dialog: (theme: Theme) => ({
+  dialog: (theme: string) => ({
     "& .MuiPaper-root": {
-      width: 520,
-      backgroundColor: theme.palette.sidebarBG.main,
+      minWidth: 566,
+      // backgroundColor: theme.palette.sidebarBG.main,
+      backgroundImage: `url(${
+        theme === "light" ? CARD_BACKGROUND_LIGHT : CARD_BACKGROUND_DARK
+      })`,
+      backdropFilter: "blur(62px)",
+      backgroundSize: "cover",
+      minHeight: 348,
     },
   }),
   dialogTitle: {
@@ -28,10 +37,11 @@ type Props = {
   onClose: () => void;
 };
 
-const AddPrivateKey = ({ open = false, onClose = () => {} }: Props) => {
+const PrivateKey = ({ open = false, onClose = () => {} }: Props) => {
   const theme = useTheme();
+  const { mode } = useThemeToggle();
   return (
-    <Dialog open={open} sx={styles.dialog(theme)}>
+    <Dialog open={open} sx={styles.dialog(mode)}>
       <DialogTitle sx={styles.dialogTitle}>
         <Typography
           variant="h6"
@@ -77,4 +87,4 @@ const AddPrivateKey = ({ open = false, onClose = () => {} }: Props) => {
   );
 };
 
-export default AddPrivateKey;
+export default PrivateKey;
