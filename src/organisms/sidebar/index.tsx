@@ -56,7 +56,7 @@ const styles = {
         "& .MuiListItemIcon-root > svg": {
           color: theme.palette.surface80.main,
         },
-        "&.Mui-selected": {
+        "&.Mui-selected, &:hover": {
           background: mode === "light" ? "#E7E7E7" : "#282834",
           color: theme.palette.main.main,
           "& .MuiListItemIcon-root > svg": {
@@ -72,20 +72,32 @@ const styles = {
       },
     },
   }),
-  logoutButton: (theme: Theme) => ({
+  logoutButton: (theme: Theme, mode: ThemeMode) => ({
     paddingRight: 2,
     gap: 1,
     color: theme.palette.surface100.main,
-    "& .MuiButtonBase-root": {
+    "& .MuiListItem-root > .MuiButtonBase-root": {
       borderRadius: 2,
       justifyContent: "space-between",
       gap: 1,
       "& .MuiListItemIcon-root": {
         minWidth: 20,
+        "& svg": {
+          color: theme.palette.surface80.main,
+        },
         "& .MuiAvatar-root": {
           height: 20,
           width: 20,
           fontSize: 12,
+        },
+      },
+    },
+    "& .MuiListItemButton-root": {
+      "&:hover": {
+        background: mode === "light" ? "#E7E7E7" : "#282834",
+        color: theme.palette.main.main,
+        "& .MuiListItemIcon-root > svg": {
+          color: theme.palette.main.main,
         },
       },
     },
@@ -136,8 +148,10 @@ const ListSubheaderComponent = ({ listItem, isOpenSideBar }: any) => {
 };
 
 function Sidebar({
+  isOpenPrivateKeyDialog = false,
   handleViewPrivateKey,
 }: {
+  isOpenPrivateKeyDialog: boolean;
   handleViewPrivateKey: () => void;
 }) {
   const [selectedMenuItem, setSelectedMenuItem] = useState<string>("/");
@@ -277,14 +291,13 @@ function Sidebar({
           ))}
         </div>
 
-        <List sx={styles.logoutButton(theme)}>
+        <List sx={styles.logoutButton(theme, mode)}>
           <ListItem disablePadding title="Private Key">
-            <ListItemButton onClick={handleViewPrivateKey}>
+            <ListItemButton
+              selected={isOpenPrivateKeyDialog}
+              onClick={handleViewPrivateKey}>
               <ListItemIcon>
-                <Icon
-                  icon="material-symbols:passkey"
-                  color={theme.palette.surface80.main}
-                />
+                <Icon icon="material-symbols:passkey" />
               </ListItemIcon>
               <ListItemText primary="Private Key" />
             </ListItemButton>

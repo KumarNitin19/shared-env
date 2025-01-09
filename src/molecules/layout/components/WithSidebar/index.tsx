@@ -29,7 +29,10 @@ function WithSidebar() {
 
   return (
     <Box bgcolor="#f7f7f7" height="100%">
-      <SideBar handleViewPrivateKey={handleOpenPrivateKeyDialog} />
+      <SideBar
+        isOpenPrivateKeyDialog={isOpenPrivateKeyDialog}
+        handleViewPrivateKey={handleOpenPrivateKeyDialog}
+      />
       <Box
         maxWidth="calc(100% - 268px)"
         ml="auto"
