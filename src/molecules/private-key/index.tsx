@@ -93,7 +93,7 @@ const PrivateKey = ({ open = false, onClose = () => {} }: Props) => {
             flex={1}
             fontSize={20}
             color={theme.palette.surface100.main}>
-            Nitin
+            00210-00210-00210-00210
           </Typography>
           <CopyText text="78F9A2E7-9C1B-4A8D-AE67-82DF7D1F5C36" fontSize={20} />
         </Box>
