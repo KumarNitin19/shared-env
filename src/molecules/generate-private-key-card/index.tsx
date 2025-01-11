@@ -7,14 +7,22 @@ import { IconButton, useTheme } from "@mui/material";
 import { Button, Icon } from "../../atoms";
 import { useCallback, useState } from "react";
 import CopyText from "../copy-text";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
-  signInCard: (theme: string) => ({
+  generateKeyCard: (theme: string) => ({
     backgroundImage: `url(${
       theme === "light" ? CARD_BACKGROUND_LIGHT : CARD_BACKGROUND_DARK
     })`,
     backgroundSize: "cover",
     backdropFilter: "blur(62px)",
+    display: "flex",
+    flexDirection: "column",
+    width: 566,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+    p: 4,
   }),
   generateApiKeyButton: {
     "&.Mui-disabled": {
@@ -28,6 +36,7 @@ const GeneratePrivateKeyCard = () => {
   const [privateKey, setPrivateKey] = useState<string>("");
   const theme = useTheme();
   const { mode } = useThemeToggle();
+  const navigate = useNavigate();
 
   const generateKey = useCallback(() => {
     setIsGeneratingKey(true);
@@ -37,17 +46,10 @@ const GeneratePrivateKeyCard = () => {
     }, 2000);
   }, []);
 
+  const onContinue = useCallback(() => navigate("/dashboard"), []);
+
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      minWidth={566}
-      minHeight={348}
-      alignItems="center"
-      justifyContent="center"
-      gap={6}
-      p={4}
-      sx={styles.signInCard(mode)}>
+    <Box sx={styles.generateKeyCard(mode)}>
       <Box display="flex" textAlign="center" flexDirection="column" gap={4}>
         <Typography
           variant="h4"
@@ -73,7 +75,7 @@ const GeneratePrivateKeyCard = () => {
         )}
       </Box>
       {privateKey ? (
-        <Box width="100%">
+        <>
           <Box
             display="flex"
             alignItems="center"
@@ -105,7 +107,10 @@ const GeneratePrivateKeyCard = () => {
               </IconButton>
             </Box>
           </Box>
-        </Box>
+          <Button variant="contained" onClick={onContinue}>
+            Continue
+          </Button>
+        </>
       ) : (
         <Button
           variant="contained"
