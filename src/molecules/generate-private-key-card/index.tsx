@@ -16,7 +16,7 @@ const styles = {
   }),
 };
 
-export const GeneratePrivateKey = () => {
+const GeneratePrivateKeyCard = () => {
   const theme = useTheme();
   const { mode } = useThemeToggle();
   return (
@@ -48,3 +48,5 @@ export const GeneratePrivateKey = () => {
     </Box>
   );
 };
+
+export default GeneratePrivateKeyCard;

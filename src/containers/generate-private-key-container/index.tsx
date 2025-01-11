@@ -1,4 +1,6 @@
-const AddPrivateKeyContainer = () => {
+import GeneratePrivateKeyPage from "../../pages/generate-private-key";
+
+const GeneratePrivateKeyContainer = () => {
   // const uploadJsonFile = async (jsonObject, fileName, accessToken) => {
   //   const metadata = {
   //     name: fileName, // Name of the file on Google Drive
@@ -40,10 +42,10 @@ const AddPrivateKeyContainer = () => {
   //     console.error("Error:", error);
   //   }
   // };
-  return "";
+  return <GeneratePrivateKeyPage />;
 };
 
-export default AddPrivateKeyContainer;
+export default GeneratePrivateKeyContainer;
 
 // Function to read file from drive
 // const readJsonFile = async (fileId, accessToken) => {

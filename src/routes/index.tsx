@@ -6,7 +6,7 @@ import PageNotFound from "../molecules/layout/components/PageNotFound";
 import ProjectPage from "../pages/project";
 import { LoginContainer } from "../containers/login-container";
 import { DashboardContainer } from "../containers/dashboard-container";
-import AddPrivateKeyContainer from "../containers/add-private-key-container";
+import GeneratePrivateKeyContainer from "../containers/generate-private-key-container";
 
 const router = createBrowserRouter([
   {
@@ -17,14 +17,6 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
-      {
-        path: "/add-private-key",
-        element: (
-          <PrivateRoute>
-            <AddPrivateKeyContainer />
-          </PrivateRoute>
-        ),
-      },
       {
         path: "dashboard",
         element: (
@@ -42,6 +34,14 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/generate-private-key",
+    element: (
+      <PrivateRoute>
+        <GeneratePrivateKeyContainer />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/sign-in",

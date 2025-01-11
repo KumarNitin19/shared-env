@@ -2,6 +2,7 @@ import { useTheme } from "@mui/material";
 import BACKGROUD_IMAGE from "../../assets/images/bg-pattern.png";
 import { Box } from "../../atoms/Box";
 import { ToggleThemeIcon } from "../../molecules/toggle-theme-button";
+import GeneratePrivateKeyCard from "../../molecules/generate-private-key-card";
 
 const styles = {
   signInContainer: {
@@ -22,6 +23,7 @@ const GeneratePrivateKeyPage = () => {
       width="100%"
       bgcolor={theme.palette.mainBackground.main}
       sx={styles.signInContainer}>
+      <GeneratePrivateKeyCard />
       <Box position="absolute" top={0} right={0} m={2} p={1} borderRadius={2}>
         <ToggleThemeIcon />
       </Box>
