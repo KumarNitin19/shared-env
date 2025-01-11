@@ -10,9 +10,17 @@ const styles = {
     backgroundImage: `url(${BACKGROUD_IMAGE})`,
     backgroundSize: "cover",
   },
-  //   iconWrapper:{
-  //     display:"felx"
-  //   }
+  iconWrapper: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: 40,
+    width: 40,
+    backdropFilter: "blur(2px)",
+    border: "1px solid #1B1B1B",
+    borderRadius: 3,
+    padding: 0,
+  },
 };
 
 const GeneratePrivateKeyPage = () => {
@@ -37,8 +45,11 @@ const GeneratePrivateKeyPage = () => {
         m={2}
         p={1}
         borderRadius={2}>
-        <ToggleThemeIcon />
-        <IconButton sx={{ padding: 0 }}>
+        <IconButton sx={styles.iconWrapper}>
+          <ToggleThemeIcon />
+        </IconButton>
+
+        <IconButton sx={styles.iconWrapper}>
           <Icon
             icon="material-symbols:logout"
             color={theme.palette.surface80.main}

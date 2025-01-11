@@ -99,7 +99,7 @@ const GeneratePrivateKeyCard = () => {
               <IconButton sx={{ padding: 0 }}>
                 <Icon
                   icon="material-symbols:download-rounded"
-                  color={theme.palette.surface80.main}
+                  color={theme.palette.surface100.main}
                   fontSize={20}
                 />
               </IconButton>
