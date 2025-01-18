@@ -1,6 +1,6 @@
-import { createTheme } from "@mui/material";
-import SatoshiFont from "./fonts/Satoshi-Variable.ttf"
-import OutfitFont from "./fonts/Outfit-Variable.ttf"
+import { createTheme } from "@mui/material/styles";
+import SatoshiFont from "./fonts/Satoshi-Variable.ttf";
+import OutfitFont from "./fonts/Outfit-Variable.ttf";
 import { darkThemePalette, lightThemePalette } from "./config/colorConfig";
 
 const getTheme = (mode: "light" | "dark") => {
@@ -24,7 +24,7 @@ const getTheme = (mode: "light" | "dark") => {
     typography: {
       fontFamily: "Satoshi",
     },
-  })
-}
+  });
+};
 
-export { getTheme }
+export { getTheme };

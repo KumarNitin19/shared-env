@@ -1,10 +1,11 @@
 import { RouterProvider } from "react-router-dom";
 import router from "./routes";
 import { Box } from "./atoms/Box";
-import { CssBaseline, ThemeProvider as MuiThemeProvider } from "@mui/material";
+import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import { useMemo } from "react";
 import { getTheme } from "./theme";
 import { useThemeToggle } from "./hooks/useThemeToggle";
+import CssBaseline from "@mui/material/CssBaseline";
 
 function App() {
   const { mode } = useThemeToggle();

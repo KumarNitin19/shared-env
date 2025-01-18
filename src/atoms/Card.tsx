@@ -1,11 +1,12 @@
+import { CardProps, default as MuiCard } from "@mui/material/Card";
 import {
-  CardProps,
-  Card as MuiCard,
-  CardContent as MuiCardContent,
-  CardActions as MuiCardActions,
-  CardContentProps,
+  default as MuiCardActions,
   CardActionsProps,
-} from "@mui/material";
+} from "@mui/material/CardActions";
+import {
+  default as MuiCardContent,
+  CardContentProps,
+} from "@mui/material/CardContent";
 
 const Card = (props: CardProps) => {
   return <MuiCard {...props} />;

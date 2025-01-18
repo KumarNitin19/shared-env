@@ -1,11 +1,17 @@
 import {
+  default as MuiAccordion,
   AccordionProps,
-  Accordion as MuiAccordion,
-  AccordionSummary as MuiAccordionSummary,
-  AccordionDetails as MuiAccordionDetails,
+} from "@mui/material/Accordion";
+
+import {
+  default as MuiAccordionSummary,
   AccordionSummaryProps,
+} from "@mui/material/AccordionSummary";
+
+import {
+  default as MuiAccordionDetails,
   AccordionDetailsProps,
-} from "@mui/material";
+} from "@mui/material/AccordionDetails";
 
 export default function Accordion(props: AccordionProps) {
   return <MuiAccordion {...props} />;

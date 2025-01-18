@@ -1,7 +1,7 @@
 import {
-  Avatar as MuiAvatar,
+  default as MuiAvatar,
   AvatarProps as MuiAvatarProps,
-} from "@mui/material";
+} from "@mui/material/Avatar";
 
 interface AvatarProps extends MuiAvatarProps {
   name?: string;

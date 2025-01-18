@@ -1,4 +1,4 @@
-import { ButtonProps, Button as MUIButton } from "@mui/material";
+import { ButtonProps, default as MUIButton } from "@mui/material/Button";
 
 const styles = {
   button: {

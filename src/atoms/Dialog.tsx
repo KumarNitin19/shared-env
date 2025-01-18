@@ -1,13 +1,17 @@
+import { DialogProps, default as MuiDialog } from "@mui/material/Dialog";
 import {
-  DialogProps,
-  Dialog as MuiDialog,
-  DialogTitle as MuiDialogTitle,
-  DialogContent as MuiDialogContent,
-  DialogActions as MuiDialogActions,
-  DialogTitleProps,
-  DialogContentProps,
+  default as MuiDialogActions,
   DialogActionsProps,
-} from "@mui/material";
+} from "@mui/material/DialogActions";
+import {
+  default as MuiDialogTitle,
+  DialogTitleProps,
+} from "@mui/material/DialogTitle";
+
+import {
+  default as MuiDialogContent,
+  DialogContentProps,
+} from "@mui/material/DialogContent";
 
 export default function Dialog(props: DialogProps) {
   return <MuiDialog {...props} />;
