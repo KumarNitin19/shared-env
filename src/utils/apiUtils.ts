@@ -1,18 +1,25 @@
 import axios from "axios";
 
-export const apiClient = axios.create({ baseURL: "" });
+export const axiosPrivateApiHandler = axios.create({ baseURL: "" });
+export const axiosPublicApiHandler = axios.create({ baseURL: "" });
 
-apiClient.interceptors.request.use(async (config) => {
+axiosPrivateApiHandler.interceptors.request.use(async (config) => {
   const idToken = "";
   config.headers["Authorization"] = `Bearer ${idToken}`;
   return config;
 });
 
-apiClient.interceptors.response.use(
-  (response) => {
-    return response.data;
-  },
+axiosPrivateApiHandler.interceptors.response.use(
+  (response) => response,
   (error) => {
+    const status = error.response ? error.response.status : null;
+    if (status === 403) {
+      // Handle unauthorized error
+    } else if (status === 404) {
+      // Handle not found errors
+    } else {
+      // Handle other errors
+    }
     return Promise.reject(error);
   }
 );
