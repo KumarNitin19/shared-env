@@ -1,19 +1,34 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import PrivateRoute from "./privateRoute";
 import PublicRoute from "./publicRoute";
-import WithSidebar from "../molecules/layout/components/WithSidebar";
-import PageNotFound from "../molecules/layout/components/PageNotFound";
-import ProjectPage from "../pages/project";
-import { LoginContainer } from "../containers/login-container";
-import { DashboardContainer } from "../containers/dashboard-container";
-import GeneratePrivateKeyContainer from "../containers/generate-private-key-container";
+
+const WithSidebar = lazy(
+  () => import("../molecules/layout/components/WithSidebar")
+);
+const DashboardContainer = lazy(
+  () => import("../containers/dashboard-container")
+);
+const LoginContainer = lazy(() => import("../containers/login-container"));
+
+const GeneratePrivateKeyContainer = lazy(
+  () => import("../containers/generate-private-key-container")
+);
+
+const PageNotFound = lazy(
+  () => import("../molecules/layout/components/PageNotFound")
+);
+
+const ProjectPage = lazy(() => import("../pages/project"));
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
       <PrivateRoute>
-        <WithSidebar />
+        <Suspense fallback={<div>Loading...</div>}>
+          <WithSidebar />
+        </Suspense>
       </PrivateRoute>
     ),
     children: [
@@ -21,7 +36,9 @@ const router = createBrowserRouter([
         path: "dashboard",
         element: (
           <PrivateRoute>
-            <DashboardContainer />
+            <Suspense fallback={<div>Loading...</div>}>
+              <DashboardContainer />
+            </Suspense>
           </PrivateRoute>
         ),
       },
@@ -29,7 +46,9 @@ const router = createBrowserRouter([
         path: "project/:projectId",
         element: (
           <PrivateRoute>
-            <ProjectPage />
+            <Suspense fallback={<div>Loading...</div>}>
+              <ProjectPage />
+            </Suspense>
           </PrivateRoute>
         ),
       },
@@ -39,7 +58,9 @@ const router = createBrowserRouter([
     path: "/generate-private-key",
     element: (
       <PrivateRoute>
-        <GeneratePrivateKeyContainer />
+        <Suspense fallback={<div>Loading...</div>}>
+          <GeneratePrivateKeyContainer />
+        </Suspense>
       </PrivateRoute>
     ),
   },
@@ -47,7 +68,9 @@ const router = createBrowserRouter([
     path: "/sign-in",
     element: (
       <PublicRoute>
-        <LoginContainer />
+        <Suspense fallback={<div>Loading...</div>}>
+          <LoginContainer />
+        </Suspense>
       </PublicRoute>
     ),
   },
@@ -55,7 +78,9 @@ const router = createBrowserRouter([
     path: "*",
     element: (
       <PublicRoute>
-        <PageNotFound />
+        <Suspense fallback={<div>Loading...</div>}>
+          <PageNotFound />
+        </Suspense>
       </PublicRoute>
     ),
   },

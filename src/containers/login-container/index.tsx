@@ -4,7 +4,7 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleAuthProvider } from "../../molecules/auth/utils/firebase";
 
-export const LoginContainer = () => {
+const LoginContainer = () => {
   const navigate = useNavigate();
 
   const { setItem } = useLocalStorage();
@@ -31,3 +31,5 @@ export const LoginContainer = () => {
   };
   return <SignIn onSignUp={signInWithGooglePopup} />;
 };
+
+export default LoginContainer;

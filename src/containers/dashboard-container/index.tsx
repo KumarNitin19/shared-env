@@ -1,5 +1,7 @@
 import DashboardPage from "../../pages/dashboard";
 
-export const DashboardContainer = () => {
+const DashboardContainer = () => {
   return <DashboardPage />;
 };
+
+export default DashboardContainer;
