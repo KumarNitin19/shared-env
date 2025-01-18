@@ -4,7 +4,7 @@ import BACKGROUD_IMAGE from "../../assets/images/bg-pattern.png";
 import { Box } from "../../atoms/Box";
 import { ToggleThemeIcon } from "../../molecules/toggle-theme-button";
 import GeneratePrivateKeyCard from "../../molecules/generate-private-key-card";
-import { Icon } from "../../atoms";
+import { Icon } from "../../atoms/Icon";
 
 const styles = {
   signInContainer: {

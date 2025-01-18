@@ -1,12 +1,13 @@
 import { useTheme } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
-import { Button, Icon } from "../../atoms";
 import { Box } from "../../atoms/Box";
 import { Typography } from "../../atoms/Typography";
 import AddProject from "../../molecules/add-project";
 import DashboardPageZeroState from "../../organisms/dashboard/dashboard-page-zero-state";
 import ProjectCard from "../../organisms/dashboard/project-card";
 import InputField from "../../atoms/TextField";
+import { Icon } from "../../atoms/Icon";
+import { Button } from "../../atoms/Button";
 
 const styles = {
   searchField: {

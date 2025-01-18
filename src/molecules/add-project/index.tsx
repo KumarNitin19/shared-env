@@ -1,5 +1,4 @@
 import { ChangeEvent, useCallback, useState } from "react";
-import { Button, Icon } from "../../atoms";
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -10,6 +9,8 @@ import { Box } from "../../atoms/Box";
 import { Typography } from "../../atoms/Typography";
 import IconButton from "@mui/material/IconButton";
 import { Theme, useTheme } from "@mui/material/styles";
+import { Button } from "../../atoms/Button";
+import { Icon } from "../../atoms/Icon";
 
 const styles = {
   dialog: (theme: Theme) => ({

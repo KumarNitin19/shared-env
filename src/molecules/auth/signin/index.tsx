@@ -1,6 +1,5 @@
 import LOGO_DARK from "../../../assets/images/varvault-dark.svg";
 import LOGO_LIGHT from "../../../assets/images/varvault-light.svg";
-import { Button, Icon } from "../../../atoms";
 import { Box } from "../../../atoms/Box";
 import { Typography } from "../../../atoms/Typography";
 import BACKGROUD_IMAGE from "../../../assets/images/bg-pattern.png";
@@ -9,6 +8,8 @@ import CARD_BACKGROUND_DARK from "../../../assets/images/sign-in-card-bg-dark.sv
 import { useThemeToggle } from "../../../hooks/useThemeToggle";
 import { useTheme } from "@mui/material/styles";
 import { ToggleThemeIcon } from "../../toggle-theme-button";
+import { Button } from "../../../atoms/Button";
+import { Icon } from "../../../atoms/Icon";
 
 const styles = {
   signInWithGoogleBtn: (theme: string) => ({

@@ -1,7 +1,7 @@
 import { useTheme } from "@mui/material/styles";
-import { Icon } from "../../atoms";
 import { Box } from "../../atoms/Box";
 import { useThemeToggle } from "../../hooks/useThemeToggle";
+import { Icon } from "../../atoms/Icon";
 
 const styles = {
   lightIcon: (mode: string) => ({

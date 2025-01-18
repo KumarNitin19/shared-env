@@ -1,13 +1,14 @@
 import { ChangeEvent, useCallback, useState } from "react";
-import { Button, Divider, Icon } from "../../atoms";
 import { KeyValueProp } from "../../types/commonTypes";
 import { generateUID } from "../../utils/commonUtils";
-
 import InputField from "../../atoms/TextField";
 import { Typography } from "../../atoms/Typography";
 import { useTheme } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import { Box } from "../../atoms/Box";
+import { Button } from "../../atoms/Button";
+import { Divider } from "../../atoms/Divider";
+import { Icon } from "../../atoms/Icon";
 
 const styles = {
   addVariableButton: { height: "fit-content", fontSize: 14 },

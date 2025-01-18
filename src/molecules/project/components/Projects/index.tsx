@@ -1,12 +1,12 @@
 // import useCopyToClipboard from "../../../../hooks/useCopyToClipboard";
 // import EnvironmentVariableGroupList from "../../../../organisms/projects/environment-variable-group-list";
 import { useTheme } from "@mui/material/styles";
-import { Divider } from "../../../../atoms";
 import { Typography } from "../../../../atoms/Typography";
 import EnvironmentVariableGroupList from "../../../../organisms/projects/environment-variable-group-list";
 import CopyText from "../../../copy-text";
 import { Box } from "../../../../atoms/Box";
 import ProjectPageZeroState from "../../../../organisms/projects/project-page-zero-state";
+import { Divider } from "../../../../atoms/Divider";
 
 type Props = {
   projects: {

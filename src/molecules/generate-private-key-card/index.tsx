@@ -5,10 +5,11 @@ import { useThemeToggle } from "../../hooks/useThemeToggle";
 import { Typography } from "../../atoms/Typography";
 import { useTheme } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
-import { Button, Icon } from "../../atoms";
 import { useCallback, useState } from "react";
 import CopyText from "../copy-text";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../../atoms/Button";
+import { Icon } from "../../atoms/Icon";
 
 const styles = {
   generateKeyCard: (theme: string) => ({

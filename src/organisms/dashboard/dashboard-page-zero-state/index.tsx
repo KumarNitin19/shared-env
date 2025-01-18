@@ -1,7 +1,8 @@
 import COMPUTER_HANDS_DARK from "../../../assets/images/computer-hands-dark.svg";
 import COMPUTER_HANDS_LIGHT from "../../../assets/images/computer-hands-light.svg";
+import { Button } from "../../../atoms/Button";
+import { Icon } from "../../../atoms/Icon";
 import AddProject from "../../../molecules/add-project";
-import { Button, Icon } from "../../../atoms";
 
 function DashboardPageZeroState() {
   const theme = "light";

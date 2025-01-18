@@ -2,13 +2,11 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../molecules/auth/utils/firebase";
 import { useLocation, useNavigate } from "react-router-dom";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import { useToast } from "../../hooks/use-toast";
 import useUser from "../../hooks/useUser";
 import { LoggedInUser } from "../../types/loggedInUser.type";
 import React, { useCallback, useEffect, useState } from "react";
 import LOGO_DARK from "../../../src/assets/images/varvault-dark.svg";
 import LOGO_LIGHT from "../../../src/assets/images/varvault-light.svg";
-import { Avatar, Divider, Icon } from "../../atoms";
 import AddProject from "../../molecules/add-project";
 import { Drawer } from "../../atoms/Drawer";
 import { Box } from "../../atoms/Box";
@@ -26,6 +24,9 @@ import { Typography } from "../../atoms/Typography";
 import { useThemeToggle } from "../../hooks/useThemeToggle";
 import { ThemeMode } from "../../providers/ThemeProvider";
 import { ToggleThemeIcon } from "../../molecules/toggle-theme-button";
+import { Icon } from "../../atoms/Icon";
+import { Divider } from "../../atoms/Divider";
+import { Avatar } from "../../atoms/Avatar";
 
 const styles = {
   drawer: (theme: Theme) => ({
@@ -156,7 +157,6 @@ function Sidebar({
   const location = useLocation();
   const navigate = useNavigate();
   const { removeItem } = useLocalStorage();
-  const { toast } = useToast();
   const { mode } = useThemeToggle();
   const theme = useTheme();
   const loggedInUser: LoggedInUser = useUser();
@@ -173,9 +173,6 @@ function Sidebar({
       })
       .catch((error) => {
         console.error(error);
-        toast({
-          description: `Something went wrong, please try again.`,
-        });
       });
   }, []);
 

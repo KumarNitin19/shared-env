@@ -1,8 +1,9 @@
 import { Theme, useTheme } from "@mui/material/styles";
-import { Button, CardContent, Icon } from "../../../atoms";
 import { Box } from "../../../atoms/Box";
-import Card, { CardActions } from "../../../atoms/Card";
+import Card, { CardActions, CardContent } from "../../../atoms/Card";
 import { Typography } from "../../../atoms/Typography";
+import { Button } from "../../../atoms/Button";
+import { Icon } from "../../../atoms/Icon";
 
 const styles = {
   projectCard: (theme: Theme) => ({

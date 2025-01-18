@@ -5,11 +5,12 @@ import Accordion, {
   AccordionSummary,
 } from "../../../atoms/Accordion";
 import { Typography } from "../../../atoms/Typography";
-import { Divider, Icon } from "../../../atoms";
+import { Icon } from "../../../atoms/Icon";
 import { Box } from "../../../atoms/Box";
 import { useCallback, useState } from "react";
 import AddEnvironmentGroup from "../../../molecules/add-environment-group";
 import CopyText from "../../../molecules/copy-text";
+import { Divider } from "../../../atoms/Divider";
 
 const styles = {
   accordion: (theme: Theme) => ({

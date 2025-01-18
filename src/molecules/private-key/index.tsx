@@ -3,11 +3,11 @@ import IconButton from "@mui/material/IconButton";
 import Dialog, { DialogContent } from "../../atoms/Dialog";
 import { Box } from "../../atoms/Box";
 import { Typography } from "../../atoms/Typography";
-import { Icon } from "../../atoms";
 import CopyText from "../copy-text";
 import CARD_BACKGROUND_LIGHT from "../../assets/images/sign-in-card-bg.svg";
 import CARD_BACKGROUND_DARK from "../../assets/images/sign-in-card-bg-dark.svg";
 import { useThemeToggle } from "../../hooks/useThemeToggle";
+import { Icon } from "../../atoms/Icon";
 
 const styles = {
   dialog: (theme: string) => ({
