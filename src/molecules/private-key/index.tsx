@@ -1,4 +1,5 @@
-import { IconButton, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import IconButton from "@mui/material/IconButton";
 import Dialog, { DialogContent } from "../../atoms/Dialog";
 import { Box } from "../../atoms/Box";
 import { Typography } from "../../atoms/Typography";

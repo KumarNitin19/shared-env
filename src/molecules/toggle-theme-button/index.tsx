@@ -1,4 +1,4 @@
-import { useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import { Icon } from "../../atoms";
 import { Box } from "../../atoms/Box";
 import { useThemeToggle } from "../../hooks/useThemeToggle";

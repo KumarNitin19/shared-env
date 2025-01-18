@@ -1,4 +1,5 @@
-import { IconButton, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import IconButton from "@mui/material/IconButton";
 import BACKGROUD_IMAGE from "../../assets/images/bg-pattern.png";
 import { Box } from "../../atoms/Box";
 import { ToggleThemeIcon } from "../../molecules/toggle-theme-button";

@@ -1,4 +1,5 @@
-import { InputAdornment, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import InputAdornment from "@mui/material/InputAdornment";
 import { Button, Icon } from "../../atoms";
 import { Box } from "../../atoms/Box";
 import { Typography } from "../../atoms/Typography";

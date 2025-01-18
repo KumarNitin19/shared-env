@@ -1,4 +1,4 @@
-import { useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import { Button, Icon } from "../../../atoms";
 import { Box } from "../../../atoms/Box";
 import { Typography } from "../../../atoms/Typography";

@@ -8,7 +8,8 @@ import Dialog, {
 import InputField from "../../atoms/TextField";
 import { Box } from "../../atoms/Box";
 import { Typography } from "../../atoms/Typography";
-import { IconButton, Theme, useTheme } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import { Theme, useTheme } from "@mui/material/styles";
 
 const styles = {
   dialog: (theme: Theme) => ({

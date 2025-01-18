@@ -1,6 +1,6 @@
 import SideBar from "../../../../organisms/sidebar";
 import { Box } from "../../../../atoms/Box";
-import { useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import PrivateKey from "../../../private-key";

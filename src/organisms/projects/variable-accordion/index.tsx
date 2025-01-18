@@ -1,4 +1,5 @@
-import { IconButton, Theme, useTheme } from "@mui/material";
+import { Theme, useTheme } from "@mui/material/styles";
+import IconButton from "@mui/material/IconButton";
 import Accordion, {
   AccordionDetails,
   AccordionSummary,

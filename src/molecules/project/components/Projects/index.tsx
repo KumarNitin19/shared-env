@@ -1,6 +1,6 @@
 // import useCopyToClipboard from "../../../../hooks/useCopyToClipboard";
 // import EnvironmentVariableGroupList from "../../../../organisms/projects/environment-variable-group-list";
-import { useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import { Divider } from "../../../../atoms";
 import { Typography } from "../../../../atoms/Typography";
 import EnvironmentVariableGroupList from "../../../../organisms/projects/environment-variable-group-list";

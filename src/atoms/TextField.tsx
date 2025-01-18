@@ -1,9 +1,8 @@
 import {
-  TextField as MuiInputField,
+  default as MuiInputField,
   TextFieldProps,
-  Theme,
-  useTheme,
-} from "@mui/material";
+} from "@mui/material/TextField";
+import { Theme, useTheme } from "@mui/material/styles";
 
 const styles = {
   inputField: (theme: Theme) => ({

@@ -1,4 +1,4 @@
-import { PaletteMode } from "@mui/material";
+import { PaletteMode } from "@mui/material/styles";
 declare module "@mui/material/styles" {
   interface Palette {
     primary: Palette["primary"];

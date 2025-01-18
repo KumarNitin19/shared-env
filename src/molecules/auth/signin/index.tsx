@@ -7,7 +7,7 @@ import BACKGROUD_IMAGE from "../../../assets/images/bg-pattern.png";
 import CARD_BACKGROUND_LIGHT from "../../../assets/images/sign-in-card-bg.svg";
 import CARD_BACKGROUND_DARK from "../../../assets/images/sign-in-card-bg-dark.svg";
 import { useThemeToggle } from "../../../hooks/useThemeToggle";
-import { useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import { ToggleThemeIcon } from "../../toggle-theme-button";
 
 const styles = {

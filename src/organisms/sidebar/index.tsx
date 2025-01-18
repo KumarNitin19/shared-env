@@ -12,19 +12,16 @@ import { Avatar, Divider, Icon } from "../../atoms";
 import AddProject from "../../molecules/add-project";
 import { Drawer } from "../../atoms/Drawer";
 import { Box } from "../../atoms/Box";
-import {
-  Grid,
-  IconButton,
-  Link,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  ListSubheader,
-  Theme,
-  useTheme,
-} from "@mui/material";
+import { Theme, useTheme } from "@mui/material/styles";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import ListSubheader from "@mui/material/ListSubheader";
+import Link from "@mui/material/Link";
+import IconButton from "@mui/material/IconButton";
+import Grid from "@mui/material/Grid";
 import { Typography } from "../../atoms/Typography";
 import { useThemeToggle } from "../../hooks/useThemeToggle";
 import { ThemeMode } from "../../providers/ThemeProvider";

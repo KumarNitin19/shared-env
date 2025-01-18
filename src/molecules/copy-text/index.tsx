@@ -1,4 +1,5 @@
-import { IconButton, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import IconButton from "@mui/material/IconButton";
 import { Icon } from "../../atoms";
 import useCopyToClipboard from "../../hooks/useCopyToClipboard";
 

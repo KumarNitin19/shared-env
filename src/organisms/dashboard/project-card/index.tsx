@@ -1,4 +1,4 @@
-import { Theme, useTheme } from "@mui/material";
+import { Theme, useTheme } from "@mui/material/styles";
 import { Button, CardContent, Icon } from "../../../atoms";
 import { Box } from "../../../atoms/Box";
 import Card, { CardActions } from "../../../atoms/Card";

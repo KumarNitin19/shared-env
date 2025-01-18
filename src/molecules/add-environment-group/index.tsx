@@ -1,11 +1,12 @@
 import { ChangeEvent, useCallback, useState } from "react";
-import { Button, Icon } from "../../atoms";
+import { Button, Divider, Icon } from "../../atoms";
 import { KeyValueProp } from "../../types/commonTypes";
 import { generateUID } from "../../utils/commonUtils";
 
 import InputField from "../../atoms/TextField";
 import { Typography } from "../../atoms/Typography";
-import { Divider, IconButton, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import IconButton from "@mui/material/IconButton";
 import { Box } from "../../atoms/Box";
 
 const styles = {
