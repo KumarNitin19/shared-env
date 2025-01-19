@@ -1,15 +1,15 @@
 import axios from "axios";
 
-export const axiosPrivateApiHandler = axios.create({ baseURL: "" });
-export const axiosPublicApiHandler = axios.create({ baseURL: "" });
+export const privateApiClient = axios.create({ baseURL: "" });
+export const publicApiClient = axios.create({ baseURL: "" });
 
-axiosPrivateApiHandler.interceptors.request.use(async (config) => {
+privateApiClient.interceptors.request.use(async (config) => {
   const idToken = "";
   config.headers["Authorization"] = `Bearer ${idToken}`;
   return config;
 });
 
-axiosPrivateApiHandler.interceptors.response.use(
+privateApiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     const status = error.response ? error.response.status : null;

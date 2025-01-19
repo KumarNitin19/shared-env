@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
+import { privateApiClient } from "../utils/apiUtils";
 
-export const SignInUser = useQuery({
-  queryKey: ["repoData"],
-  queryFn: () =>
-    fetch("https://api.github.com/repos/TanStack/query").then((res) =>
-      res.json()
-    ),
-});
+// Example of get api call
+export function useSignIn() {
+  const url = "/signin";
+  return useQuery({
+    queryKey: ["user-signin"],
+    queryFn: async () => privateApiClient({ url }) as Promise<unknown>,
+  });
+}
