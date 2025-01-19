@@ -12,6 +12,7 @@ const LoginContainer = () => {
   const signInWithGooglePopup = () => {
     signInWithPopup(auth, googleAuthProvider)
       .then(async (result) => {
+        console.log(result);
         const user = result.user;
         const token = await user.getIdToken();
         console.log(token);
