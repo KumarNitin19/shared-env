@@ -1,10 +1,11 @@
 import axios from "axios";
+import { auth } from "../molecules/auth/utils/firebase";
 
 export const privateApiClient = axios.create({ baseURL: "" });
 export const publicApiClient = axios.create({ baseURL: "" });
 
 privateApiClient.interceptors.request.use(async (config) => {
-  const idToken = "";
+  const idToken = auth?.currentUser?.getIdToken();
   config.headers["Authorization"] = `Bearer ${idToken}`;
   return config;
 });
