@@ -5,6 +5,7 @@ import { Box } from "../../atoms/Box";
 import { ToggleThemeIcon } from "../../molecules/toggle-theme-button";
 import GeneratePrivateKeyCard from "../../molecules/generate-private-key-card";
 import { Icon } from "../../atoms/Icon";
+import { logout } from "../../query/userQuery";
 
 const styles = {
   signInContainer: {
@@ -50,7 +51,7 @@ const GeneratePrivateKeyPage = () => {
           <ToggleThemeIcon />
         </IconButton>
 
-        <IconButton sx={styles.iconWrapper}>
+        <IconButton onClick={logout} sx={styles.iconWrapper}>
           <Icon
             icon="material-symbols:logout"
             color={theme.palette.surface80.main}

@@ -3,7 +3,6 @@ import { auth } from "../../molecules/auth/utils/firebase";
 import { useLocation, useNavigate } from "react-router-dom";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import useUser from "../../hooks/useUser";
-import { LoggedInUser } from "../../types/user.type";
 import React, { useCallback, useEffect, useState } from "react";
 import LOGO_DARK from "../../../src/assets/images/varvault-dark.svg";
 import LOGO_LIGHT from "../../../src/assets/images/varvault-light.svg";
@@ -27,6 +26,7 @@ import { ToggleThemeIcon } from "../../molecules/toggle-theme-button";
 import { Icon } from "../../atoms/Icon";
 import { Divider } from "../../atoms/Divider";
 import { Avatar } from "../../atoms/Avatar";
+import { logout } from "../../query/userQuery";
 
 const styles = {
   drawer: (theme: Theme) => ({
@@ -159,22 +159,11 @@ function Sidebar({
   const { removeItem } = useLocalStorage();
   const { mode } = useThemeToggle();
   const theme = useTheme();
-  const loggedInUser: LoggedInUser = useUser();
+  const loggedInUser = useUser();
 
   useEffect(() => {
     setSelectedMenuItem(location.pathname);
   }, [location.pathname]);
-
-  const signOutUser = useCallback(() => {
-    signOut(auth)
-      .then(() => {
-        removeItem("userDetails");
-        navigate("/sign-in");
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
 
   const goToProject = useCallback((projectId: string) => {
     navigate(`/project/${projectId}`);
@@ -307,7 +296,7 @@ function Sidebar({
               <ListItemText primary="Logout" />
             </ListItemButton>
             <Box display="flex" gap={1.5} alignItems="center">
-              <IconButton onClick={signOutUser} sx={{ padding: 0 }}>
+              <IconButton onClick={logout} sx={{ padding: 0 }}>
                 <Icon
                   icon="material-symbols:logout"
                   color={theme.palette.surface80.main}
