@@ -1,6 +1,7 @@
 export type User = {
-  access_token: string;
+  uid: string;
   email: string;
-  display_name: string;
-  profile_image: string;
-} | null;
+  name: string;
+  picture: string;
+  createdAt: string;
+};
