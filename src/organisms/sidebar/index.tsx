@@ -3,7 +3,7 @@ import { auth } from "../../molecules/auth/utils/firebase";
 import { useLocation, useNavigate } from "react-router-dom";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import useUser from "../../hooks/useUser";
-import { LoggedInUser } from "../../types/loggedInUser.type";
+import { LoggedInUser } from "../../types/user.type";
 import React, { useCallback, useEffect, useState } from "react";
 import LOGO_DARK from "../../../src/assets/images/varvault-dark.svg";
 import LOGO_LIGHT from "../../../src/assets/images/varvault-light.svg";

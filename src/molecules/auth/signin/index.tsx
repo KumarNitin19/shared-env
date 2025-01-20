@@ -37,6 +37,7 @@ const styles = {
     })`,
     backgroundSize: "cover",
     backdropFilter: "blur(62px)",
+    minHeight: 348,
   }),
 };
 

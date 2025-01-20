@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useLocalStorage from "./useLocalStorage";
-import { LoggedInUser } from "../types/loggedInUser.type";
+import { LoggedInUser } from "../types/user.type";
 
 export default function useUser() {
   const [loggedInUser, setLoggedInUser] = useState<LoggedInUser>(null);

@@ -25,6 +25,7 @@ const styles = {
     justifyContent: "center",
     gap: 6,
     p: 4,
+    minHeight: 348,
   }),
   generateApiKeyButton: {
     "&.Mui-disabled": {

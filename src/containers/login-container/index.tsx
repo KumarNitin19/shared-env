@@ -27,7 +27,7 @@ const LoginContainer = () => {
             profile_image: user.photoURL,
           })
         );
-        if (userClaims?.claims.varVaultId) {
+        if (userClaims?.claims.varVaultPrivateKey) {
           navigate("/dashboard");
         } else {
           navigate("/generate-private-key");
