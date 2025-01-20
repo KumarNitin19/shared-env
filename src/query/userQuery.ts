@@ -4,7 +4,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../molecules/auth/utils/firebase";
 import { User } from "../types/user.type";
 
-// Example of get api call
+// Abstraction to sign-in
 export function useSignIn() {
   const url = "/signin/";
   return useMutation({
@@ -20,6 +20,24 @@ export function useSignIn() {
   });
 }
 
+export function useGeneratePrivateKey() {
+  const url = "/generate-private-key/";
+  return useMutation({
+    mutationKey: ["generate-private-key"],
+    mutationFn: async (): Promise<{ message: string; privateKey?: string }> => {
+      try {
+        const res = await privateApiClient({ url });
+        return res.data;
+      } catch (error) {
+        return {
+          message: "Something went wrong, please try again!!",
+        };
+      }
+    },
+  });
+}
+
+// Abstraction to logout
 export async function logout() {
   signOut(auth)
     .then(() => {

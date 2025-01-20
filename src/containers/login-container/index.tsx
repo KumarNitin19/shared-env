@@ -17,16 +17,7 @@ const LoginContainer = () => {
         const user = result.user;
         const userClaims: IdTokenResult = await user.getIdTokenResult();
         const res = await signIn();
-        console.log(res);
-        setItem(
-          "userDetails",
-          JSON.stringify({
-            access_token: userClaims?.token,
-            email: user.email,
-            display_name: user.displayName,
-            profile_image: user.photoURL,
-          })
-        );
+        setItem("userDetails", res.user);
         if (userClaims?.claims.varVaultPrivateKey) {
           navigate("/dashboard");
         } else {
