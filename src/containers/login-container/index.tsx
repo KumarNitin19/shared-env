@@ -17,11 +17,13 @@ const LoginContainer = () => {
         const user = result.user;
         const userClaims: IdTokenResult = await user.getIdTokenResult();
         const res = await signIn();
-        setItem("userDetails", res.user);
-        if (userClaims?.claims.varVaultPrivateKey) {
-          navigate("/dashboard");
-        } else {
-          navigate("/generate-private-key");
+        if (res?.user) {
+          setItem("userDetails", res?.user);
+          if (userClaims?.claims.varVaultPrivateKey) {
+            navigate("/dashboard");
+          } else {
+            navigate("/generate-private-key");
+          }
         }
       })
       .catch((_error) => {});

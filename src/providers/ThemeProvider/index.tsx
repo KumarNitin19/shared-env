@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useCallback, useState } from "react";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 export type ThemeMode = "light" | "dark";
 
@@ -18,12 +19,13 @@ interface ThemeProviderProps {
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const savedTheme = localStorage.getItem("theme") as ThemeMode | null;
   const [mode, setMode] = useState<ThemeMode>(savedTheme || "light");
+  const { setItem } = useLocalStorage();
 
   // Toggle theme between 'light' and 'dark'
   const toggleTheme = useCallback(
     (mode: ThemeMode) => {
       setMode(mode);
-      localStorage.setItem("theme", mode); // Save the theme to localStorage
+      setItem("theme", mode); // Save the theme to localStorage
     },
     [mode]
   );

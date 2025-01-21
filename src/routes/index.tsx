@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import PrivateRoute from "./privateRoute";
 import PublicRoute from "./publicRoute";
+import Loading from "../pages/loading";
 
 const WithSidebar = lazy(
   () => import("../molecules/layout/components/WithSidebar")
@@ -75,21 +76,21 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/loading",
+    element: (
+      // <PublicRoute>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Loading />
+      </Suspense>
+      // </PublicRoute>
+    ),
+  },
+  {
     path: "/sign-in",
     element: (
       <PublicRoute>
         <Suspense fallback={<div>Loading...</div>}>
           <LoginContainer />
-        </Suspense>
-      </PublicRoute>
-    ),
-  },
-  {
-    path: "/loading",
-    element: (
-      <PublicRoute>
-        <Suspense fallback={<div>Loading...</div>}>
-          <div>Loading Page</div>
         </Suspense>
       </PublicRoute>
     ),

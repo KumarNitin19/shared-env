@@ -2,7 +2,6 @@ import { Navigate } from "react-router-dom";
 import { memo, useEffect } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { auth } from "../molecules/auth/utils/firebase";
-import { onAuthStateChanged } from "firebase/auth";
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { getItem } = useLocalStorage();
@@ -18,10 +17,6 @@ function PrivateRoute({ children }: { children: React.ReactNode }) {
         .catch((error) => {
           console.error("Error fetching updated ID token:", error);
         });
-    } else {
-      onAuthStateChanged(auth, (user) => {
-        console.log(user);
-      });
     }
   }, [auth?.currentUser]);
 
