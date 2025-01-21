@@ -47,7 +47,7 @@ const DashboardPage = () => {
           justifyContent="space-between"
           width="100%">
           <Typography
-            variant="h4"
+            variant="h1"
             fontSize={32}
             fontWeight={400}
             color={palette.surface100.main}>

@@ -1,29 +1,51 @@
+import { useTheme } from "@mui/material";
 import COMPUTER_HANDS_DARK from "../../../assets/images/computer-hands-dark.svg";
 import COMPUTER_HANDS_LIGHT from "../../../assets/images/computer-hands-light.svg";
+import { Box } from "../../../atoms/Box";
 import { Button } from "../../../atoms/Button";
 import { Icon } from "../../../atoms/Icon";
+import { Typography } from "../../../atoms/Typography";
+import { useThemeToggle } from "../../../hooks/useThemeToggle";
 import AddProject from "../../../molecules/add-project";
+import { ThemeEnum } from "../../../providers/ThemeProvider";
 
 function DashboardPageZeroState() {
-  const theme = "light";
+  const theme = useTheme();
+  const { mode } = useThemeToggle();
 
   return (
-    <div className="h-full flex flex-col gap-6 items-center justify-center">
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap={3}
+      alignItems="center"
+      justifyContent="center"
+      textAlign="center"
+      margin="auto"
+      height="100%">
       <img
-        src={theme === "light" ? COMPUTER_HANDS_DARK : COMPUTER_HANDS_LIGHT}
+        src={
+          mode === ThemeEnum.LIGHT ? COMPUTER_HANDS_DARK : COMPUTER_HANDS_LIGHT
+        }
         alt="computer-hands"
       />
-      <span className="text-3xl font-bold">Welcome to VarVault</span>
-      <span className="text-center text-subtle">
+      <Typography
+        fontWeight={500}
+        fontSize={28}
+        color={theme.palette.surface100.main}>
+        Welcome to VarVault
+      </Typography>
+      <Typography fontSize={16} color={theme.palette.surface80.main}>
         Ready to dive in? Start your first <br /> project now
-      </span>
-      <AddProject>
-        <Button className="mt-6 px-8 flex gap-2">
-          <Icon icon="fluent:add-16-regular" className="h-5 w-5" />
-          Create Project
-        </Button>
-      </AddProject>
-    </div>
+      </Typography>
+      <Box mt={3}>
+        <AddProject>
+          <Button startIcon={<Icon icon="fluent:add-16-regular" />}>
+            Create Project
+          </Button>
+        </AddProject>
+      </Box>
+    </Box>
   );
 }
 
