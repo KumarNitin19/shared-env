@@ -1,7 +1,4 @@
-import { signOut } from "firebase/auth";
-import { auth } from "../../molecules/auth/utils/firebase";
 import { useLocation, useNavigate } from "react-router-dom";
-import useLocalStorage from "../../hooks/useLocalStorage";
 import useUser from "../../hooks/useUser";
 import React, { useCallback, useEffect, useState } from "react";
 import LOGO_DARK from "../../../src/assets/images/varvault-dark.svg";
@@ -156,7 +153,6 @@ function Sidebar({
 
   const location = useLocation();
   const navigate = useNavigate();
-  const { removeItem } = useLocalStorage();
   const { mode } = useThemeToggle();
   const theme = useTheme();
   const loggedInUser = useUser();
