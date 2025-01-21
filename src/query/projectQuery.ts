@@ -5,7 +5,7 @@ export function useProjects() {
   const url = "/projects/";
   return useQuery({
     queryKey: ["projects"],
-    queryFn: async () => privateApiClient({ url }) as Promise<unknown>,
+    queryFn: async () => privateApiClient({ url }) as Promise<Array<unknown>>,
   });
 }
 

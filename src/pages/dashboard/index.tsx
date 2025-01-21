@@ -28,8 +28,8 @@ const styles = {
 
 const DashboardPage = () => {
   const { palette } = useTheme();
-  const { data: Projects } = useProjects();
-  console.log(Projects);
+  const { data: Projects = [] } = useProjects();
+
   return (
     <Box height="100%">
       {/* <DashboardPageZeroState /> */}
@@ -53,37 +53,43 @@ const DashboardPage = () => {
             color={palette.surface100.main}>
             Dashboard
           </Typography>
-          <Box display="flex" gap={1} alignItems="center">
-            <InputField
-              className="search-project"
-              placeholder="Search"
-              slotProps={{
-                input: {
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Icon icon="material-symbols:search-rounded" />
-                    </InputAdornment>
-                  ),
-                },
-              }}
-              sx={styles.searchField}
-            />
-            <AddProject>
-              <Button startIcon={<Icon icon="fluent:add-16-regular" />}>
-                Add Project
-              </Button>
-            </AddProject>
+          {Projects?.length ? (
+            <Box display="flex" gap={1} alignItems="center">
+              <InputField
+                className="search-project"
+                placeholder="Search"
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Icon icon="material-symbols:search-rounded" />
+                      </InputAdornment>
+                    ),
+                  },
+                }}
+                sx={styles.searchField}
+              />
+              <AddProject>
+                <Button startIcon={<Icon icon="fluent:add-16-regular" />}>
+                  Add Project
+                </Button>
+              </AddProject>
+            </Box>
+          ) : null}
+        </Box>
+        {Projects?.length ? (
+          <Box
+            display="grid"
+            gridTemplateColumns="1fr 1fr 1fr"
+            columnGap={3}
+            width="100%">
+            <ProjectCard />
+            <ProjectCard />
+            <ProjectCard />
           </Box>
-        </Box>
-        <Box
-          display="grid"
-          gridTemplateColumns="1fr 1fr 1fr"
-          columnGap={3}
-          width="100%">
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
-        </Box>
+        ) : (
+          <DashboardPageZeroState />
+        )}
       </Box>
     </Box>
   );

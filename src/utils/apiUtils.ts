@@ -20,6 +20,7 @@ privateApiClient.interceptors.response.use(
   (error) => {
     const status = error.response ? error.response.status : null;
 
+    console.log(status, error);
     if (status === 401) {
       window.location.pathname = "/loading";
     } else if (status === 404) {
