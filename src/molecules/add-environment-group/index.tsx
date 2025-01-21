@@ -158,7 +158,7 @@ function AddEnvironmentGroup({ isEdit = false, onCancel }: Props) {
             </Typography>
             <Box width={20}></Box>
           </Box>
-          {envVariable?.map((variable, index) => (
+          {envVariable?.map((variable) => (
             <Box key={variable?.id} display="flex" gap={1}>
               <InputField
                 id={variable?.id}

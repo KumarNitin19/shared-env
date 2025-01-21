@@ -169,8 +169,6 @@ function Sidebar({
     navigate("/dashboard");
   }, []);
 
-  console.log(mode === ThemeEnum.DARK, mode, ThemeEnum.DARK);
-
   return (
     <Drawer
       variant="permanent"
@@ -286,10 +284,7 @@ function Sidebar({
           <ListItem disablePadding title="Logout">
             <ListItemButton>
               <ListItemIcon>
-                <Avatar
-                  name={loggedInUser?.display_name}
-                  src={loggedInUser?.profile_image}
-                />
+                <Avatar name={loggedInUser?.name} src={loggedInUser?.picture} />
               </ListItemIcon>
               <ListItemText primary="Logout" />
             </ListItemButton>
