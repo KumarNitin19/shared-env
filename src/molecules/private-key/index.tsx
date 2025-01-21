@@ -8,6 +8,7 @@ import CARD_BACKGROUND_LIGHT from "../../assets/images/sign-in-card-bg.svg";
 import CARD_BACKGROUND_DARK from "../../assets/images/sign-in-card-bg-dark.svg";
 import { useThemeToggle } from "../../hooks/useThemeToggle";
 import { Icon } from "../../atoms/Icon";
+import { ThemeEnum } from "../../providers/ThemeProvider";
 
 const styles = {
   dialog: (theme: string) => ({
@@ -88,7 +89,7 @@ const PrivateKey = ({ open = false, onClose = () => {} }: Props) => {
           borderRadius={2}
           py={2}
           px={3}
-          bgcolor={mode === "light" ? "#fff" : "#000"}>
+          bgcolor={mode === ThemeEnum.LIGHT ? "#fff" : "#000"}>
           <Typography
             variant="subtitle2"
             flex={1}

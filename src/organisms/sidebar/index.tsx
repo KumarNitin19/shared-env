@@ -18,7 +18,7 @@ import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import { Typography } from "../../atoms/Typography";
 import { useThemeToggle } from "../../hooks/useThemeToggle";
-import { ThemeMode } from "../../providers/ThemeProvider";
+import { ThemeEnum, ThemeMode } from "../../providers/ThemeProvider";
 import { ToggleThemeIcon } from "../../molecules/toggle-theme-button";
 import { Icon } from "../../atoms/Icon";
 import { Divider } from "../../atoms/Divider";
@@ -52,7 +52,7 @@ const styles = {
           color: theme.palette.surface80.main,
         },
         "&.Mui-selected, &:hover": {
-          background: mode === "light" ? "#E7E7E7" : "#282834",
+          background: mode === ThemeEnum.LIGHT ? "#E7E7E7" : "#282834",
           color: theme.palette.main.main,
           "& .MuiListItemIcon-root > svg": {
             color: theme.palette.main.main,
@@ -89,7 +89,7 @@ const styles = {
     },
     "& .MuiListItemButton-root": {
       "&:hover": {
-        background: mode === "light" ? "#E7E7E7" : "#282834",
+        background: mode === ThemeEnum.LIGHT ? "#E7E7E7" : "#282834",
         color: theme.palette.main.main,
         "& .MuiListItemIcon-root > svg": {
           color: theme.palette.main.main,
@@ -168,6 +168,8 @@ function Sidebar({
   const goToDashboard = useCallback(() => {
     navigate("/dashboard");
   }, []);
+
+  console.log(mode === ThemeEnum.DARK, mode, ThemeEnum.DARK);
 
   return (
     <Drawer

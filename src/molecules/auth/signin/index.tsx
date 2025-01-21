@@ -10,6 +10,7 @@ import { useTheme } from "@mui/material/styles";
 import { ToggleThemeIcon } from "../../toggle-theme-button";
 import { Button } from "../../../atoms/Button";
 import { Icon } from "../../../atoms/Icon";
+import { ThemeEnum } from "../../../providers/ThemeProvider";
 
 const styles = {
   signInWithGoogleBtn: (theme: string) => ({
@@ -67,7 +68,7 @@ function SignIn({ onSignUp }: SignInProps) {
         gap={3}
         sx={styles.signInCard(mode)}>
         <img
-          src={mode === "light" ? LOGO_DARK : LOGO_LIGHT}
+          src={mode === ThemeEnum.LIGHT ? LOGO_DARK : LOGO_LIGHT}
           alt="varvault_logo"
         />
         <Typography

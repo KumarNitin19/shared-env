@@ -10,6 +10,7 @@ import CopyText from "../copy-text";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../atoms/Button";
 import { Icon } from "../../atoms/Icon";
+import { ThemeEnum } from "../../providers/ThemeProvider";
 
 const styles = {
   generateKeyCard: (theme: string) => ({
@@ -87,7 +88,7 @@ const GeneratePrivateKeyCard = () => {
             borderRadius={2}
             py={2}
             px={3}
-            bgcolor={mode === "light" ? "#fff" : "#000"}
+            bgcolor={mode === ThemeEnum.LIGHT ? "#fff" : "#000"}
             width="100%">
             <Typography
               variant="subtitle2"

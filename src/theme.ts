@@ -2,10 +2,11 @@ import { createTheme } from "@mui/material/styles";
 import SatoshiFont from "./fonts/Satoshi-Variable.ttf";
 import OutfitFont from "./fonts/Outfit-Variable.ttf";
 import { darkThemePalette, lightThemePalette } from "./config/colorConfig";
+import { ThemeEnum } from "./providers/ThemeProvider";
 
 const getTheme = (mode: "light" | "dark") => {
   return createTheme({
-    palette: mode === "light" ? lightThemePalette : darkThemePalette,
+    palette: mode === ThemeEnum.LIGHT ? lightThemePalette : darkThemePalette,
     components: {
       MuiCssBaseline: {
         styleOverrides: `

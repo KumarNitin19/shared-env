@@ -3,6 +3,11 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 
 export type ThemeMode = "light" | "dark";
 
+export enum ThemeEnum {
+  LIGHT = "light",
+  DARK = "dark",
+}
+
 interface ThemeContextType {
   mode: ThemeMode;
   toggleTheme: (mode: ThemeMode) => void;
@@ -18,7 +23,9 @@ interface ThemeProviderProps {
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const savedTheme = localStorage.getItem("theme") as ThemeMode | null;
-  const [mode, setMode] = useState<ThemeMode>(savedTheme || "light");
+  const [mode, setMode] = useState<ThemeMode>(
+    savedTheme === ThemeEnum.DARK ? ThemeEnum.DARK : ThemeEnum.LIGHT
+  );
   const { setItem } = useLocalStorage();
 
   // Toggle theme between 'light' and 'dark'
