@@ -8,6 +8,7 @@ import ProjectCard from "../../organisms/dashboard/project-card";
 import InputField from "../../atoms/TextField";
 import { Icon } from "../../atoms/Icon";
 import { Button } from "../../atoms/Button";
+import { useProjects } from "../../query/projectQuery";
 
 const styles = {
   searchField: {
@@ -27,6 +28,8 @@ const styles = {
 
 const DashboardPage = () => {
   const { palette } = useTheme();
+  const { data: Projects } = useProjects();
+  console.log(Projects);
   return (
     <Box height="100%">
       {/* <DashboardPageZeroState /> */}

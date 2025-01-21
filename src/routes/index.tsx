@@ -33,6 +33,16 @@ const router = createBrowserRouter([
     ),
     children: [
       {
+        path: "",
+        element: (
+          <PrivateRoute>
+            <Suspense fallback={<div>Loading...</div>}>
+              <DashboardContainer />
+            </Suspense>
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "dashboard",
         element: (
           <PrivateRoute>
@@ -70,6 +80,16 @@ const router = createBrowserRouter([
       <PublicRoute>
         <Suspense fallback={<div>Loading...</div>}>
           <LoginContainer />
+        </Suspense>
+      </PublicRoute>
+    ),
+  },
+  {
+    path: "/loading",
+    element: (
+      <PublicRoute>
+        <Suspense fallback={<div>Loading...</div>}>
+          <div>Loading Page</div>
         </Suspense>
       </PublicRoute>
     ),

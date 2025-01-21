@@ -1,22 +1,14 @@
 import SideBar from "../../../../organisms/sidebar";
 import { Box } from "../../../../atoms/Box";
 import { useTheme } from "@mui/material/styles";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { useCallback, useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
+import { useCallback, useState } from "react";
 import PrivateKey from "../../../private-key";
 
 function WithSidebar() {
   const [isOpenPrivateKeyDialog, setIsOpenPrivateKeyDialog] =
     useState<boolean>(false);
   const theme = useTheme();
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (location.pathname === "/") {
-      navigate("/dashboard");
-    }
-  }, [location.pathname]);
 
   const handleOpenPrivateKeyDialog = useCallback(
     () => setIsOpenPrivateKeyDialog(true),

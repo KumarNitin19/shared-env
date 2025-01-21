@@ -19,8 +19,9 @@ privateApiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     const status = error.response ? error.response.status : null;
-    if (status === 403) {
-      // Handle unauthorized error
+
+    if (status === 401) {
+      window.location.pathname = "/loading";
     } else if (status === 404) {
       // Handle not found errors
     } else {
