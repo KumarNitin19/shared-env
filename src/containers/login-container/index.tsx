@@ -16,9 +16,13 @@ const LoginContainer = () => {
       .then(async (result) => {
         const user = result.user;
         const userClaims: IdTokenResult = await user.getIdTokenResult();
+        console.log(userClaims);
         const res = await signIn();
         if (res?.user) {
-          setItem("userDetails", res?.user);
+          setItem("userDetails", {
+            ...res?.user,
+            userToken: userClaims?.token,
+          });
           if (userClaims?.claims.varVaultPrivateKey) {
             navigate("/dashboard");
           } else {

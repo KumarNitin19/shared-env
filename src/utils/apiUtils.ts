@@ -9,9 +9,15 @@ export const publicApiClient = axios.create({
 });
 
 privateApiClient.interceptors.request.use(async (config) => {
-  const idToken = await auth?.currentUser?.getIdToken();
-  console.log(idToken);
-  config.headers["Authorization"] = `Bearer ${idToken}`;
+  const idToken = await auth?.currentUser?.getIdToken(true);
+  if (idToken) {
+    config.headers["Authorization"] = `Bearer ${idToken}`;
+    return config;
+  }
+  const user = JSON.parse(localStorage.getItem("userDetails") || "");
+
+  config.headers["Authorization"] = `Bearer ${user?.userToken}`;
+
   return config;
 });
 

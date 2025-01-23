@@ -11,7 +11,7 @@ const Loading = () => {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      console.log(user?.providerData[0]);
+      // console.log(user?.providerData[0]);
       if (user) {
         setItem("userDetails", user?.providerData[0]);
         navigate("/dashboard");

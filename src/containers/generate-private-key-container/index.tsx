@@ -32,7 +32,7 @@ const GeneratePrivateKeyContainer = () => {
 
   //     if (response.ok) {
   //       const data = await response.json();
-  //       console.log("JSON File Uploaded Successfully:", data);
+  //       // console.log("JSON File Uploaded Successfully:", data);
   //       return data; // Returns file metadata, including the file ID
   //     } else {
   //       const error = await response.json();
@@ -63,7 +63,7 @@ export default GeneratePrivateKeyContainer;
 //     if (response.ok) {
 //       const content = await response.text(); // Get the file content as a string
 //       const jsonObject = JSON.parse(content); // Parse it back into a JSON object
-//       console.log("JSON File Content:", jsonObject);
+//       // console.log("JSON File Content:", jsonObject);
 //       return jsonObject;
 //     } else {
 //       const error = await response.json();

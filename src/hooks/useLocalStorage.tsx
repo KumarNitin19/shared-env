@@ -3,7 +3,7 @@ import { useCallback } from "react";
 export default function useLocalStorage() {
   // Get value from localStorage
   const getItem = useCallback((key: string) => {
-    console.log(key, typeof localStorage.getItem(key));
+    // console.log(key, typeof localStorage.getItem(key));
     const response = localStorage.getItem(key)
       ? JSON.parse(localStorage.getItem(key) || "")
       : null;
@@ -12,7 +12,7 @@ export default function useLocalStorage() {
 
   // Set value from localStorage
   const setItem = useCallback((key: string, value: unknown) => {
-    console.log(value);
+    // console.log(value);
     localStorage.setItem(key, JSON.stringify(value));
   }, []);
 
