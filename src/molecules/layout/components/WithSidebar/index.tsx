@@ -4,7 +4,6 @@ import { useTheme } from "@mui/material/styles";
 import { Outlet } from "react-router-dom";
 import { useCallback, useState } from "react";
 import PrivateKey from "../../../private-key";
-import Loader from "../../../loader";
 
 function WithSidebar() {
   const [isOpenPrivateKeyDialog, setIsOpenPrivateKeyDialog] =
@@ -22,7 +21,6 @@ function WithSidebar() {
 
   return (
     <Box bgcolor="#f7f7f7" height="100%">
-      <Loader />
       <SideBar
         isOpenPrivateKeyDialog={isOpenPrivateKeyDialog}
         handleViewPrivateKey={handleOpenPrivateKeyDialog}
