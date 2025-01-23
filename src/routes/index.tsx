@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import PrivateRoute from "./privateRoute";
 import PublicRoute from "./publicRoute";
 import Loading from "../pages/loading";
+import Loader from "../molecules/loader";
 
 const WithSidebar = lazy(
   () => import("../molecules/layout/components/WithSidebar")
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <PrivateRoute>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loader fullPage loader={true} />}>
           <WithSidebar />
         </Suspense>
       </PrivateRoute>
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <PrivateRoute>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader fullPage loader={true} />}>
               <DashboardContainer />
             </Suspense>
           </PrivateRoute>
@@ -47,7 +48,7 @@ const router = createBrowserRouter([
         path: "dashboard",
         element: (
           <PrivateRoute>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader fullPage loader={true} />}>
               <DashboardContainer />
             </Suspense>
           </PrivateRoute>
@@ -57,7 +58,7 @@ const router = createBrowserRouter([
         path: "project/:projectId",
         element: (
           <PrivateRoute>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader fullPage loader={true} />}>
               <ProjectPage />
             </Suspense>
           </PrivateRoute>
@@ -69,7 +70,7 @@ const router = createBrowserRouter([
     path: "/generate-private-key",
     element: (
       <PrivateRoute>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loader fullPage loader={true} />}>
           <GeneratePrivateKeyContainer />
         </Suspense>
       </PrivateRoute>
@@ -79,7 +80,7 @@ const router = createBrowserRouter([
     path: "/loading",
     element: (
       // <PublicRoute>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loader fullPage loader={true} />}>
         <Loading />
       </Suspense>
       // </PublicRoute>
@@ -89,7 +90,7 @@ const router = createBrowserRouter([
     path: "/sign-in",
     element: (
       <PublicRoute>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loader fullPage loader={true} />}>
           <LoginContainer />
         </Suspense>
       </PublicRoute>
@@ -99,7 +100,7 @@ const router = createBrowserRouter([
     path: "*",
     element: (
       <PublicRoute>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loader fullPage loader={true} />}>
           <PageNotFound />
         </Suspense>
       </PublicRoute>
