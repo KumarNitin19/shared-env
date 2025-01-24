@@ -1,9 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import SignIn from "../../molecules/auth/signin";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import { IdTokenResult, signInWithPopup } from "firebase/auth";
+import {
+  GithubAuthProvider,
+  IdTokenResult,
+  signInWithPopup,
+} from "firebase/auth";
 import { auth, googleAuthProvider } from "../../molecules/auth/utils/firebase";
 import { useSignIn } from "../../query/userQuery";
+const provider = new GithubAuthProvider();
 
 const LoginContainer = () => {
   const { mutateAsync: signIn } = useSignIn();
@@ -31,6 +36,19 @@ const LoginContainer = () => {
         }
       })
       .catch((_error) => {});
+  };
+
+  const signInWithGitHub = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const credential = GithubAuthProvider.credentialFromResult(result);
+      const token = credential?.accessToken; // GitHub access token
+      const user = result.user; // Firebase user object
+      console.log("User info:", user, "GitHub token:", token);
+      return { user, token };
+    } catch (error) {
+      console.error("GitHub sign-in error:", error);
+    }
   };
 
   return <SignIn onSignUp={signInWithGooglePopup} />;
