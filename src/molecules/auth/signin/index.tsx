@@ -13,7 +13,7 @@ import { Icon } from "../../../atoms/Icon";
 import { ThemeEnum } from "../../../providers/ThemeProvider";
 
 const styles = {
-  signInWithGoogleBtn: (theme: string) => ({
+  signInWithGithubBtn: (theme: string) => ({
     display: "flex",
     gap: 1.5,
     mt: 3,
@@ -21,10 +21,13 @@ const styles = {
     "& svg": {
       height: 20,
       width: 20,
+      "& path": {
+        fill: theme === ThemeEnum.DARK ? "#000000" : "#ffffff",
+      },
     },
     "&.MuiButton-contained": {
-      backgroundColor: theme === "light" ? "#000000" : "#ffffff",
-      color: theme === "light" ? "#ffffff" : "#000000",
+      backgroundColor: theme === ThemeEnum.LIGHT ? "#000000" : "#ffffff",
+      color: theme === ThemeEnum.LIGHT ? "#ffffff" : "#000000",
     },
   }),
 
@@ -34,7 +37,7 @@ const styles = {
   },
   signInCard: (theme: string) => ({
     backgroundImage: `url(${
-      theme === "light" ? CARD_BACKGROUND_LIGHT : CARD_BACKGROUND_DARK
+      theme === ThemeEnum.LIGHT ? CARD_BACKGROUND_LIGHT : CARD_BACKGROUND_DARK
     })`,
     backgroundSize: "cover",
     backdropFilter: "blur(62px)",
@@ -83,9 +86,9 @@ function SignIn({ onSignUp }: SignInProps) {
         <Button
           variant="contained"
           onClick={onSignUp}
-          sx={styles.signInWithGoogleBtn(mode)}>
-          <Icon icon="logos:google-icon" />
-          Sign In With Google
+          sx={styles.signInWithGithubBtn(mode)}>
+          <Icon icon="logos:github-icon" />
+          Sign In With Github
         </Button>
       </Box>
       <Box position="absolute" top={0} right={0} m={2} p={1} borderRadius={2}>
