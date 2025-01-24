@@ -6,9 +6,12 @@ import {
   IdTokenResult,
   signInWithPopup,
 } from "firebase/auth";
-import { auth, googleAuthProvider } from "../../molecules/auth/utils/firebase";
+import {
+  auth,
+  githubProvider,
+  googleAuthProvider,
+} from "../../molecules/auth/utils/firebase";
 import { useSignIn } from "../../query/userQuery";
-const provider = new GithubAuthProvider();
 
 const LoginContainer = () => {
   const { mutateAsync: signIn } = useSignIn();
@@ -16,8 +19,8 @@ const LoginContainer = () => {
   const { setItem } = useLocalStorage();
 
   //Sign-in with google and verify with backend
-  const signInWithGooglePopup = () => {
-    signInWithPopup(auth, googleAuthProvider)
+  const signInWithGithubPopup = () => {
+    signInWithPopup(auth, githubProvider)
       .then(async (result) => {
         const user = result.user;
         const userClaims: IdTokenResult = await user.getIdTokenResult();
@@ -38,20 +41,7 @@ const LoginContainer = () => {
       .catch((_error) => {});
   };
 
-  const signInWithGitHub = async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const credential = GithubAuthProvider.credentialFromResult(result);
-      const token = credential?.accessToken; // GitHub access token
-      const user = result.user; // Firebase user object
-      console.log("User info:", user, "GitHub token:", token);
-      return { user, token };
-    } catch (error) {
-      console.error("GitHub sign-in error:", error);
-    }
-  };
-
-  return <SignIn onSignUp={signInWithGooglePopup} />;
+  return <SignIn onSignUp={signInWithGithubPopup} />;
 };
 
 export default LoginContainer;
