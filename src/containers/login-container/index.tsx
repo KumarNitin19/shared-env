@@ -11,7 +11,7 @@ import {
   githubProvider,
   googleAuthProvider,
 } from "../../molecules/auth/utils/firebase";
-import { useSignIn } from "../../query/userQuery";
+import { logout, useSignIn } from "../../query/userQuery";
 
 const LoginContainer = () => {
   const { mutateAsync: signIn } = useSignIn();
@@ -22,20 +22,23 @@ const LoginContainer = () => {
   const signInWithGithubPopup = () => {
     signInWithPopup(auth, githubProvider)
       .then(async (result) => {
-        const user = result.user;
-        const userClaims: IdTokenResult = await user.getIdTokenResult();
-        console.log(userClaims);
-        const res = await signIn();
-        if (res?.user) {
-          setItem("userDetails", {
-            ...res?.user,
-            userToken: userClaims?.token,
-          });
-          if (userClaims?.claims.varVaultPrivateKey) {
-            navigate("/dashboard");
-          } else {
-            navigate("/generate-private-key");
+        try {
+          const user = result.user;
+          const userClaims: IdTokenResult = await user.getIdTokenResult();
+          const res = await signIn();
+          if (res?.user) {
+            setItem("userDetails", {
+              ...res?.user,
+              userToken: userClaims?.token,
+            });
+            if (userClaims?.claims.varVaultPrivateKey) {
+              navigate("/dashboard");
+            } else {
+              navigate("/generate-private-key");
+            }
           }
+        } catch (error) {
+          await logout();
         }
       })
       .catch((_error) => {});
