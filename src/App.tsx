@@ -7,6 +7,7 @@ import { getTheme } from "./theme";
 import { useThemeToggle } from "./hooks/useThemeToggle";
 import CssBaseline from "@mui/material/CssBaseline";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import SnackbarProvider from "./providers/SnackbarProvider";
 
 const queryClient = new QueryClient();
 
@@ -17,8 +18,10 @@ function App() {
     <Box className="App" height="100%" width="full">
       <QueryClientProvider client={queryClient}>
         <MuiThemeProvider theme={theme}>
-          <CssBaseline />
-          <RouterProvider router={router} />
+          <SnackbarProvider>
+            <CssBaseline />
+            <RouterProvider router={router} />
+          </SnackbarProvider>
         </MuiThemeProvider>
       </QueryClientProvider>
     </Box>

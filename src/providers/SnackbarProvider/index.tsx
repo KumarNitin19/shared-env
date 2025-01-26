@@ -89,3 +89,5 @@ const SnackbarProvider: React.FC<{ children: React.ReactNode }> = ({
     </SnackbarContext.Provider>
   );
 };
+
+export default SnackbarProvider;
