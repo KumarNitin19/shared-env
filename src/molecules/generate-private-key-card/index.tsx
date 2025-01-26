@@ -13,6 +13,7 @@ import { Icon } from "../../atoms/Icon";
 import { ThemeEnum } from "../../providers/ThemeProvider";
 import { useGeneratePrivateKey } from "../../query/userQuery";
 import { auth } from "../auth/utils/firebase";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 const styles = {
   generateKeyCard: (theme: string) => ({
@@ -43,17 +44,24 @@ const GeneratePrivateKeyCard = () => {
   const theme = useTheme();
   const { mode } = useThemeToggle();
   const navigate = useNavigate();
+  const { getItem, setItem } = useLocalStorage();
   const { mutateAsync: generatePrivateKey } = useGeneratePrivateKey();
 
   const generateKey = useCallback(async () => {
+    setIsGeneratingKey(true);
     try {
       const resp = await generatePrivateKey();
       if (resp?.privateKey) {
-        setPrivateKey(resp?.privateKey);
+        const userDetails = getItem("userDetails");
         const idToken = await auth?.currentUser?.getIdToken(true);
-        console.log(idToken);
+        setItem("userDetails", {
+          ...userDetails,
+          userToken: idToken,
+        });
+        setPrivateKey(resp?.privateKey);
       }
     } catch (error) {}
+    setIsGeneratingKey(false);
   }, []);
 
   const onContinue = useCallback(() => navigate("/dashboard"), []);
