@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../atoms/Button";
 import { Icon } from "../../atoms/Icon";
 import { ThemeEnum } from "../../providers/ThemeProvider";
+import { useGeneratePrivateKey } from "../../query/userQuery";
+import { auth } from "../auth/utils/firebase";
 
 const styles = {
   generateKeyCard: (theme: string) => ({
@@ -41,13 +43,17 @@ const GeneratePrivateKeyCard = () => {
   const theme = useTheme();
   const { mode } = useThemeToggle();
   const navigate = useNavigate();
+  const { mutateAsync: generatePrivateKey } = useGeneratePrivateKey();
 
-  const generateKey = useCallback(() => {
-    setIsGeneratingKey(true);
-    setTimeout(() => {
-      setIsGeneratingKey(false);
-      setPrivateKey("00210-00210-00210-00210");
-    }, 2000);
+  const generateKey = useCallback(async () => {
+    try {
+      const resp = await generatePrivateKey();
+      if (resp?.privateKey) {
+        setPrivateKey(resp?.privateKey);
+        const idToken = await auth?.currentUser?.getIdToken(true);
+        console.log(idToken);
+      }
+    } catch (error) {}
   }, []);
 
   const onContinue = useCallback(() => navigate("/dashboard"), []);

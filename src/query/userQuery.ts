@@ -26,7 +26,7 @@ export function useGeneratePrivateKey() {
     mutationKey: ["generate-private-key"],
     mutationFn: async (): Promise<{ message: string; privateKey?: string }> => {
       try {
-        const res = await privateApiClient({ url });
+        const res = await privateApiClient({ url, method: "POST" });
         return res.data;
       } catch (error) {
         return {

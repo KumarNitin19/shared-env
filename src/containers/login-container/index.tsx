@@ -1,16 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import SignIn from "../../molecules/auth/signin";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import {
-  GithubAuthProvider,
-  IdTokenResult,
-  signInWithPopup,
-} from "firebase/auth";
-import {
-  auth,
-  githubProvider,
-  googleAuthProvider,
-} from "../../molecules/auth/utils/firebase";
+import { IdTokenResult, signInWithPopup } from "firebase/auth";
+import { auth, githubProvider } from "../../molecules/auth/utils/firebase";
 import { logout, useSignIn } from "../../query/userQuery";
 
 const LoginContainer = () => {
