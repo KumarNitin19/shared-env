@@ -12,7 +12,7 @@ const styles = {
     width: "100%",
     p: 2,
     border: "0.5px solid #00000033",
-    boxShadow: "none",
+    boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
     borderRadius: 3,
   }),
   cardAction: {
