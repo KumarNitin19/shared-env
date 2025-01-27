@@ -4,4 +4,5 @@ export type User = {
   name: string;
   picture: string;
   createdAt: string;
+  privateKey?: string;
 };

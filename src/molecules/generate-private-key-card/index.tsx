@@ -57,7 +57,7 @@ const GeneratePrivateKeyCard = () => {
         setItem("userDetails", {
           ...userDetails,
           userToken: idToken,
-          privateKey,
+          privateKey: resp?.privateKey,
         });
         setPrivateKey(resp?.privateKey);
       }

@@ -9,6 +9,8 @@ import CARD_BACKGROUND_DARK from "../../assets/images/sign-in-card-bg-dark.svg";
 import { useThemeToggle } from "../../hooks/useThemeToggle";
 import { Icon } from "../../atoms/Icon";
 import { ThemeEnum } from "../../providers/ThemeProvider";
+import { useEffect, useState } from "react";
+import useUser from "../../hooks/useUser";
 
 const styles = {
   dialog: (theme: string) => ({
@@ -49,8 +51,17 @@ type Props = {
 };
 
 const PrivateKey = ({ open = false, onClose = () => {} }: Props) => {
+  const [privateKey, setPrivateKey] = useState<string>("");
   const theme = useTheme();
   const { mode } = useThemeToggle();
+  const user = useUser();
+
+  useEffect(() => {
+    if (user && user?.privateKey) {
+      setPrivateKey(user?.privateKey);
+    }
+  }, [user]);
+
   return (
     <Dialog open={open} sx={styles.dialog(mode)}>
       <IconButton onClick={onClose} sx={styles.closeButton}>
@@ -95,7 +106,7 @@ const PrivateKey = ({ open = false, onClose = () => {} }: Props) => {
             flex={1}
             fontSize={20}
             color={theme.palette.surface100.main}>
-            00210-00210-00210-00210
+            {privateKey}
           </Typography>
           <CopyText text="78F9A2E7-9C1B-4A8D-AE67-82DF7D1F5C36" fontSize={20} />
         </Box>

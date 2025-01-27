@@ -103,7 +103,7 @@ const styles = {
     borderRightWidth: "thin",
   },
   privateKeyListItem: (theme: Theme) => ({
-    "& .MuiListItemButton-root": {
+    "&.MuiListItemButton-root": {
       color: theme.palette.surface80.main,
     },
   }),
@@ -275,15 +275,12 @@ function Sidebar({
           ))}
         </div>
 
-        <List
-          sx={{
-            ...styles.logoutButton(theme, mode),
-            ...styles.privateKeyListItem(theme),
-          }}>
+        <List sx={styles.logoutButton(theme, mode)}>
           <ListItem disablePadding title="Private Key">
             <ListItemButton
               selected={isOpenPrivateKeyDialog}
-              onClick={handleViewPrivateKey}>
+              onClick={handleViewPrivateKey}
+              sx={styles.privateKeyListItem(theme)}>
               <ListItemIcon>
                 <Icon icon="material-symbols:passkey" />
               </ListItemIcon>
