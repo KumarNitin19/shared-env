@@ -3,7 +3,6 @@ import useUser from "../../hooks/useUser";
 import React, { useCallback, useEffect, useState } from "react";
 import LOGO_DARK from "../../../src/assets/images/varvault-dark.svg";
 import LOGO_LIGHT from "../../../src/assets/images/varvault-light.svg";
-import AddProject from "../../molecules/add-project";
 import { Drawer } from "../../atoms/Drawer";
 import { Box } from "../../atoms/Box";
 import { Theme, useTheme } from "@mui/material/styles";
@@ -24,6 +23,7 @@ import { Icon } from "../../atoms/Icon";
 import { Divider } from "../../atoms/Divider";
 import { Avatar } from "../../atoms/Avatar";
 import { logout } from "../../query/userQuery";
+import { useProjects } from "../../query/projectQuery";
 
 const styles = {
   drawer: (theme: Theme) => ({
@@ -109,21 +109,6 @@ const styles = {
   }),
 };
 
-const PROJECT_LIST = [
-  {
-    id: "1",
-    label: "Project 1",
-  },
-  {
-    id: "2",
-    label: "Project 2",
-  },
-  {
-    id: "3",
-    label: "Project 3",
-  },
-];
-
 const ListSubheaderComponent = ({ listItem, isOpenSideBar }: any) => {
   return isOpenSideBar && listItem.subHeader ? (
     <ListSubheader component="div" id="nested-list-subheader">
@@ -161,6 +146,7 @@ function Sidebar({
   const { mode } = useThemeToggle();
   const theme = useTheme();
   const loggedInUser = useUser();
+  const { data: projects = [] } = useProjects();
 
   useEffect(() => {
     setSelectedMenuItem(location.pathname);
@@ -232,11 +218,6 @@ function Sidebar({
           textTransform="uppercase">
           Projects
         </Typography>
-        <AddProject>
-          <IconButton sx={{ padding: 0 }}>
-            <Icon icon="fluent:add-square-20-regular" color="#3C7C41" />
-          </IconButton>
-        </AddProject>
       </Box>
       <Grid
         container
@@ -245,28 +226,30 @@ function Sidebar({
         height="100%"
         paddingX={3}>
         <div>
-          {PROJECT_LIST.map((listItem, index: number) => (
+          {projects?.map((project, index: number) => (
             <React.Fragment key={index}>
               <List
-                key={listItem.id}
+                key={project?.projectId}
                 subheader={
                   <ListSubheaderComponent
-                    listItem={listItem}
+                    listItem={project}
                     isOpenSideBar={true}
                   />
                 }>
                 <ListItem
                   disablePadding
-                  title={listItem.label}
+                  title={project?.projectName}
                   sx={styles.listItem(theme, mode)}>
                   <Link>
                     <ListItemButton
-                      selected={selectedMenuItem === `/project/${listItem.id}`}
-                      onClick={() => goToProject(listItem.id)}>
+                      selected={
+                        selectedMenuItem === `/project/${project?.projectId}`
+                      }
+                      onClick={() => goToProject(project?.projectId)}>
                       <ListItemIcon>
                         <Icon icon="fluent:document-20-filled" />
                       </ListItemIcon>
-                      <ListItemText primary={listItem.label} />
+                      <ListItemText primary={project?.projectName} />
                     </ListItemButton>
                   </Link>
                 </ListItem>
