@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { privateApiClient } from "../utils/apiUtils";
+import { AddProjectType } from "../types/project.type";
 
 export function useProjects() {
   const url = "/projects/";
@@ -12,7 +13,7 @@ export function useProjects() {
 export function useAddProject() {
   const url = "/add-project/";
   return useMutation({
-    mutationFn: async (projectDetail: unknown) => {
+    mutationFn: async (projectDetail: AddProjectType) => {
       return privateApiClient({ url, method: "POST", data: projectDetail });
     },
   });

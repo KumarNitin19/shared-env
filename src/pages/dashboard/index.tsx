@@ -26,7 +26,11 @@ const styles = {
   },
 };
 
-const DashboardPage = () => {
+type ComponentProps = {
+  handleOpenAddProject: () => void;
+};
+
+const DashboardPage: React.FC<ComponentProps> = ({ handleOpenAddProject }) => {
   const { palette } = useTheme();
   const { data: Projects = [] } = useProjects();
 
@@ -69,11 +73,12 @@ const DashboardPage = () => {
                 }}
                 sx={styles.searchField}
               />
-              <AddProject>
-                <Button startIcon={<Icon icon="fluent:add-16-regular" />}>
-                  Add Project
-                </Button>
-              </AddProject>
+
+              <Button
+                onClick={handleOpenAddProject}
+                startIcon={<Icon icon="fluent:add-16-regular" />}>
+                Add Project
+              </Button>
             </Box>
           ) : null}
         </Box>
@@ -88,7 +93,7 @@ const DashboardPage = () => {
             <ProjectCard />
           </Box>
         ) : (
-          <DashboardPageZeroState />
+          <DashboardPageZeroState handleOpenAddProject={handleOpenAddProject} />
         )}
       </Box>
     </Box>

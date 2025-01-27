@@ -11,6 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import { Theme, useTheme } from "@mui/material/styles";
 import { Button } from "../../atoms/Button";
 import { Icon } from "../../atoms/Icon";
+import { AddProjectType } from "../../types/project.type";
 
 const styles = {
   dialog: (theme: Theme) => ({
@@ -32,111 +33,100 @@ const styles = {
   },
 };
 
-type Props = {
-  children: React.ReactNode;
+type ComponentProps = {
+  open: boolean;
+  onClose: () => void;
+  handleAddProject: (body: AddProjectType) => void;
 };
 
-function AddProject({ children }: Props) {
-  const [isAddProject, setIsAddProject] = useState<boolean>(false);
-  const [projectName, setProjectName] = useState<string>("");
+function AddProject({
+  open = false,
+  onClose = () => {},
+  handleAddProject,
+}: ComponentProps) {
+  const [projectDetails, setProjectDetails] = useState<AddProjectType>({
+    projectName: "",
+    projectDescription: "",
+  });
   const theme = useTheme();
 
-  // To open the dialog
-  const handleOpenProjectDialog = useCallback(() => setIsAddProject(true), []);
-
-  // To close the dialog
-  const handleCloseProjectDialog = useCallback(
-    () => setIsAddProject(false),
-    []
-  );
-
   // To handle input value of project name
-  const handleProjectName = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => setProjectName(e?.target?.value),
+  const handleForm = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) =>
+      setProjectDetails((prev) => ({
+        ...prev,
+        [e.target.name]: e.target.value,
+      })),
     []
   );
-
-  // To submit form value
-  const handleAddProject = useCallback(() => {
-    if (projectName) {
-      setProjectName("");
-      handleCloseProjectDialog();
-    } else {
-      throw new Error("Please add project name");
-    }
-  }, [projectName]);
 
   return (
-    <>
-      <div onClick={handleOpenProjectDialog}>{children}</div>
-      <Dialog open={isAddProject} sx={styles.dialog(theme)}>
-        <DialogTitle sx={styles.dialogTitle}>
-          <Box>
+    <Dialog open={open} sx={styles.dialog(theme)}>
+      <DialogTitle sx={styles.dialogTitle}>
+        <Box>
+          <Typography
+            variant="h6"
+            fontWeight={600}
+            color={theme.palette.surface100.main}>
+            Add Project
+          </Typography>
+          <Typography variant="subtitle2" color={theme.palette.surface80.main}>
+            Create project to add environment variables.
+          </Typography>
+        </Box>
+        <IconButton onClick={onClose} sx={{ height: "fit-content" }}>
+          <Icon
+            icon="material-symbols:close-rounded"
+            color={theme.palette.surface100.main}
+          />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent sx={styles.dialogContent}>
+        <Box display="grid" rowGap={2}>
+          <Box display="grid" rowGap={1}>
             <Typography
-              variant="h6"
-              fontWeight={600}
-              color={theme.palette.surface100.main}>
-              Add Project
-            </Typography>
-            <Typography
+              title="projectName"
               variant="subtitle2"
-              color={theme.palette.surface80.main}>
-              Create project to add environment variables.
+              color={theme.palette.surface100.main}>
+              Project Name
             </Typography>
-          </Box>
-          <IconButton
-            onClick={handleCloseProjectDialog}
-            sx={{ height: "fit-content" }}>
-            <Icon
-              icon="material-symbols:close-rounded"
-              color={theme.palette.surface100.main}
+            <InputField
+              id="name"
+              name="projectName"
+              placeholder="Enter Project Name"
+              value={projectDetails?.projectName}
+              onChange={handleForm}
             />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent sx={styles.dialogContent}>
-          <Box display="grid" rowGap={2}>
-            <Box display="grid" rowGap={1}>
-              <Typography
-                title="projectName"
-                variant="subtitle2"
-                color={theme.palette.surface100.main}>
-                Project Name
-              </Typography>
-              <InputField
-                id="name"
-                placeholder="Enter Project Name"
-                value={projectName}
-                onChange={handleProjectName}
-              />
-            </Box>
-            <Box display="grid" rowGap={1}>
-              <Typography
-                title="projectName"
-                variant="subtitle2"
-                color={theme.palette.surface100.main}>
-                Project Description
-              </Typography>
-              <InputField
-                id="name"
-                value={projectName}
-                onChange={handleProjectName}
-              />
-            </Box>
           </Box>
-        </DialogContent>
-        <DialogActions sx={styles.dialogAction}>
-          <Button
-            variant="outlined"
-            type="submit"
-            onClick={handleCloseProjectDialog}>
-            Cancel
-          </Button>
-          <Button variant="contained" type="submit" onClick={handleAddProject}>
-            Add
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
+          <Box display="grid" rowGap={1}>
+            <Typography
+              title="projectName"
+              variant="subtitle2"
+              color={theme.palette.surface100.main}>
+              Project Description
+            </Typography>
+            <InputField
+              id="name"
+              name="projectDescription"
+              placeholder="Enter Project Description"
+              value={projectDetails?.projectDescription}
+              onChange={handleForm}
+            />
+          </Box>
+        </Box>
+      </DialogContent>
+      <DialogActions sx={styles.dialogAction}>
+        <Button variant="outlined" type="submit" onClick={onClose}>
+          Cancel
+        </Button>
+        <Button
+          variant="contained"
+          type="submit"
+          onClick={() => handleAddProject(projectDetails)}>
+          Add
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }
 

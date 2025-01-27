@@ -6,10 +6,13 @@ import { Button } from "../../../atoms/Button";
 import { Icon } from "../../../atoms/Icon";
 import { Typography } from "../../../atoms/Typography";
 import { useThemeToggle } from "../../../hooks/useThemeToggle";
-import AddProject from "../../../molecules/add-project";
 import { ThemeEnum } from "../../../providers/ThemeProvider";
 
-function DashboardPageZeroState() {
+type ComponentProps = {
+  handleOpenAddProject: () => void;
+};
+
+function DashboardPageZeroState({ handleOpenAddProject }: ComponentProps) {
   const theme = useTheme();
   const { mode } = useThemeToggle();
 
@@ -39,11 +42,11 @@ function DashboardPageZeroState() {
         Ready to dive in? Start your first <br /> project now
       </Typography>
       <Box mt={3}>
-        <AddProject>
-          <Button startIcon={<Icon icon="fluent:add-16-regular" />}>
-            Create Project
-          </Button>
-        </AddProject>
+        <Button
+          startIcon={<Icon icon="fluent:add-16-regular" />}
+          onClick={handleOpenAddProject}>
+          Create Project
+        </Button>
       </Box>
     </Box>
   );
