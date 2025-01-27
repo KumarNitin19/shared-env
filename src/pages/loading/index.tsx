@@ -4,6 +4,7 @@ import { auth } from "../../molecules/auth/utils/firebase";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { logout } from "../../query/userQuery";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../molecules/loader";
 
 const Loading = () => {
   const { setItem } = useLocalStorage();
@@ -11,7 +12,6 @@ const Loading = () => {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      // console.log(user?.providerData[0]);
       if (user) {
         setItem("userDetails", user?.providerData[0]);
         navigate("/dashboard");
@@ -21,7 +21,7 @@ const Loading = () => {
     });
   }, []);
 
-  return <div>Loading...</div>;
+  return <Loader loader={true} fullPage />;
 };
 
 export default Loading;

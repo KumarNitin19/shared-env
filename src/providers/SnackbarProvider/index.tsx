@@ -12,8 +12,8 @@ type AddAlertProps = {
   message: string;
   type?: AlertProps["severity"];
   variant?: AlertProps["variant"];
-  vPosition: SnackbarOrigin["vertical"];
-  hPosition: SnackbarOrigin["horizontal"];
+  vPosition?: SnackbarOrigin["vertical"];
+  hPosition?: SnackbarOrigin["horizontal"];
 };
 
 interface SnackbarContextProps {

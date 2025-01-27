@@ -14,7 +14,7 @@ export function useSignIn() {
         const res = await privateApiClient({ url });
         return res.data;
       } catch (error) {
-        return { message: error as string };
+        return Promise.reject({ message: error as string });
       }
     },
   });
