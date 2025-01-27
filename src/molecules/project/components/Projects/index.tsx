@@ -9,11 +9,10 @@ import { Box } from "../../../../atoms/Box";
 import { Divider } from "../../../../atoms/Divider";
 import { Button } from "../../../../atoms/Button";
 import { Icon } from "../../../../atoms/Icon";
+import { ProjectData } from "../../../../types/project.type";
 
 type Props = {
-  projects: {
-    projectName: string;
-  };
+  projects: ProjectData;
 };
 
 function Projects({ projects }: Props) {

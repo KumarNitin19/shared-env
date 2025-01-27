@@ -1,22 +1,11 @@
 import { useParams } from "react-router-dom";
 import Projects from "../../molecules/project/components/Projects";
-import { KeyValueProp } from "../../types/commonTypes";
 import { Box } from "../../atoms/Box";
-
-const PROJECT_DATA: KeyValueProp<{ projectName: string }> = {
-  ["1"]: {
-    projectName: "Project 1",
-  },
-  ["2"]: {
-    projectName: "Project 2",
-  },
-  ["3"]: {
-    projectName: "Project 3",
-  },
-};
+import { useProjects } from "../../query/projectQuery";
 
 const ProjectPage = () => {
-  const { projectId = "1" } = useParams<{ projectId: string }>();
+  const { projectId = "" } = useParams<{ projectId: string }>();
+  const { data: projects = [] } = useProjects();
   return (
     <Box
       display="flex"
@@ -27,7 +16,17 @@ const ProjectPage = () => {
       py={2}
       height="100%"
       overflow="hidden">
-      <Projects projects={PROJECT_DATA[projectId]} />
+      <Projects
+        projects={
+          projects.find((project) => project?.projectId === projectId) || {
+            id: "",
+            projectDescription: "",
+            projectId: "",
+            projectName: "",
+            uid: "",
+          }
+        }
+      />
     </Box>
   );
 };
