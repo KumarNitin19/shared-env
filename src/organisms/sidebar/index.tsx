@@ -102,6 +102,11 @@ const styles = {
     width: "1px",
     borderRightWidth: "thin",
   },
+  privateKeyListItem: (theme: Theme) => ({
+    "& .MuiListItemButton-root": {
+      color: theme.palette.surface80.main,
+    },
+  }),
 };
 
 const PROJECT_LIST = [
@@ -270,7 +275,11 @@ function Sidebar({
           ))}
         </div>
 
-        <List sx={styles.logoutButton(theme, mode)}>
+        <List
+          sx={{
+            ...styles.logoutButton(theme, mode),
+            ...styles.privateKeyListItem(theme),
+          }}>
           <ListItem disablePadding title="Private Key">
             <ListItemButton
               selected={isOpenPrivateKeyDialog}
@@ -281,20 +290,28 @@ function Sidebar({
               <ListItemText primary="Private Key" />
             </ListItemButton>
           </ListItem>
+
           <ListItem disablePadding title="Logout">
-            <ListItemButton>
-              <ListItemIcon>
-                <Avatar name={loggedInUser?.name} src={loggedInUser?.picture} />
-              </ListItemIcon>
-              <ListItemText primary="Logout" />
-            </ListItemButton>
-            <Box display="flex" gap={1.5} alignItems="center">
-              <IconButton onClick={logout} sx={{ padding: 0 }}>
+            <ListItemButton
+              onClick={logout}
+              sx={{ justifyContent: "space-between" }}>
+              <Box display="flex" gap={1} alignItems="center">
+                <ListItemIcon>
+                  <Avatar
+                    name={loggedInUser?.name}
+                    src={loggedInUser?.picture}
+                  />
+                </ListItemIcon>
+                <ListItemText primary="Logout" />
+              </Box>
+              <IconButton sx={{ padding: 0 }}>
                 <Icon
                   icon="material-symbols:logout"
                   color={theme.palette.surface80.main}
                 />
               </IconButton>
+            </ListItemButton>
+            <Box display="flex" gap={1.5} alignItems="center">
               <Divider sx={styles.verticalDivider} />
               <IconButton sx={{ padding: 0 }}>
                 <ToggleThemeIcon />
