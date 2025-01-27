@@ -32,7 +32,7 @@ type ComponentProps = {
 
 const DashboardPage: React.FC<ComponentProps> = ({ handleOpenAddProject }) => {
   const { palette } = useTheme();
-  const { data: Projects = [] } = useProjects();
+  const { data: projects = [] } = useProjects();
 
   return (
     <Box height="100%">
@@ -57,7 +57,7 @@ const DashboardPage: React.FC<ComponentProps> = ({ handleOpenAddProject }) => {
             color={palette.surface100.main}>
             Dashboard
           </Typography>
-          {Projects?.length ? (
+          {projects?.length ? (
             <Box display="flex" gap={1} alignItems="center">
               <InputField
                 className="search-project"
@@ -82,15 +82,16 @@ const DashboardPage: React.FC<ComponentProps> = ({ handleOpenAddProject }) => {
             </Box>
           ) : null}
         </Box>
-        {Projects?.length ? (
+        {projects?.length ? (
           <Box
             display="grid"
             gridTemplateColumns="1fr 1fr 1fr"
+            rowGap={2}
             columnGap={3}
             width="100%">
-            <ProjectCard />
-            <ProjectCard />
-            <ProjectCard />
+            {projects?.map((projectData) => (
+              <ProjectCard projectData={projectData} />
+            ))}
           </Box>
         ) : (
           <DashboardPageZeroState handleOpenAddProject={handleOpenAddProject} />

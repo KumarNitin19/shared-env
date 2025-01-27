@@ -4,6 +4,7 @@ import Card, { CardActions, CardContent } from "../../../atoms/Card";
 import { Typography } from "../../../atoms/Typography";
 import { Button } from "../../../atoms/Button";
 import { Icon } from "../../../atoms/Icon";
+import { ProjectData } from "../../../types/project.type";
 
 const styles = {
   projectCard: (theme: Theme) => ({
@@ -24,7 +25,11 @@ const styles = {
   },
 };
 
-function ProjectCard() {
+type ComponentProps = {
+  projectData: ProjectData;
+};
+
+function ProjectCard({ projectData }: ComponentProps) {
   const theme = useTheme();
   return (
     <Card sx={styles.projectCard(theme)}>
@@ -34,10 +39,10 @@ function ProjectCard() {
           fontSize={20}
           color={theme.palette.surface100.main}
           fontWeight={500}>
-          Project Name
+          {projectData?.projectName}
         </Typography>
         <Typography variant="body2" color={theme.palette.surface80.main}>
-          Description: Deploy your new project in one-click.
+          Description: {projectData?.projectDescription}
         </Typography>
       </Box>
       <CardContent sx={styles.cardContent}>
