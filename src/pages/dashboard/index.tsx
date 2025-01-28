@@ -90,7 +90,7 @@ const DashboardPage: React.FC<ComponentProps> = ({ handleOpenAddProject }) => {
             columnGap={3}
             width="100%">
             {projects?.map((projectData) => (
-              <ProjectCard projectData={projectData} />
+              <ProjectCard key={projectData?.id} projectData={projectData} />
             ))}
           </Box>
         ) : (
