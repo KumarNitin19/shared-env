@@ -47,7 +47,7 @@ function ProjectCard({ projectData }: ComponentProps) {
             Description: {projectData?.projectDescription}
           </Typography>
         </div>
-        <ProjectCardActionButton projectId={projectData?.id} />
+        <ProjectCardActionButton projectData={projectData} />
       </Box>
       <CardContent sx={styles.cardContent}>
         <Box

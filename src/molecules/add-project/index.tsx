@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -11,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import { Theme, useTheme } from "@mui/material/styles";
 import { Button } from "../../atoms/Button";
 import { Icon } from "../../atoms/Icon";
-import { AddProjectType } from "../../types/project.type";
+import { AddProjectType, ProjectData } from "../../types/project.type";
 
 const styles = {
   dialog: (theme: Theme) => ({
@@ -35,20 +35,30 @@ const styles = {
 
 type ComponentProps = {
   open: boolean;
+  isEdit?: boolean;
   onClose: () => void;
-  handleAddProject: (body: AddProjectType) => void;
+  handleSave: (body: AddProjectType) => void;
+  projectData?: ProjectData;
 };
 
 function AddProject({
   open = false,
+  isEdit = false,
   onClose = () => {},
-  handleAddProject,
+  handleSave,
+  projectData,
 }: ComponentProps) {
   const [projectDetails, setProjectDetails] = useState<AddProjectType>({
     projectName: "",
     projectDescription: "",
   });
   const theme = useTheme();
+
+  useEffect(() => {
+    if (projectData && Object.keys(projectData)?.length) {
+      setProjectDetails(projectData);
+    }
+  }, [projectData]);
 
   // To handle input value of project name
   const handleForm = useCallback(
@@ -68,10 +78,12 @@ function AddProject({
             variant="h6"
             fontWeight={600}
             color={theme.palette.surface100.main}>
-            Add Project
+            {isEdit ? "Edit" : "Add"} Project
           </Typography>
           <Typography variant="subtitle2" color={theme.palette.surface80.main}>
-            Create project to add environment variables.
+            {isEdit
+              ? "Make changes in your project"
+              : "Create project to add environment variables."}
           </Typography>
         </Box>
         <IconButton onClick={onClose} sx={{ height: "fit-content" }}>
@@ -122,8 +134,8 @@ function AddProject({
         <Button
           variant="contained"
           type="submit"
-          onClick={() => handleAddProject(projectDetails)}>
-          Add
+          onClick={() => handleSave(projectDetails)}>
+          {isEdit ? "Save" : "Add"}
         </Button>
       </DialogActions>
     </Dialog>

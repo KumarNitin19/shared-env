@@ -2,12 +2,14 @@ import { useCallback, useState } from "react";
 import ConfirmationDialog from "../confirmation-dialog";
 import ProjectCardActionMenu from "./project-card-action-menu";
 import { Typography } from "../../atoms/Typography";
+import AddProject from "../add-project";
+import { ProjectData } from "../../types/project.type";
 
 type ComponentProps = {
-  projectId: string;
+  projectData: ProjectData;
 };
 
-const ProjectCardActionButton = ({ projectId = "" }: ComponentProps) => {
+const ProjectCardActionButton = ({ projectData }: ComponentProps) => {
   const [isDelete, setIsDelete] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
@@ -36,6 +38,13 @@ const ProjectCardActionButton = ({ projectId = "" }: ComponentProps) => {
         onConfirm={onDelete}>
         <Typography>Are you sure you want to delete the project?</Typography>
       </ConfirmationDialog>
+      <AddProject
+        open={isEdit}
+        onClose={handleCloseEditDialog}
+        handleSave={onEdit}
+        projectData={projectData}
+        isEdit={true}
+      />
     </>
   );
 };

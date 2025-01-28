@@ -52,7 +52,7 @@ const DashboardContainer = () => {
       <AddProject
         open={isAddProject}
         onClose={handleCloseAddProject}
-        handleAddProject={onAddProject}
+        handleSave={onAddProject}
       />
       <Loader loader={isLoading} fullPage />
     </>
