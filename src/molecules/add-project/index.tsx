@@ -71,7 +71,7 @@ function AddProject({
   );
 
   return (
-    <Dialog open={open} sx={styles.dialog(theme)}>
+    <Dialog open={open} onClose={onClose} sx={styles.dialog(theme)}>
       <DialogTitle sx={styles.dialogTitle}>
         <Box>
           <Typography

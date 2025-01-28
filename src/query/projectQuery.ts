@@ -20,11 +20,40 @@ export function useProjects() {
 export function useAddProject() {
   const url = "/add-project/";
   return useMutation({
+    mutationKey: ["addProject"],
     mutationFn: async (projectDetail: AddProjectType) => {
       try {
         const res = await privateApiClient({
           url,
           method: "POST",
+          data: projectDetail,
+        });
+        return res?.data as Promise<{
+          message: string;
+          projectId: string;
+        }>;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+  });
+}
+
+export function useEditProject() {
+  return useMutation({
+    mutationKey: ["editProject"],
+    mutationFn: async ({
+      projectId,
+      projectDetail,
+    }: {
+      projectId: string;
+      projectDetail: AddProjectType;
+    }) => {
+      const url = `/project/${projectId}`;
+      try {
+        const res = await privateApiClient({
+          url,
+          method: "PUT",
           data: projectDetail,
         });
         return res?.data as Promise<{

@@ -6,6 +6,29 @@ import Dialog, {
 } from "../../atoms/Dialog";
 import { Typography } from "../../atoms/Typography";
 import { Button } from "../../atoms/Button";
+import { Theme, useTheme } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import { Icon } from "../../atoms/Icon";
+
+const styles = {
+  dialog: (theme: Theme) => ({
+    "& .MuiPaper-root": {
+      width: 520,
+      backgroundColor: theme.palette.sidebarBG.main,
+    },
+  }),
+  dialogTitle: {
+    display: "flex",
+    justifyContent: "space-between",
+    padding: 3,
+  },
+  dialogContent: {
+    paddingBottom: 0,
+  },
+  dialogAction: {
+    padding: 3,
+  },
+};
 
 type ComponentProps = {
   open: boolean;
@@ -22,13 +45,25 @@ const ConfirmationDialog: React.FC<ComponentProps> = ({
   title = "Confirm Dialog",
   children,
 }) => {
+  const theme = useTheme();
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>
-        <Typography>{title}</Typography>
+    <Dialog open={open} onClose={onClose} sx={styles.dialog(theme)}>
+      <DialogTitle sx={styles.dialogTitle}>
+        <Typography
+          variant="h6"
+          fontWeight={600}
+          color={theme.palette.surface100.main}>
+          {title}
+        </Typography>
+        <IconButton onClick={onClose} sx={{ height: "fit-content" }}>
+          <Icon
+            icon="material-symbols:close-rounded"
+            color={theme.palette.surface100.main}
+          />
+        </IconButton>
       </DialogTitle>
-      <DialogContent>{children}</DialogContent>
-      <DialogActions>
+      <DialogContent sx={styles.dialogContent}>{children}</DialogContent>
+      <DialogActions sx={styles.dialogAction}>
         <Button variant="outlined" onClick={onClose}>
           Cancel
         </Button>
