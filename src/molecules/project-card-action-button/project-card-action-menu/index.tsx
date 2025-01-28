@@ -45,7 +45,15 @@ const styles = {
   }),
 };
 
-const ProjectCardActionMenu = () => {
+type ComponentProps = {
+  handleEdit: () => void;
+  handleDelete: () => void;
+};
+
+const ProjectCardActionMenu: React.FC<ComponentProps> = ({
+  handleEdit = () => {},
+  handleDelete = () => {},
+}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const theme = useTheme();
@@ -62,6 +70,16 @@ const ProjectCardActionMenu = () => {
     setAnchorEl(null);
   }, []);
 
+  const handleEditClick = useCallback(() => {
+    handleEdit();
+    handleCloseMenu();
+  }, [handleEdit, handleCloseMenu]);
+
+  const handleDeleteClick = useCallback(() => {
+    handleDelete();
+    handleCloseMenu();
+  }, [handleEdit, handleCloseMenu]);
+
   return (
     <div>
       <IconButton onClick={handleOpenMenu} sx={styles.iconButton}>
@@ -75,13 +93,13 @@ const ProjectCardActionMenu = () => {
         open={open}
         onClose={handleCloseMenu}
         sx={styles.menu}>
-        <MenuItem onClick={handleCloseMenu} sx={styles.menuItem(theme, mode)}>
+        <MenuItem onClick={handleEditClick} sx={styles.menuItem(theme, mode)}>
           <ListItemIcon>
             <Icon icon="material-symbols:edit-outline-rounded" />
           </ListItemIcon>
           <ListItemText>Edit</ListItemText>
         </MenuItem>
-        <MenuItem onClick={handleCloseMenu} sx={styles.menuItem(theme, mode)}>
+        <MenuItem onClick={handleDeleteClick} sx={styles.menuItem(theme, mode)}>
           <ListItemIcon>
             <Icon icon="material-symbols:delete-outline" />
           </ListItemIcon>

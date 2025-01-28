@@ -12,20 +12,20 @@ type ComponentProps = {
   onClose: () => void;
   onConfirm: () => void;
   children: React.ReactNode;
-  label: string;
+  title: string;
 };
 
 const ConfirmationDialog: React.FC<ComponentProps> = ({
   open = false,
   onClose = () => {},
   onConfirm = () => {},
-  label = "Confirm Dialog",
+  title = "Confirm Dialog",
   children,
 }) => {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>
-        <Typography>{label}</Typography>
+        <Typography>{title}</Typography>
       </DialogTitle>
       <DialogContent>{children}</DialogContent>
       <DialogActions>
