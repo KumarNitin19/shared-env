@@ -5,6 +5,7 @@ import { Typography } from "../../../atoms/Typography";
 import { Button } from "../../../atoms/Button";
 import { Icon } from "../../../atoms/Icon";
 import { ProjectData } from "../../../types/project.type";
+import ProjectCardActionButton from "../../../molecules/project-card-action-button";
 
 const styles = {
   projectCard: (theme: Theme) => ({
@@ -33,17 +34,20 @@ function ProjectCard({ projectData }: ComponentProps) {
   const theme = useTheme();
   return (
     <Card sx={styles.projectCard(theme)}>
-      <Box>
-        <Typography
-          variant="subtitle1"
-          fontSize={20}
-          color={theme.palette.surface100.main}
-          fontWeight={500}>
-          {projectData?.projectName}
-        </Typography>
-        <Typography variant="body2" color={theme.palette.surface80.main}>
-          Description: {projectData?.projectDescription}
-        </Typography>
+      <Box display="flex" alignItems="top" justifyContent="space-between">
+        <div>
+          <Typography
+            variant="subtitle1"
+            fontSize={20}
+            color={theme.palette.surface100.main}
+            fontWeight={500}>
+            {projectData?.projectName}
+          </Typography>
+          <Typography variant="body2" color={theme.palette.surface80.main}>
+            Description: {projectData?.projectDescription}
+          </Typography>
+        </div>
+        <ProjectCardActionButton projectId={projectData?.id} />
       </Box>
       <CardContent sx={styles.cardContent}>
         <Box
