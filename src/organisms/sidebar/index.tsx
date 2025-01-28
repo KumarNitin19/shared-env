@@ -195,7 +195,9 @@ function Sidebar({
           sx={styles.listItem(theme, mode)}>
           <Link>
             <ListItemButton
-              selected={selectedMenuItem === "/dashboard"}
+              selected={
+                selectedMenuItem === "/" || selectedMenuItem === "/dashboard"
+              }
               onClick={goToDashboard}>
               <ListItemIcon>
                 <Icon icon="material-symbols:space-dashboard-rounded" />
@@ -206,19 +208,21 @@ function Sidebar({
         </ListItem>
       </List>
       <Divider color="#fff" sx={styles.divider} />
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        mb={3}
-        paddingX={3}>
-        <Typography
-          variant="subtitle2"
-          color="#7B7B7B"
-          textTransform="uppercase">
-          Projects
-        </Typography>
-      </Box>
+      {projects?.length ? (
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          mb={3}
+          paddingX={3}>
+          <Typography
+            variant="subtitle2"
+            color="#7B7B7B"
+            textTransform="uppercase">
+            Projects
+          </Typography>
+        </Box>
+      ) : null}
       <Grid
         container
         direction="column"
@@ -226,36 +230,39 @@ function Sidebar({
         height="100%"
         paddingX={3}>
         <div>
-          {projects?.map((project, index: number) => (
-            <React.Fragment key={index}>
-              <List
-                key={project?.projectId}
-                subheader={
-                  <ListSubheaderComponent
-                    listItem={project}
-                    isOpenSideBar={true}
-                  />
-                }>
-                <ListItem
-                  disablePadding
-                  title={project?.projectName}
-                  sx={styles.listItem(theme, mode)}>
-                  <Link>
-                    <ListItemButton
-                      selected={
-                        selectedMenuItem === `/project/${project?.projectId}`
-                      }
-                      onClick={() => goToProject(project?.projectId)}>
-                      <ListItemIcon>
-                        <Icon icon="fluent:document-20-filled" />
-                      </ListItemIcon>
-                      <ListItemText primary={project?.projectName} />
-                    </ListItemButton>
-                  </Link>
-                </ListItem>
-              </List>
-            </React.Fragment>
-          ))}
+          {projects?.length
+            ? projects?.map((project, index: number) => (
+                <React.Fragment key={index}>
+                  <List
+                    key={project?.projectId}
+                    subheader={
+                      <ListSubheaderComponent
+                        listItem={project}
+                        isOpenSideBar={true}
+                      />
+                    }>
+                    <ListItem
+                      disablePadding
+                      title={project?.projectName}
+                      sx={styles.listItem(theme, mode)}>
+                      <Link>
+                        <ListItemButton
+                          selected={
+                            selectedMenuItem ===
+                            `/project/${project?.projectId}`
+                          }
+                          onClick={() => goToProject(project?.projectId)}>
+                          <ListItemIcon>
+                            <Icon icon="fluent:document-20-filled" />
+                          </ListItemIcon>
+                          <ListItemText primary={project?.projectName} />
+                        </ListItemButton>
+                      </Link>
+                    </ListItem>
+                  </List>
+                </React.Fragment>
+              ))
+            : null}
         </div>
 
         <List sx={styles.logoutButton(theme, mode)}>
