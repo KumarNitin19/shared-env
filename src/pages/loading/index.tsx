@@ -11,9 +11,10 @@ const Loading = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
-        setItem("userDetails", user?.providerData[0]);
+        const idToken = await user?.getIdToken();
+        setItem("userDetails", { ...user?.providerData[0], idToken });
         navigate("/dashboard");
       } else {
         logout();

@@ -27,7 +27,7 @@ const LoginContainer = () => {
           if (res?.user) {
             setItem("userDetails", {
               ...res?.user,
-              userToken: userClaims?.token,
+              idToken: userClaims?.token,
             });
             if (userClaims?.claims.varVaultPrivateKey) {
               navigate("/dashboard");
