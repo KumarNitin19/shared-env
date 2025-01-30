@@ -6,6 +6,8 @@ import { Button } from "../../../atoms/Button";
 import { Icon } from "../../../atoms/Icon";
 import { ProjectData } from "../../../types/project.type";
 import ProjectCardActionButton from "../../../molecules/project-card-action-button";
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   projectCard: (theme: Theme) => ({
@@ -32,6 +34,13 @@ type ComponentProps = {
 
 function ProjectCard({ projectData }: ComponentProps) {
   const theme = useTheme();
+  const navigate = useNavigate();
+
+  const navigateToProject = useCallback(
+    () => navigate(`/project/${projectData?.id}`),
+    [projectData]
+  );
+
   return (
     <Card sx={styles.projectCard(theme)}>
       <Box display="flex" alignItems="top" justifyContent="space-between">
@@ -91,7 +100,8 @@ function ProjectCard({ projectData }: ComponentProps) {
         <Button
           variant="text"
           size="small"
-          endIcon={<Icon icon="material-symbols:arrow-right-alt" />}>
+          endIcon={<Icon icon="material-symbols:arrow-right-alt" />}
+          onClick={navigateToProject}>
           View All
         </Button>
       </CardActions>
