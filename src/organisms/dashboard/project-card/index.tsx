@@ -59,42 +59,33 @@ function ProjectCard({ projectData }: ComponentProps) {
         <ProjectCardActionButton projectData={projectData} />
       </Box>
       <CardContent sx={styles.cardContent}>
-        <Box
-          display="flex"
-          gap={1}
-          width="100%"
-          className="grid w-full items-center gap-4">
+        {projectData?.groups?.length ? (
+          <Box
+            display="flex"
+            gap={1}
+            width="100%"
+            className="grid w-full items-center gap-4">
+            <Typography
+              title="name"
+              variant="body2"
+              color={theme.palette.surface100.main}>
+              Key :
+            </Typography>
+            <Typography
+              title="framework"
+              variant="body2"
+              color={theme.palette.surface80.main}>
+              Value
+            </Typography>
+          </Box>
+        ) : (
           <Typography
-            title="name"
-            variant="body2"
+            variant="body1"
+            fontWeight={300}
             color={theme.palette.surface100.main}>
-            Key :
+            No groups present
           </Typography>
-          <Typography
-            title="framework"
-            variant="body2"
-            color={theme.palette.surface80.main}>
-            Value
-          </Typography>
-        </Box>
-        <Box
-          display="flex"
-          gap={1}
-          width="100%"
-          className="grid w-full items-center gap-4">
-          <Typography
-            title="name"
-            variant="body2"
-            color={theme.palette.surface100.main}>
-            Key :
-          </Typography>
-          <Typography
-            title="framework"
-            variant="body2"
-            color={theme.palette.surface80.main}>
-            Value
-          </Typography>
-        </Box>
+        )}
       </CardContent>
       <CardActions sx={styles.cardAction}>
         <Button
@@ -102,7 +93,7 @@ function ProjectCard({ projectData }: ComponentProps) {
           size="small"
           endIcon={<Icon icon="material-symbols:arrow-right-alt" />}
           onClick={navigateToProject}>
-          View All
+          View {projectData?.groups?.length ? "All" : "Project"}
         </Button>
       </CardActions>
     </Card>

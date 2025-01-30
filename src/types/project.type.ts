@@ -9,4 +9,5 @@ export type ProjectData = {
   projectId: string;
   projectName: string;
   uid: string;
+  groups: Array<unknown>;
 };
