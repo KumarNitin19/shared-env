@@ -4,7 +4,11 @@ import ProjectCardActionMenu from "./project-card-action-menu";
 import { Typography } from "../../atoms/Typography";
 import AddProject from "../add-project";
 import { AddProjectType, ProjectData } from "../../types/project.type";
-import { useEditProject, useProjects } from "../../query/projectQuery";
+import {
+  useDeleteProject,
+  useEditProject,
+  useProjects,
+} from "../../query/projectQuery";
 import useSnackbar from "../../hooks/useSnackbar";
 import Loader from "../loader";
 
@@ -16,8 +20,9 @@ const ProjectCardActionButton = ({ projectData }: ComponentProps) => {
   const [isDelete, setIsDelete] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [loading, setIsLoading] = useState<boolean>(false);
-  const { mutateAsync: editProject } = useEditProject();
   const { refetch: refetchProjects } = useProjects();
+  const { mutateAsync: editProject } = useEditProject();
+  const { mutateAsync: deleteProject } = useDeleteProject();
   const { addAlert } = useSnackbar();
 
   const handleConfirmDelete = useCallback(() => setIsDelete(true), []);
@@ -28,19 +33,14 @@ const ProjectCardActionButton = ({ projectData }: ComponentProps) => {
 
   const handleCloseEditDialog = useCallback(() => setIsEdit(false), []);
 
-  const onDelete = useCallback(() => {}, []);
-
-  const onEdit = useCallback(async (body: AddProjectType) => {
+  const onDelete = useCallback(async () => {
     setIsLoading(true);
     try {
-      const resp = await editProject({
-        projectId: projectData?.id,
-        projectDetail: body,
-      });
-      console.log(resp);
+      const res = await deleteProject(projectData?.id);
+      console.log(res);
       refetchProjects();
       addAlert({
-        message: "Project updated successfully!!",
+        message: `${projectData?.projectName} deleted successfully!!`,
         variant: "filled",
         type: "success",
       });
@@ -52,10 +52,53 @@ const ProjectCardActionButton = ({ projectData }: ComponentProps) => {
         type: "error",
       });
     } finally {
-      handleCloseEditDialog();
+      handleCloseConfirmDelete();
       setIsLoading(false);
     }
-  }, []);
+  }, [
+    projectData,
+    deleteProject,
+    refetchProjects,
+    addAlert,
+    handleCloseConfirmDelete,
+    setIsLoading,
+  ]);
+
+  const onEdit = useCallback(
+    async (body: AddProjectType) => {
+      setIsLoading(true);
+      try {
+        await editProject({
+          projectId: projectData?.id,
+          projectDetail: body,
+        });
+        refetchProjects();
+        addAlert({
+          message: "Project updated successfully!!",
+          variant: "filled",
+          type: "success",
+        });
+      } catch (error) {
+        console.log(error);
+        addAlert({
+          message: "Something went wrong, please try again!",
+          variant: "filled",
+          type: "error",
+        });
+      } finally {
+        handleCloseEditDialog();
+        setIsLoading(false);
+      }
+    },
+    [
+      projectData,
+      editProject,
+      refetchProjects,
+      addAlert,
+      handleCloseEditDialog,
+      setIsLoading,
+    ]
+  );
 
   return (
     <>
