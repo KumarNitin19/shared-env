@@ -66,3 +66,21 @@ export function useEditProject() {
     },
   });
 }
+
+export function useDeleteProject() {
+  return useMutation({
+    mutationKey: ["deleteProject"],
+    mutationFn: async (projectId: string) => {
+      const url = `/project/${projectId}`;
+      try {
+        const res = await privateApiClient({ url, method: "DELETE" });
+        return res.data as Promise<{
+          message: string;
+          projectId: string;
+        }>;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+  });
+}

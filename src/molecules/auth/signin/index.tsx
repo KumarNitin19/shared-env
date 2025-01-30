@@ -73,6 +73,7 @@ function SignIn({ onSignUp }: SignInProps) {
         <img
           src={mode === ThemeEnum.LIGHT ? LOGO_DARK : LOGO_LIGHT}
           alt="varvault_logo"
+          loading="lazy"
         />
         <Typography
           variant="h4"
