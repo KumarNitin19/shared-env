@@ -3,7 +3,7 @@ import { Box } from "../../../../atoms/Box";
 import { useTheme } from "@mui/material/styles";
 import { Outlet } from "react-router-dom";
 import { useCallback, useState } from "react";
-import PrivateKey from "../../../private-key";
+import ViewPrivateKey from "../../../view-private-key";
 
 function WithSidebar() {
   const [isOpenPrivateKeyDialog, setIsOpenPrivateKeyDialog] =
@@ -32,7 +32,7 @@ function WithSidebar() {
         height="100%">
         <Outlet />
       </Box>
-      <PrivateKey
+      <ViewPrivateKey
         open={isOpenPrivateKeyDialog}
         onClose={handleClosePrivateKeyDialog}
       />

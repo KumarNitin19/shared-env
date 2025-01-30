@@ -50,15 +50,15 @@ type Props = {
   onClose: () => void;
 };
 
-const PrivateKey = ({ open = false, onClose = () => {} }: Props) => {
+const ViewPrivateKey = ({ open = false, onClose = () => {} }: Props) => {
   const [privateKey, setPrivateKey] = useState<string>("");
   const theme = useTheme();
   const { mode } = useThemeToggle();
   const user = useUser();
 
   useEffect(() => {
-    if (user && user?.privateKey) {
-      setPrivateKey(user?.privateKey);
+    if (user && user?.varVaultPrivateKey) {
+      setPrivateKey(user?.varVaultPrivateKey);
     }
   }, [user]);
 
@@ -108,11 +108,11 @@ const PrivateKey = ({ open = false, onClose = () => {} }: Props) => {
             color={theme.palette.surface100.main}>
             {privateKey}
           </Typography>
-          <CopyText text="78F9A2E7-9C1B-4A8D-AE67-82DF7D1F5C36" fontSize={20} />
+          <CopyText text={privateKey} fontSize={20} />
         </Box>
       </DialogContent>
     </Dialog>
   );
 };
 
-export default PrivateKey;
+export default ViewPrivateKey;
