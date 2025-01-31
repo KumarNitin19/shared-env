@@ -16,8 +16,9 @@ type Props = {
 };
 
 function Projects({ projects }: Props) {
-  const { projectName = "" } = projects;
+  const { projectName = "", projectId = "" } = projects;
   const { palette } = useTheme();
+
   return (
     <Box
       display="flex"
@@ -52,7 +53,7 @@ function Projects({ projects }: Props) {
         overflow="auto"
         bgcolor={palette.surface20.main}>
         {/* <ProjectPageZeroState /> */}
-        <EnvironmentVariableGroupList />
+        <EnvironmentVariableGroupList projectId={projectId} />
       </Box>
     </Box>
   );

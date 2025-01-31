@@ -5,6 +5,7 @@ import { Box } from "../../../atoms/Box";
 import VariableAccordion from "../variable-accordion";
 import { Button } from "../../../atoms/Button";
 import { Icon } from "../../../atoms/Icon";
+import { useEnvGroups } from "../../../query/envGroupQuery";
 
 const styles = {
   createEnvironmentGroupBtn: {
@@ -12,8 +13,14 @@ const styles = {
   },
 };
 
-function EnvironmentVariableGroupList() {
+function EnvironmentVariableGroupList({
+  projectId = "",
+}: {
+  projectId: string;
+}) {
   const { palette } = useTheme();
+  const { data: envGroups } = useEnvGroups(projectId);
+
   return (
     <Box
       display="flex"
@@ -47,12 +54,15 @@ function EnvironmentVariableGroupList() {
         gap={3}
         height="100%"
         overflow="auto">
-        <VariableAccordion
-          title="Add Environment Variable"
-          isAddVariable
-          expanded
-        />
-        <VariableAccordion title="Production" variableCount={4} />
+        {envGroups?.length ? (
+          <VariableAccordion title="Production" variableCount={4} />
+        ) : (
+          <VariableAccordion
+            title="Add Environment Variable"
+            isAddVariable
+            expanded
+          />
+        )}
       </Box>
     </Box>
   );
