@@ -16,7 +16,7 @@ type Props = {
 };
 
 function Projects({ projects }: Props) {
-  const { projectName } = projects;
+  const { projectName = "" } = projects;
   const { palette } = useTheme();
   return (
     <Box

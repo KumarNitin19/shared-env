@@ -24,6 +24,7 @@ const ProjectPage = () => {
             projectId: "",
             projectName: "",
             uid: "",
+            groups: [],
           }
         }
       />
