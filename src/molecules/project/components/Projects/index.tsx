@@ -37,10 +37,10 @@ function Projects({ projects }: Props) {
           </Typography>
           <Box display="flex" gap={1.25} alignItems="center">
             <Typography color={palette.surface80.main} variant="subtitle1">
-              78F9A2E7-9C1B-4A8D-AE67-82DF7D1F5C36
+              {projectId}
             </Typography>
             <Divider orientation="vertical" sx={{ height: 12 }} />
-            <CopyText text="78F9A2E7-9C1B-4A8D-AE67-82DF7D1F5C36" />
+            <CopyText text={projectId} />
           </Box>
         </Box>
         <Button startIcon={<Icon icon="material-symbols:add" />}>Share</Button>
