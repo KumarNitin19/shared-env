@@ -9,6 +9,8 @@ import { Box } from "../../atoms/Box";
 import { Button } from "../../atoms/Button";
 import { Divider } from "../../atoms/Divider";
 import { Icon } from "../../atoms/Icon";
+import { useParams } from "react-router-dom";
+import { useAddENVGroup } from "../../query/envGroupQuery";
 
 const styles = {
   addVariableButton: { height: "fit-content", fontSize: 14 },
@@ -30,14 +32,20 @@ type Props = {
 
 function AddEnvironmentGroup({ isEdit = false, onCancel }: Props) {
   const [groupName, setGroupName] = useState<string>("");
-  const [envVariable, setEnvVariable] = useState<KeyValueProp<string>[]>([
+  const [envVariable, setEnvVariable] = useState<
+    Array<{
+      [key: "id" | "key" | "value" | string]: string;
+    }>
+  >([
     {
       id: generateUID(),
       key: "",
       value: "",
     },
   ]);
+  const { projectId } = useParams();
   const theme = useTheme();
+  const { mutateAsync: addENVGroup } = useAddENVGroup();
 
   // To close the dialog and reset the state
   const onDiscard = useCallback(() => {
@@ -90,21 +98,43 @@ function AddEnvironmentGroup({ isEdit = false, onCancel }: Props) {
   }, []);
 
   // To submit the values of form
-  const handleAddEnvironmentGroup = useCallback(() => {
-    if (groupName) {
-      setGroupName("");
-      onCancel();
-      setEnvVariable([
-        {
-          id: generateUID(),
-          key: "",
-          value: "",
-        },
-      ]);
-    } else {
-      throw new Error("Please add environment group name");
+  const handleAddEnvironmentGroup = useCallback(async () => {
+    try {
+      if (groupName && envVariable?.length) {
+        setGroupName("");
+        onCancel();
+        setEnvVariable([
+          {
+            id: generateUID(),
+            key: "",
+            value: "",
+          },
+        ]);
+
+        const envData = {
+          projectId,
+          groupName,
+          variable: envVariable?.map((item) => {
+            if (item.key && item.value) return { [item.key]: item.value };
+          }),
+        };
+        const res = await addENVGroup(envData);
+        console.log(res);
+      }
+    } catch (error) {
+      console.log(error);
     }
-  }, [groupName]);
+  }, [groupName, envVariable]);
+
+  const envData = {
+    projectId,
+    groupName,
+    variable: envVariable?.map((item) => {
+      if (item.key && item.value) return { [item.key]: item.value };
+    }),
+  };
+
+  console.log(envData);
 
   return (
     <Box display="grid" rowGap={3} mt={3}>

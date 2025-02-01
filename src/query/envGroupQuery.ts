@@ -29,7 +29,13 @@ export const useEnvGroups = (projectId: string) => {
 export const useAddENVGroup = () => {
   return useMutation({
     mutationKey: ["addENVGroup"],
-    mutationFn: async (formData: any) => {
+    mutationFn: async (formData: {
+      projectId: string;
+      groupName: string;
+      variable: Array<{
+        [key: string]: string;
+      }>;
+    }) => {
       try {
         const url = "";
         const resp = await privateApiClient({
@@ -37,6 +43,7 @@ export const useAddENVGroup = () => {
           data: formData,
           method: "POST",
         });
+        console.log(resp?.data);
         return resp?.data as Promise<any>;
       } catch (error) {
         return Promise.reject(error);
