@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { privateApiClient } from "../utils/apiUtils";
 
 export const useEnvGroups = (projectId: string) => {
@@ -19,6 +19,25 @@ export const useEnvGroups = (projectId: string) => {
             }>;
           }>
         >;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+  });
+};
+
+export const useAddENVGroup = () => {
+  return useMutation({
+    mutationKey: ["addENVGroup"],
+    mutationFn: async (formData: any) => {
+      try {
+        const url = "";
+        const resp = await privateApiClient({
+          url,
+          data: formData,
+          method: "POST",
+        });
+        return resp?.data as Promise<any>;
       } catch (error) {
         return Promise.reject(error);
       }
