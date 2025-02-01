@@ -61,6 +61,7 @@ type Props = {
   variableCount?: number;
   expanded?: boolean;
   isAddVariable?: boolean;
+  onCancel?: () => void;
 };
 
 const ViewGroup = () => {
@@ -126,6 +127,7 @@ const VariableAccordion = ({
   variableCount,
   isAddVariable = false,
   expanded = false,
+  onCancel,
 }: Props) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(expanded || false);
   const [isEditGroup, setIsEditGroup] = useState<boolean>(false);
@@ -144,6 +146,7 @@ const VariableAccordion = ({
   const handleCloseEdit = useCallback(() => {
     setIsEditGroup(false);
     setIsExpanded(false);
+    if (onCancel) onCancel();
   }, []);
 
   return (

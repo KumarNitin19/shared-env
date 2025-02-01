@@ -6,6 +6,7 @@ import VariableAccordion from "../variable-accordion";
 import { Button } from "../../../atoms/Button";
 import { Icon } from "../../../atoms/Icon";
 import { useEnvGroups } from "../../../query/envGroupQuery";
+import { useCallback, useState } from "react";
 
 const styles = {
   createEnvironmentGroupBtn: {
@@ -18,8 +19,13 @@ function EnvironmentVariableGroupList({
 }: {
   projectId: string;
 }) {
+  const [isAddENVGroup, setIsAddENVGroup] = useState<boolean>(false);
   const { palette } = useTheme();
   const { data: envGroups } = useEnvGroups(projectId);
+
+  const handleAddENVGroup = useCallback(() => setIsAddENVGroup(true), []);
+
+  const handleCloseENVGroup = useCallback(() => setIsAddENVGroup(false), []);
 
   return (
     <Box
@@ -44,6 +50,7 @@ function EnvironmentVariableGroupList({
           variant="text"
           size="small"
           startIcon={<Icon icon="fluent:add-16-regular" />}
+          onClick={handleAddENVGroup}
           sx={styles.createEnvironmentGroupBtn}>
           Create Environment Group
         </Button>
@@ -54,15 +61,21 @@ function EnvironmentVariableGroupList({
         gap={3}
         height="100%"
         overflow="auto">
-        {envGroups?.length ? (
-          <VariableAccordion title="Production" variableCount={4} />
-        ) : (
+        {isAddENVGroup || envGroups?.length === 0 ? (
           <VariableAccordion
             title="Add Environment Variable"
             isAddVariable
-            expanded
+            expanded={true}
+            onCancel={handleCloseENVGroup}
           />
-        )}
+        ) : null}
+        {envGroups?.length ? (
+          <VariableAccordion
+            title="Production"
+            variableCount={4}
+            expanded={false}
+          />
+        ) : null}
       </Box>
     </Box>
   );
