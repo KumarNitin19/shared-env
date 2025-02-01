@@ -43,7 +43,7 @@ function AddEnvironmentGroup({ isEdit = false, onCancel }: Props) {
       value: "",
     },
   ]);
-  const { projectId } = useParams();
+  const { projectId = "" } = useParams();
   const theme = useTheme();
   const { mutateAsync: addENVGroup } = useAddENVGroup();
 
@@ -114,9 +114,10 @@ function AddEnvironmentGroup({ isEdit = false, onCancel }: Props) {
         const envData = {
           projectId,
           groupName,
-          variable: envVariable?.map((item) => {
-            if (item.key && item.value) return { [item.key]: item.value };
-          }),
+          variables:
+            envVariable.map((item) => {
+              if (item.key && item.value) return { [item.key]: item.value };
+            }) || [],
         };
         const res = await addENVGroup(envData);
         console.log(res);

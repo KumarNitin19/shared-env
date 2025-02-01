@@ -32,12 +32,12 @@ export const useAddENVGroup = () => {
     mutationFn: async (formData: {
       projectId: string;
       groupName: string;
-      variable: Array<{
+      variables: Array<{
         [key: string]: string;
       }>;
     }) => {
       try {
-        const url = "";
+        const url = "/add-group/";
         const resp = await privateApiClient({
           url,
           data: formData,
