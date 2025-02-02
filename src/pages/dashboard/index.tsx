@@ -2,7 +2,6 @@ import { useTheme } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
 import { Box } from "../../atoms/Box";
 import { Typography } from "../../atoms/Typography";
-import AddProject from "../../molecules/add-project";
 import DashboardPageZeroState from "../../organisms/dashboard/dashboard-page-zero-state";
 import ProjectCard from "../../organisms/dashboard/project-card";
 import InputField from "../../atoms/TextField";
@@ -17,7 +16,7 @@ const styles = {
         borderRadius: 2,
         background: "rgba(0, 0, 0, 0.03)",
         width: 244,
-        height: 44,
+        height: 40,
         "& .MuiInputBase-input": {
           padding: 0,
         },
