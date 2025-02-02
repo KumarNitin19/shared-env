@@ -2,10 +2,11 @@ import { useParams } from "react-router-dom";
 import Projects from "../../molecules/project/components/Projects";
 import { Box } from "../../atoms/Box";
 import { useProjects } from "../../query/projectQuery";
+import Loader from "../../molecules/loader";
 
 const ProjectPage = () => {
   const { projectId = "" } = useParams<{ projectId: string }>();
-  const { data: projects = [] } = useProjects();
+  const { data: projects = [], isPending } = useProjects();
   return (
     <Box
       display="flex"
@@ -16,18 +17,22 @@ const ProjectPage = () => {
       py={2}
       height="100%"
       overflow="hidden">
-      <Projects
-        projects={
-          projects.find((project) => project?.projectId === projectId) || {
-            id: "",
-            projectDescription: "",
-            projectId: "",
-            projectName: "",
-            uid: "",
-            groups: [],
+      {!isPending ? (
+        <Projects
+          projects={
+            projects.find((project) => project?.projectId === projectId) || {
+              id: "",
+              projectDescription: "",
+              projectId: "",
+              projectName: "",
+              uid: "",
+              groups: [],
+            }
           }
-        }
-      />
+        />
+      ) : (
+        <Loader loader={true} />
+      )}
     </Box>
   );
 };

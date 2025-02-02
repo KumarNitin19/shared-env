@@ -7,6 +7,7 @@ import { Button } from "../../../atoms/Button";
 import { Icon } from "../../../atoms/Icon";
 import { useEnvGroups } from "../../../query/envGroupQuery";
 import { useCallback, useState } from "react";
+import Loader from "../../../molecules/loader";
 
 const styles = {
   createEnvironmentGroupBtn: {
@@ -21,7 +22,7 @@ function EnvironmentVariableGroupList({
 }) {
   const [isAddENVGroup, setIsAddENVGroup] = useState<boolean>(false);
   const { palette } = useTheme();
-  const { data: envGroups } = useEnvGroups(projectId);
+  const { data: envGroups, isPending } = useEnvGroups(projectId);
 
   const handleAddENVGroup = useCallback(() => setIsAddENVGroup(true), []);
 
@@ -35,54 +36,60 @@ function EnvironmentVariableGroupList({
       height="100%"
       width="100%"
       overflow="hidden">
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        lineHeight="normal">
-        <Typography
-          variant="subtitle2"
-          color={palette.surface100.main}
-          fontWeight="600">
-          Environment Groups
-        </Typography>
-        <Button
-          variant="text"
-          size="small"
-          startIcon={<Icon icon="fluent:add-16-regular" />}
-          onClick={handleAddENVGroup}
-          sx={styles.createEnvironmentGroupBtn}>
-          Create Environment Group
-        </Button>
-      </Box>
-      <Box
-        display="flex"
-        flexDirection="column"
-        gap={3}
-        height="100%"
-        overflow="auto">
-        {isAddENVGroup || envGroups?.length === 0 ? (
-          <VariableAccordion
-            title="Add Environment Variable"
-            isAddVariable
-            expanded={true}
-            onCancel={handleCloseENVGroup}
-            variables={[]}
-            projectId={projectId}
-          />
-        ) : null}
-        {envGroups?.length
-          ? envGroups?.map((group) => (
+      {!isPending ? (
+        <>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            lineHeight="normal">
+            <Typography
+              variant="subtitle2"
+              color={palette.surface100.main}
+              fontWeight="600">
+              Environment Groups
+            </Typography>
+            <Button
+              variant="text"
+              size="small"
+              startIcon={<Icon icon="fluent:add-16-regular" />}
+              onClick={handleAddENVGroup}
+              sx={styles.createEnvironmentGroupBtn}>
+              Create Environment Group
+            </Button>
+          </Box>
+          <Box
+            display="flex"
+            flexDirection="column"
+            gap={3}
+            height="100%"
+            overflow="auto">
+            {isAddENVGroup || envGroups?.length === 0 ? (
               <VariableAccordion
-                key={group?.groupId}
-                title={group?.groupName}
-                variables={group?.variables || []}
-                expanded={false}
+                title="Add Environment Variable"
+                isAddVariable
+                expanded={true}
+                onCancel={handleCloseENVGroup}
+                variables={[]}
                 projectId={projectId}
               />
-            ))
-          : null}
-      </Box>
+            ) : null}
+            {envGroups?.length
+              ? envGroups?.map((group) => (
+                  <VariableAccordion
+                    key={group?.groupId}
+                    title={group?.groupName}
+                    variables={group?.variables || []}
+                    expanded={false}
+                    projectId={projectId}
+                  />
+                ))
+              : null}
+          </Box>
+        </>
+      ) : (
+        <Loader loader={true} />
+      )}
     </Box>
   );
 }

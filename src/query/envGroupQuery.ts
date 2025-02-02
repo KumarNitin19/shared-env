@@ -3,7 +3,7 @@ import { privateApiClient } from "../utils/apiUtils";
 
 export const useEnvGroups = (projectId: string) => {
   return useQuery({
-    queryKey: ["envGroup"],
+    queryKey: ["envGroup", projectId],
     queryFn: async () => {
       try {
         const url = `/groups/${projectId}/`;

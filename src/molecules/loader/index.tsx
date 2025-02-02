@@ -44,7 +44,11 @@ const Loader = ({
     );
   }
   return (
-    <Box display="flex" alignItems="center" justifyContent="center">
+    <Box
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      margin="auto">
       <Icon
         icon="svg-spinners:eclipse"
         fontSize={size}
