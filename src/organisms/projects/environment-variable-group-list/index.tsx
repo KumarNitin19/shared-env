@@ -52,7 +52,7 @@ function EnvironmentVariableGroupList({
           startIcon={<Icon icon="fluent:add-16-regular" />}
           onClick={handleAddENVGroup}
           sx={styles.createEnvironmentGroupBtn}>
-          Create Environment Group
+          Add Environment Group
         </Button>
       </Box>
       <Box

@@ -29,7 +29,7 @@ function ProjectPageZeroState() {
         <Button
           variant="contained"
           startIcon={<Icon icon="fluent:add-16-regular" className="h-5 w-5" />}>
-          Create Environment Group
+          Add Environment Group
         </Button>
       </Box>
     </Box>
