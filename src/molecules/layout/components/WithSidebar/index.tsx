@@ -1,9 +1,10 @@
-import SideBar from "../../../../organisms/sidebar";
 import { Box } from "../../../../atoms/Box";
 import { useTheme } from "@mui/material/styles";
 import { Outlet } from "react-router-dom";
-import { useCallback, useState } from "react";
-import ViewPrivateKey from "../../../view-private-key";
+import { lazy, useCallback, useState } from "react";
+
+const Sidebar = lazy(() => import("../../../../organisms/sidebar"));
+const ViewPrivateKey = lazy(() => import("../../../view-private-key"));
 
 function WithSidebar() {
   const [isOpenPrivateKeyDialog, setIsOpenPrivateKeyDialog] =
@@ -21,7 +22,7 @@ function WithSidebar() {
 
   return (
     <Box bgcolor="#f7f7f7" height="100%">
-      <SideBar
+      <Sidebar
         isOpenPrivateKeyDialog={isOpenPrivateKeyDialog}
         handleViewPrivateKey={handleOpenPrivateKeyDialog}
       />
