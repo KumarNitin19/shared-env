@@ -27,8 +27,6 @@ function EnvironmentVariableGroupList({
 
   const handleCloseENVGroup = useCallback(() => setIsAddENVGroup(false), []);
 
-  console.log(envGroups);
-
   return (
     <Box
       display="flex"

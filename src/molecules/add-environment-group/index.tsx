@@ -1,5 +1,4 @@
 import { ChangeEvent, useCallback, useState } from "react";
-import { KeyValueProp } from "../../types/commonTypes";
 import { generateUID } from "../../utils/commonUtils";
 import InputField from "../../atoms/TextField";
 import { Typography } from "../../atoms/Typography";
@@ -10,7 +9,8 @@ import { Button } from "../../atoms/Button";
 import { Divider } from "../../atoms/Divider";
 import { Icon } from "../../atoms/Icon";
 import { useParams } from "react-router-dom";
-import { useAddENVGroup } from "../../query/envGroupQuery";
+import { useAddENVGroup, useEnvGroups } from "../../query/envGroupQuery";
+import useSnackbar from "../../hooks/useSnackbar";
 
 const styles = {
   addVariableButton: { height: "fit-content", fontSize: 14 },
@@ -45,7 +45,9 @@ function AddEnvironmentGroup({ isEdit = false, onCancel }: Props) {
   ]);
   const { projectId = "" } = useParams();
   const theme = useTheme();
+  const { refetch: refetchGroups } = useEnvGroups(projectId);
   const { mutateAsync: addENVGroup } = useAddENVGroup();
+  const { addAlert } = useSnackbar();
 
   // To close the dialog and reset the state
   const onDiscard = useCallback(() => {
@@ -101,41 +103,46 @@ function AddEnvironmentGroup({ isEdit = false, onCancel }: Props) {
   const handleAddEnvironmentGroup = useCallback(async () => {
     try {
       if (groupName && envVariable?.length) {
-        setGroupName("");
-        onCancel();
-        setEnvVariable([
-          {
-            id: generateUID(),
-            key: "",
-            value: "",
-          },
-        ]);
-
         const envData = {
           projectId,
           groupName,
           variables:
-            envVariable.map((item) => {
-              if (item.key && item.value) return { [item.key]: item.value };
-            }) || [],
+            envVariable.map((item) => ({ [item.key]: item.value })) || [],
         };
         const res = await addENVGroup(envData);
-        console.log(res);
+        refetchGroups();
+        addAlert({
+          message: `${res?.group?.groupName} added successfully!!`,
+          type: "success",
+          variant: "filled",
+        });
       }
     } catch (error) {
       console.log(error);
+      addAlert({
+        message: "Something went wrong, please try again!!",
+        type: "error",
+        variant: "filled",
+      });
+    } finally {
+      setGroupName("");
+      setEnvVariable([
+        {
+          id: generateUID(),
+          key: "",
+          value: "",
+        },
+      ]);
+      onCancel();
     }
-  }, [groupName, envVariable]);
-
-  const envData = {
-    projectId,
+  }, [
     groupName,
-    variable: envVariable?.map((item) => {
-      if (item.key && item.value) return { [item.key]: item.value };
-    }),
-  };
-
-  console.log(envData);
+    envVariable,
+    onCancel,
+    addAlert,
+    setEnvVariable,
+    setGroupName,
+  ]);
 
   return (
     <Box display="grid" rowGap={3} mt={3}>
