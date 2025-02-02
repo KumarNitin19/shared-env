@@ -48,7 +48,8 @@ const Loader = ({
       display="flex"
       alignItems="center"
       justifyContent="center"
-      margin="auto">
+      margin="auto"
+      height="100%">
       <Icon
         icon="svg-spinners:eclipse"
         fontSize={size}

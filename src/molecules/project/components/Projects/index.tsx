@@ -10,6 +10,9 @@ import { Divider } from "../../../../atoms/Divider";
 import { Button } from "../../../../atoms/Button";
 import { Icon } from "../../../../atoms/Icon";
 import { ProjectData } from "../../../../types/project.type";
+import { useEnvGroups } from "../../../../query/envGroupQuery";
+import Loader from "../../../loader";
+import ProjectPageZeroState from "../../../../organisms/projects/project-page-zero-state";
 
 type Props = {
   projects: ProjectData;
@@ -17,6 +20,7 @@ type Props = {
 
 function Projects({ projects }: Props) {
   const { projectName = "", projectId = "" } = projects;
+  const { data: envGroups, isPending } = useEnvGroups(projectId);
   const { palette } = useTheme();
 
   return (
@@ -52,8 +56,18 @@ function Projects({ projects }: Props) {
         borderRadius={3}
         overflow="auto"
         bgcolor={palette.surface20.main}>
-        {/* <ProjectPageZeroState /> */}
-        <EnvironmentVariableGroupList projectId={projectId} />
+        {!isPending ? (
+          envGroups?.length ? (
+            <EnvironmentVariableGroupList
+              projectId={projectId}
+              groupDetail={envGroups}
+            />
+          ) : (
+            <ProjectPageZeroState />
+          )
+        ) : (
+          <Loader loader={true} />
+        )}
       </Box>
     </Box>
   );

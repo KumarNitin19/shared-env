@@ -3,7 +3,6 @@ import { Button } from "../../../atoms/Button";
 import { Icon } from "../../../atoms/Icon";
 import { Box } from "../../../atoms/Box";
 import { Typography } from "../../../atoms/Typography";
-import AddEnvironmentGroup from "../../../molecules/add-environment-group";
 
 function ProjectPageZeroState() {
   const { palette } = useTheme();

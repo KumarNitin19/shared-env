@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { privateApiClient } from "../utils/apiUtils";
+import { ENVGroup } from "../types/envGroup.type";
 
 export const useEnvGroups = (projectId: string) => {
   return useQuery({
@@ -8,17 +9,7 @@ export const useEnvGroups = (projectId: string) => {
       try {
         const url = `/groups/${projectId}/`;
         const resp = await privateApiClient({ url });
-        return resp.data?.groups as Promise<
-          Array<{
-            createdAt: string;
-            groupId: string;
-            groupName: string;
-            projectId: string;
-            variables: Array<{
-              [key: string]: string;
-            }>;
-          }>
-        >;
+        return resp.data?.groups as Promise<Array<ENVGroup>>;
       } catch (error) {
         return Promise.reject(error);
       }
