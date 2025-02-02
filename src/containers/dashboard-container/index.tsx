@@ -1,10 +1,11 @@
-import { useCallback, useState } from "react";
-import DashboardPage from "../../pages/dashboard";
+import { lazy, useCallback, useState } from "react";
 import { AddProjectType } from "../../types/project.type";
 import { useAddProject, useProjects } from "../../query/projectQuery";
-import AddProject from "../../molecules/add-project";
 import useSnackbar from "../../hooks/useSnackbar";
 import Loader from "../../molecules/loader";
+
+const DashboardPage = lazy(() => import("../../pages/dashboard"));
+const AddProject = lazy(() => import("../../molecules/add-project"));
 
 const DashboardContainer = () => {
   const [isAddProject, setIsAddProject] = useState<boolean>(false);

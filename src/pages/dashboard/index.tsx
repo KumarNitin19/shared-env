@@ -2,12 +2,19 @@ import { useTheme } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
 import { Box } from "../../atoms/Box";
 import { Typography } from "../../atoms/Typography";
-import DashboardPageZeroState from "../../organisms/dashboard/dashboard-page-zero-state";
-import ProjectCard from "../../organisms/dashboard/project-card";
 import InputField from "../../atoms/TextField";
 import { Icon } from "../../atoms/Icon";
 import { Button } from "../../atoms/Button";
 import { useProjects } from "../../query/projectQuery";
+import Loader from "../../molecules/loader";
+import { lazy, Suspense } from "react";
+
+const DashboardPageZeroState = lazy(
+  () => import("../../organisms/dashboard/dashboard-page-zero-state")
+);
+const ProjectCard = lazy(
+  () => import("../../organisms/dashboard/project-card")
+);
 
 const styles = {
   searchField: {
@@ -31,7 +38,7 @@ type ComponentProps = {
 
 const DashboardPage: React.FC<ComponentProps> = ({ handleOpenAddProject }) => {
   const { palette } = useTheme();
-  const { data: projects = [] } = useProjects();
+  const { data: projects = [], isPending } = useProjects();
 
   return (
     <Box height="100%">
@@ -81,19 +88,32 @@ const DashboardPage: React.FC<ComponentProps> = ({ handleOpenAddProject }) => {
             </Box>
           ) : null}
         </Box>
-        {projects?.length ? (
-          <Box
-            display="grid"
-            gridTemplateColumns="1fr 1fr 1fr"
-            rowGap={2}
-            columnGap={3}
-            width="100%">
-            {projects?.map((projectData) => (
-              <ProjectCard key={projectData?.id} projectData={projectData} />
-            ))}
-          </Box>
+        {!isPending ? (
+          projects?.length ? (
+            <Box
+              display="grid"
+              gridTemplateColumns="1fr 1fr 1fr"
+              rowGap={2}
+              columnGap={3}
+              width="100%">
+              <Suspense fallback={""}>
+                {projects?.map((projectData) => (
+                  <ProjectCard
+                    key={projectData?.id}
+                    projectData={projectData}
+                  />
+                ))}
+              </Suspense>
+            </Box>
+          ) : (
+            <Suspense fallback={""}>
+              <DashboardPageZeroState
+                handleOpenAddProject={handleOpenAddProject}
+              />
+            </Suspense>
+          )
         ) : (
-          <DashboardPageZeroState handleOpenAddProject={handleOpenAddProject} />
+          <Loader loader={true} />
         )}
       </Box>
     </Box>
