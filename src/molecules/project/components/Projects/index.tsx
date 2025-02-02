@@ -47,7 +47,11 @@ function Projects({ projects }: Props) {
             <CopyText text={projectId} />
           </Box>
         </Box>
-        <Button startIcon={<Icon icon="material-symbols:add" />}>Share</Button>
+        <Button
+          startIcon={<Icon icon="material-symbols:add" />}
+          disabled={envGroups?.length === 0 || isPending}>
+          Share
+        </Button>
       </Box>
       <Box
         flex={1}

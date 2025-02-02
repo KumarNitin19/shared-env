@@ -30,6 +30,12 @@ const styles = {
     "& .iconify": {
       fontSize: "18px !important",
     },
+    "&.Mui-disabled": {
+      color: "#ffffff99",
+    },
+    "&.MuiButton-contained.Mui-disabled": {
+      backgroundColor: "#71af77",
+    },
   },
 };
 
