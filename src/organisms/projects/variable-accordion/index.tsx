@@ -58,13 +58,21 @@ const styles = {
 
 type Props = {
   title: string;
-  variableCount?: number;
+  variables: Array<{
+    [key: string]: string;
+  }>;
   expanded?: boolean;
   isAddVariable?: boolean;
   onCancel?: () => void;
 };
 
-const ViewGroup = () => {
+const ViewGroup = ({
+  variables,
+}: {
+  variables: Array<{
+    [key: string]: string;
+  }>;
+}) => {
   const theme = useTheme();
   return (
     <Box display="flex" flexDirection="column" gap={1.5} mt={3}>
@@ -82,49 +90,56 @@ const ViewGroup = () => {
           Value
         </Typography>
       </Box>
-      <Box display="flex" gap={1}>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
-          flex={1}
-          border={1}
-          borderColor={theme.palette.divider}
-          borderRadius={1}
-          p={1}>
-          <Typography
-            variant="subtitle2"
-            flex={1}
-            color={theme.palette.surface100.main}>
-            Nitin
-          </Typography>
-          <CopyText text="78F9A2E7-9C1B-4A8D-AE67-82DF7D1F5C36" />
-        </Box>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
-          flex={1}
-          border={1}
-          borderColor={theme.palette.divider}
-          borderRadius={1}
-          p={1}>
-          <Typography
-            variant="subtitle2"
-            flex={1}
-            color={theme.palette.surface100.main}>
-            Kumar
-          </Typography>
-          <CopyText text="78F9A2E7-9C1B-4A8D-AE67-82DF7D1F5C36" />
-        </Box>
-      </Box>
+      {variables?.length
+        ? variables?.map((variable) => {
+            const [key, value] = Object.entries(variable)[0];
+            return (
+              <Box display="flex" gap={1}>
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  flex={1}
+                  border={1}
+                  borderColor={theme.palette.divider}
+                  borderRadius={1}
+                  p={1}>
+                  <Typography
+                    variant="subtitle2"
+                    flex={1}
+                    color={theme.palette.surface100.main}>
+                    {key}
+                  </Typography>
+                  <CopyText text={key} />
+                </Box>
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  flex={1}
+                  border={1}
+                  borderColor={theme.palette.divider}
+                  borderRadius={1}
+                  p={1}>
+                  <Typography
+                    variant="subtitle2"
+                    flex={1}
+                    color={theme.palette.surface100.main}>
+                    {value}
+                  </Typography>
+                  <CopyText text={value} />
+                </Box>
+              </Box>
+            );
+          })
+        : null}
     </Box>
   );
 };
 
 const VariableAccordion = ({
   title = "",
-  variableCount,
+  variables,
   isAddVariable = false,
   expanded = false,
   onCancel,
@@ -156,14 +171,16 @@ const VariableAccordion = ({
           <Typography fontSize={20} color={theme.palette.surface100.main}>
             {isEditGroup ? "Edit Variable" : title}
           </Typography>
-          {variableCount && !isEditGroup ? (
+          {variables?.length && !isEditGroup ? (
             <>
               <Divider
                 orientation="vertical"
                 color={theme.palette.divider}
                 sx={styles.divider}
               />
-              <Typography color={theme.palette.surface40.main}>6</Typography>{" "}
+              <Typography color={theme.palette.surface40.main}>
+                {variables?.length}
+              </Typography>
             </>
           ) : null}
         </Box>
@@ -204,7 +221,7 @@ const VariableAccordion = ({
             onCancel={handleCloseEdit}
           />
         ) : (
-          <ViewGroup />
+          <ViewGroup variables={variables} />
         )}
       </AccordionDetails>
     </Accordion>

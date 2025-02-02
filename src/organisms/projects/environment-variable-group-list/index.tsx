@@ -27,6 +27,8 @@ function EnvironmentVariableGroupList({
 
   const handleCloseENVGroup = useCallback(() => setIsAddENVGroup(false), []);
 
+  console.log(envGroups);
+
   return (
     <Box
       display="flex"
@@ -67,15 +69,19 @@ function EnvironmentVariableGroupList({
             isAddVariable
             expanded={true}
             onCancel={handleCloseENVGroup}
+            variables={[]}
           />
         ) : null}
-        {envGroups?.length ? (
-          <VariableAccordion
-            title="Production"
-            variableCount={4}
-            expanded={false}
-          />
-        ) : null}
+        {envGroups?.length
+          ? envGroups?.map((group) => (
+              <VariableAccordion
+                key={group?.groupId}
+                title={group?.groupName}
+                variables={group?.variables || []}
+                expanded={false}
+              />
+            ))
+          : null}
       </Box>
     </Box>
   );
