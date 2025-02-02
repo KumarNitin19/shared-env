@@ -27,7 +27,7 @@ privateApiClient.interceptors.response.use(
   (error) => {
     const status = error.response ? error.response.status : null;
     if (status === 401) {
-      // window.location.pathname = "/loading";
+      window.location.pathname = "/loading";
     } // Handle other errors
 
     return Promise.reject(error);
