@@ -8,7 +8,6 @@ import { Box } from "../../atoms/Box";
 import { Button } from "../../atoms/Button";
 import { Divider } from "../../atoms/Divider";
 import { Icon } from "../../atoms/Icon";
-import { useParams } from "react-router-dom";
 import { useAddENVGroup, useEnvGroups } from "../../query/envGroupQuery";
 import useSnackbar from "../../hooks/useSnackbar";
 
@@ -28,9 +27,14 @@ const styles = {
 type Props = {
   isEdit?: boolean;
   onCancel: () => void;
+  projectId: string;
 };
 
-function AddEnvironmentGroup({ isEdit = false, onCancel }: Props) {
+function AddEnvironmentGroup({
+  isEdit = false,
+  onCancel,
+  projectId = "",
+}: Props) {
   const [groupName, setGroupName] = useState<string>("");
   const [envVariable, setEnvVariable] = useState<
     Array<{
@@ -43,7 +47,6 @@ function AddEnvironmentGroup({ isEdit = false, onCancel }: Props) {
       value: "",
     },
   ]);
-  const { projectId = "" } = useParams();
   const theme = useTheme();
   const { refetch: refetchGroups } = useEnvGroups(projectId);
   const { mutateAsync: addENVGroup } = useAddENVGroup();

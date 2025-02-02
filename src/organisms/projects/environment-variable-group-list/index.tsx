@@ -68,6 +68,7 @@ function EnvironmentVariableGroupList({
             expanded={true}
             onCancel={handleCloseENVGroup}
             variables={[]}
+            projectId={projectId}
           />
         ) : null}
         {envGroups?.length
@@ -77,6 +78,7 @@ function EnvironmentVariableGroupList({
                 title={group?.groupName}
                 variables={group?.variables || []}
                 expanded={false}
+                projectId={projectId}
               />
             ))
           : null}
