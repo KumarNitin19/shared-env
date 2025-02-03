@@ -128,12 +128,12 @@ function AddEnvironmentGroup({
   // To submit the values of form
   const handleAddEnvironmentGroup = useCallback(async () => {
     try {
-      if (variableGroupName && envVariable?.length) {
+      if (variableGroupName) {
         const envData = {
           projectId,
           groupName: variableGroupName,
           variables:
-            envVariable.map((item) => ({ [item.key]: item.value })) || [],
+            envVariable?.map((item) => ({ [item.key]: item.value })) || [],
         };
         const res = await addENVGroup(envData);
         refetchGroups();
@@ -142,6 +142,13 @@ function AddEnvironmentGroup({
           type: "success",
           variant: "filled",
         });
+      } else {
+        addAlert({
+          message: "Please add group name!!",
+          type: "error",
+          variant: "filled",
+        });
+        return;
       }
     } catch (error) {
       console.log(error);
@@ -206,54 +213,66 @@ function AddEnvironmentGroup({
             Add new Variable
           </Button>
         </Box>
-        <Box display="grid" rowGap={1}>
-          <Box display="flex" gap={1}>
-            <Typography
-              variant="body2"
-              flex={1}
-              color={theme.palette.surface100.main}>
-              Key
-            </Typography>
-            <Typography
-              variant="body2"
-              flex={1}
-              color={theme.palette.surface100.main}>
-              Value
-            </Typography>
-            <Box width={20}></Box>
-          </Box>
-          {envVariable?.map((variable) => (
-            <Box key={variable?.id} display="flex" gap={1}>
-              <InputField
-                id={variable?.id}
-                name="key"
-                placeholder="Enter Variable Key"
-                value={variable?.key || ""}
-                onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
-                sx={styles.inputField}
-              />
-              <InputField
-                id={variable?.id}
-                name="value"
-                placeholder="Enter Variable Value"
-                value={variable?.value || ""}
-                onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
-                sx={styles.inputField}
-              />
-              <IconButton
-                onClick={() => handleRemoveEnvVariable(variable?.id)}
-                sx={styles.iconButton}>
-                {envVariable?.length > 1 ? (
-                  <Icon
-                    icon="fluent:subtract-circle-20-regular"
-                    color="red"
-                    fontSize={20}
-                  />
-                ) : null}
-              </IconButton>
+        {variables?.length ? (
+          <Box display="grid" rowGap={1}>
+            <Box display="flex" gap={1}>
+              <Typography
+                variant="body2"
+                flex={1}
+                color={theme.palette.surface100.main}>
+                Key
+              </Typography>
+              <Typography
+                variant="body2"
+                flex={1}
+                color={theme.palette.surface100.main}>
+                Value
+              </Typography>
+              <Box width={20}></Box>
             </Box>
-          ))}
-        </Box>
+            {envVariable?.map((variable) => (
+              <Box key={variable?.id} display="flex" gap={1}>
+                <InputField
+                  id={variable?.id}
+                  name="key"
+                  placeholder="Enter Variable Key"
+                  value={variable?.key || ""}
+                  onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
+                  sx={styles.inputField}
+                />
+                <InputField
+                  id={variable?.id}
+                  name="value"
+                  placeholder="Enter Variable Value"
+                  value={variable?.value || ""}
+                  onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
+                  sx={styles.inputField}
+                />
+                <IconButton
+                  onClick={() => handleRemoveEnvVariable(variable?.id)}
+                  sx={styles.iconButton}>
+                  {envVariable?.length > 1 ? (
+                    <Icon
+                      icon="fluent:subtract-circle-20-regular"
+                      color="red"
+                      fontSize={20}
+                    />
+                  ) : null}
+                </IconButton>
+              </Box>
+            ))}
+          </Box>
+        ) : (
+          <Button
+            variant="text"
+            startIcon={
+              <Icon icon="fluent:add-16-regular" className="h-5 w-5" />
+            }
+            onClick={handleAddEnvVariable}
+            sx={styles.addVariableButton}>
+            Add new Variable
+          </Button>
+        )}
       </Box>
 
       <Box display="flex" gap={1.5} justifyContent="end">
