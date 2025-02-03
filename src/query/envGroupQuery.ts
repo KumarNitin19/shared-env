@@ -34,7 +34,37 @@ export const useAddENVGroup = () => {
           data: formData,
           method: "POST",
         });
-        console.log(resp?.data);
+        return resp?.data as Promise<any>;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+  });
+};
+
+export const useUpdateENVGroup = () => {
+  return useMutation({
+    mutationKey: ["updateENVGroup"],
+    mutationFn: async ({
+      formData,
+      groupId,
+    }: {
+      groupId: string;
+      formData: {
+        projectId: string;
+        groupName: string;
+        variables: Array<{
+          [key: string]: string;
+        }>;
+      };
+    }) => {
+      try {
+        const url = `/group/${groupId}`;
+        const resp = await privateApiClient({
+          url,
+          data: formData,
+          method: "PUT",
+        });
         return resp?.data as Promise<any>;
       } catch (error) {
         return Promise.reject(error);

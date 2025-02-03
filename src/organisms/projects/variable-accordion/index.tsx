@@ -65,6 +65,7 @@ type Props = {
   isAddVariable?: boolean;
   onCancel?: () => void;
   projectId: string;
+  groupId?: string;
 };
 
 const ViewGroup = ({
@@ -139,6 +140,7 @@ const ViewGroup = ({
 };
 
 const VariableAccordion = ({
+  groupId = "",
   groupName = "",
   variables,
   isAddVariable = false,
@@ -219,6 +221,7 @@ const VariableAccordion = ({
       <AccordionDetails sx={styles.accordionDetails}>
         {isAddVariable || isEditGroup ? (
           <AddEnvironmentGroup
+            groupId={groupId}
             projectId={projectId}
             groupName={groupName}
             variables={variables}

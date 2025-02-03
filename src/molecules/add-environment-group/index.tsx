@@ -8,7 +8,11 @@ import { Box } from "../../atoms/Box";
 import { Button } from "../../atoms/Button";
 import { Divider } from "../../atoms/Divider";
 import { Icon } from "../../atoms/Icon";
-import { useAddENVGroup, useEnvGroups } from "../../query/envGroupQuery";
+import {
+  useAddENVGroup,
+  useEnvGroups,
+  useUpdateENVGroup,
+} from "../../query/envGroupQuery";
 import useSnackbar from "../../hooks/useSnackbar";
 
 const styles = {
@@ -32,10 +36,12 @@ type Props = {
     [key: string]: string;
   }>;
   groupName?: string;
+  groupId?: string;
 };
 
 function AddEnvironmentGroup({
   groupName = "",
+  groupId = "",
   isEdit = false,
   onCancel,
   projectId = "",
@@ -58,6 +64,7 @@ function AddEnvironmentGroup({
   const theme = useTheme();
   const { refetch: refetchGroups } = useEnvGroups(projectId);
   const { mutateAsync: addENVGroup } = useAddENVGroup();
+  const { mutateAsync: updateENVGroup } = useUpdateENVGroup();
   const { addAlert } = useSnackbar();
 
   useEffect(() => {
@@ -135,10 +142,17 @@ function AddEnvironmentGroup({
           variables:
             envVariable?.map((item) => ({ [item.key]: item.value })) || [],
         };
-        const res = await addENVGroup(envData);
+        let res;
+        if (isEdit) {
+          res = await updateENVGroup({ groupId: groupId, formData: envData });
+        } else {
+          res = await addENVGroup(envData);
+        }
         refetchGroups();
         addAlert({
-          message: `${res?.group?.groupName} added successfully!!`,
+          message: `${res?.group?.groupName} ${
+            isEdit ? "updated" : "added"
+          } successfully!!`,
           type: "success",
           variant: "filled",
         });

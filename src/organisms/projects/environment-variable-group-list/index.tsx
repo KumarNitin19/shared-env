@@ -75,6 +75,7 @@ function EnvironmentVariableGroupList({
           ? groupDetail?.map((group: ENVGroup) => (
               <VariableAccordion
                 key={group?.groupId}
+                groupId={group?.groupId}
                 groupName={group?.groupName}
                 variables={group?.variables || []}
                 expanded={false}
