@@ -7,10 +7,11 @@ import Accordion, {
 import { Typography } from "../../../atoms/Typography";
 import { Icon } from "../../../atoms/Icon";
 import { Box } from "../../../atoms/Box";
-import { useCallback, useState } from "react";
+import { lazy, useCallback, useState } from "react";
 import AddEnvironmentGroup from "../../../molecules/add-environment-group";
-import CopyText from "../../../molecules/copy-text";
 import { Divider } from "../../../atoms/Divider";
+
+const KeyValuePair = lazy(() => import("./KeyValuePair"));
 
 const styles = {
   accordion: (theme: Theme) => ({
@@ -66,77 +67,6 @@ type Props = {
   onCancel?: () => void;
   projectId: string;
   groupId?: string;
-};
-
-const ViewGroup = ({
-  variables,
-}: {
-  variables: Array<{
-    [key: string]: string;
-  }>;
-}) => {
-  const theme = useTheme();
-  return (
-    <Box display="flex" flexDirection="column" gap={1.5} mt={3}>
-      <Box display="flex" gap={1}>
-        <Typography
-          variant="subtitle2"
-          flex={1}
-          color={theme.palette.surface100.main}>
-          Key
-        </Typography>
-        <Typography
-          variant="subtitle2"
-          flex={1}
-          color={theme.palette.surface100.main}>
-          Value
-        </Typography>
-      </Box>
-      {variables?.length
-        ? variables?.map((variable) => {
-            const [key, value] = Object.entries(variable)[0];
-            return (
-              <Box display="flex" gap={1}>
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  flex={1}
-                  border={1}
-                  borderColor={theme.palette.divider}
-                  borderRadius={1}
-                  p={1}>
-                  <Typography
-                    variant="subtitle2"
-                    flex={1}
-                    color={theme.palette.surface100.main}>
-                    {key}
-                  </Typography>
-                  <CopyText text={key} />
-                </Box>
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  flex={1}
-                  border={1}
-                  borderColor={theme.palette.divider}
-                  borderRadius={1}
-                  p={1}>
-                  <Typography
-                    variant="subtitle2"
-                    flex={1}
-                    color={theme.palette.surface100.main}>
-                    {value}
-                  </Typography>
-                  <CopyText text={value} />
-                </Box>
-              </Box>
-            );
-          })
-        : null}
-    </Box>
-  );
 };
 
 const VariableAccordion = ({
@@ -229,7 +159,7 @@ const VariableAccordion = ({
             onCancel={handleCloseEdit}
           />
         ) : (
-          <ViewGroup variables={variables} />
+          <KeyValuePair variables={variables} />
         )}
       </AccordionDetails>
     </Accordion>
