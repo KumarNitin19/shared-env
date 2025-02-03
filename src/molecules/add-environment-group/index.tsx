@@ -63,8 +63,10 @@ function AddEnvironmentGroup({
   ]);
   const theme = useTheme();
   const { refetch: refetchGroups } = useEnvGroups(projectId);
-  const { mutateAsync: addENVGroup } = useAddENVGroup();
-  const { mutateAsync: updateENVGroup } = useUpdateENVGroup();
+  const { mutateAsync: addENVGroup, isPending: isAddingGroup } =
+    useAddENVGroup();
+  const { mutateAsync: updateENVGroup, isPending: isUpdatingGroup } =
+    useUpdateENVGroup();
   const { addAlert } = useSnackbar();
 
   useEffect(() => {
@@ -290,10 +292,14 @@ function AddEnvironmentGroup({
       </Box>
 
       <Box display="flex" gap={1.5} justifyContent="end">
-        <Button variant="outlined" onClick={onDiscard}>
+        <Button
+          disabled={isAddingGroup || isUpdatingGroup}
+          variant="outlined"
+          onClick={onDiscard}>
           Cancel
         </Button>
         <Button
+          disabled={isAddingGroup || isUpdatingGroup}
           type="submit"
           variant="contained"
           onClick={handleAddEnvironmentGroup}>
