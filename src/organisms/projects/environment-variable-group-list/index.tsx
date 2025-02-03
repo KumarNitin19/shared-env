@@ -63,7 +63,7 @@ function EnvironmentVariableGroupList({
         overflow="auto">
         {isAddENVGroup || groupDetail?.length === 0 ? (
           <VariableAccordion
-            title="Add Environment Variable"
+            groupName="Add Environment Variable"
             isAddVariable
             expanded={true}
             onCancel={handleCloseENVGroup}
@@ -75,7 +75,7 @@ function EnvironmentVariableGroupList({
           ? groupDetail?.map((group: ENVGroup) => (
               <VariableAccordion
                 key={group?.groupId}
-                title={group?.groupName}
+                groupName={group?.groupName}
                 variables={group?.variables || []}
                 expanded={false}
                 projectId={projectId}

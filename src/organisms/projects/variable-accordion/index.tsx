@@ -57,7 +57,7 @@ const styles = {
 };
 
 type Props = {
-  title: string;
+  groupName: string;
   variables: Array<{
     [key: string]: string;
   }>;
@@ -139,7 +139,7 @@ const ViewGroup = ({
 };
 
 const VariableAccordion = ({
-  title = "",
+  groupName = "",
   variables,
   isAddVariable = false,
   expanded = false,
@@ -171,7 +171,7 @@ const VariableAccordion = ({
       <AccordionSummary component="div" sx={styles.accordionSummary}>
         <Box display="flex" alignItems="center" gap={2}>
           <Typography fontSize={20} color={theme.palette.surface100.main}>
-            {isEditGroup ? "Edit Variable" : title}
+            {isEditGroup ? `Edit ${groupName}` : groupName}
           </Typography>
           {variables?.length && !isEditGroup ? (
             <>
@@ -220,6 +220,8 @@ const VariableAccordion = ({
         {isAddVariable || isEditGroup ? (
           <AddEnvironmentGroup
             projectId={projectId}
+            groupName={groupName}
+            variables={variables}
             isEdit={isEditGroup}
             onCancel={handleCloseEdit}
           />

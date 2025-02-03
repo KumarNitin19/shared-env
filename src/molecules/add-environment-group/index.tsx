@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { generateUID } from "../../utils/commonUtils";
 import InputField from "../../atoms/TextField";
 import { Typography } from "../../atoms/Typography";
@@ -28,14 +28,22 @@ type Props = {
   isEdit?: boolean;
   onCancel: () => void;
   projectId: string;
+  variables?: Array<{
+    [key: string]: string;
+  }>;
+  groupName?: string;
 };
 
 function AddEnvironmentGroup({
+  groupName = "",
   isEdit = false,
   onCancel,
   projectId = "",
+  variables = [],
 }: Props) {
-  const [groupName, setGroupName] = useState<string>("");
+  const [variableGroupName, setVariableGroupName] = useState<string>(
+    groupName || ""
+  );
   const [envVariable, setEnvVariable] = useState<
     Array<{
       [key: "id" | "key" | "value" | string]: string;
@@ -52,6 +60,21 @@ function AddEnvironmentGroup({
   const { mutateAsync: addENVGroup } = useAddENVGroup();
   const { addAlert } = useSnackbar();
 
+  useEffect(() => {
+    if (variables?.length) {
+      setEnvVariable(
+        variables?.map((el) => {
+          const [key, value] = Object.entries(el)[0];
+          return {
+            id: generateUID(),
+            key,
+            value,
+          };
+        })
+      );
+    }
+  }, [variables]);
+
   // To close the dialog and reset the state
   const onDiscard = useCallback(() => {
     onCancel();
@@ -67,7 +90,7 @@ function AddEnvironmentGroup({
   // To add group name
   const handleGroupName = useCallback(
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-      setGroupName(e?.target?.value),
+      setVariableGroupName(e?.target?.value),
     []
   );
 
@@ -105,10 +128,10 @@ function AddEnvironmentGroup({
   // To submit the values of form
   const handleAddEnvironmentGroup = useCallback(async () => {
     try {
-      if (groupName && envVariable?.length) {
+      if (variableGroupName && envVariable?.length) {
         const envData = {
           projectId,
-          groupName,
+          groupName: variableGroupName,
           variables:
             envVariable.map((item) => ({ [item.key]: item.value })) || [],
         };
@@ -128,7 +151,7 @@ function AddEnvironmentGroup({
         variant: "filled",
       });
     } finally {
-      setGroupName("");
+      setVariableGroupName("");
       setEnvVariable([
         {
           id: generateUID(),
@@ -139,12 +162,12 @@ function AddEnvironmentGroup({
       onCancel();
     }
   }, [
-    groupName,
+    variableGroupName,
     envVariable,
     onCancel,
     addAlert,
     setEnvVariable,
-    setGroupName,
+    setVariableGroupName,
   ]);
 
   return (
@@ -159,7 +182,7 @@ function AddEnvironmentGroup({
         <InputField
           id="groupName"
           placeholder="Enter Group Name"
-          value={groupName}
+          value={variableGroupName}
           onChange={handleGroupName}
           sx={styles.inputField}
         />
