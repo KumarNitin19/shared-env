@@ -10,6 +10,9 @@ import { Box } from "../../../atoms/Box";
 import { lazy, useCallback, useState } from "react";
 import AddEnvironmentGroup from "../../../molecules/add-environment-group";
 import { Divider } from "../../../atoms/Divider";
+import ConfirmationDialog from "../../../molecules/confirmation-dialog";
+import useSnackbar from "../../../hooks/useSnackbar";
+import { useDeleteENVGroup, useEnvGroups } from "../../../query/envGroupQuery";
 
 const KeyValuePair = lazy(() => import("./KeyValuePair"));
 
@@ -80,7 +83,12 @@ const VariableAccordion = ({
 }: Props) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(expanded || false);
   const [isEditGroup, setIsEditGroup] = useState<boolean>(false);
+  const [isDeleteGroup, setIsDeleteGroup] = useState<boolean>(false);
   const theme = useTheme();
+  const { addAlert } = useSnackbar();
+  const { refetch } = useEnvGroups(projectId);
+  const { mutateAsync: deleteENVGroup, isPending: isPendingDeleteENVGroup } =
+    useDeleteENVGroup();
 
   const toggleAccordion = useCallback(
     () => setIsExpanded((prev: boolean) => !prev),
@@ -98,71 +106,115 @@ const VariableAccordion = ({
     if (onCancel) onCancel();
   }, []);
 
+  const handleDelete = useCallback(() => setIsDeleteGroup(true), []);
+
+  const handleCloseDelete = useCallback(() => setIsDeleteGroup(false), []);
+
+  const onDeleteGroup = useCallback(async () => {
+    try {
+      await deleteENVGroup(groupId);
+      refetch();
+      addAlert({
+        message: `${groupName} delete successfully!!`,
+        type: "success",
+        variant: "filled",
+      });
+    } catch (error) {
+      addAlert({
+        message: "Something went wrong, please try again!!",
+        type: "error",
+        variant: "filled",
+      });
+    }
+  }, [deleteENVGroup, groupId, groupName, refetch, addAlert]);
+
   return (
-    <Accordion expanded={isExpanded} sx={styles.accordion}>
-      <AccordionSummary component="div" sx={styles.accordionSummary}>
-        <Box display="flex" alignItems="center" gap={2}>
-          <Typography fontSize={20} color={theme.palette.surface100.main}>
-            {isEditGroup ? `Edit ${groupName}` : groupName}
-          </Typography>
-          {variables?.length && !isEditGroup ? (
-            <>
+    <>
+      <Accordion expanded={isExpanded} sx={styles.accordion}>
+        <AccordionSummary component="div" sx={styles.accordionSummary}>
+          <Box display="flex" alignItems="center" gap={2}>
+            <Typography fontSize={20} color={theme.palette.surface100.main}>
+              {isEditGroup ? `Edit ${groupName}` : groupName}
+            </Typography>
+            {variables?.length && !isEditGroup ? (
+              <>
+                <Divider
+                  orientation="vertical"
+                  color={theme.palette.divider}
+                  sx={styles.divider}
+                />
+                <Typography color={theme.palette.surface40.main}>
+                  {variables?.length}
+                </Typography>
+              </>
+            ) : null}
+          </Box>
+          {!isAddVariable ? (
+            <Box display="flex" alignItems="center" gap={2}>
+              <IconButton
+                onClick={toggleAccordion}
+                sx={{ ...styles.iconButton, ...styles.expandIcon(isExpanded) }}>
+                <Icon
+                  icon="fluent:chevron-down-20-regular"
+                  color={theme.palette.surface100.main}
+                  fontSize={20}
+                />
+              </IconButton>
+
               <Divider
                 orientation="vertical"
                 color={theme.palette.divider}
                 sx={styles.divider}
               />
-              <Typography color={theme.palette.surface40.main}>
-                {variables?.length}
-              </Typography>
-            </>
+              <IconButton
+                disabled={isEditGroup}
+                onClick={handleOpenEdit}
+                sx={styles.iconButton}>
+                <Icon
+                  icon="fluent:edit-20-regular"
+                  color={theme.palette.surface100.main}
+                  fontSize={20}
+                />
+              </IconButton>
+              <Divider
+                orientation="vertical"
+                color={theme.palette.divider}
+                sx={styles.divider}
+              />
+              <IconButton onClick={handleDelete} sx={styles.iconButton}>
+                <Icon
+                  icon="fluent:delete-20-regular"
+                  color={theme.palette.surface100.main}
+                  fontSize={20}
+                />
+              </IconButton>
+            </Box>
           ) : null}
-        </Box>
-        {!isAddVariable ? (
-          <Box display="flex" alignItems="center" gap={2}>
-            <IconButton
-              onClick={toggleAccordion}
-              sx={{ ...styles.iconButton, ...styles.expandIcon(isExpanded) }}>
-              <Icon
-                icon="fluent:chevron-down-20-regular"
-                color={theme.palette.surface100.main}
-                fontSize={20}
-              />
-            </IconButton>
-
-            <Divider
-              orientation="vertical"
-              color={theme.palette.divider}
-              sx={styles.divider}
+        </AccordionSummary>
+        <AccordionDetails sx={styles.accordionDetails}>
+          {isAddVariable || isEditGroup ? (
+            <AddEnvironmentGroup
+              groupId={groupId}
+              projectId={projectId}
+              groupName={groupName}
+              variables={variables}
+              isEdit={isEditGroup}
+              onCancel={handleCloseEdit}
             />
-            <IconButton
-              disabled={isEditGroup}
-              onClick={handleOpenEdit}
-              sx={styles.iconButton}>
-              <Icon
-                icon="fluent:edit-20-regular"
-                color={theme.palette.surface100.main}
-                fontSize={20}
-              />
-            </IconButton>
-          </Box>
-        ) : null}
-      </AccordionSummary>
-      <AccordionDetails sx={styles.accordionDetails}>
-        {isAddVariable || isEditGroup ? (
-          <AddEnvironmentGroup
-            groupId={groupId}
-            projectId={projectId}
-            groupName={groupName}
-            variables={variables}
-            isEdit={isEditGroup}
-            onCancel={handleCloseEdit}
-          />
-        ) : (
-          <KeyValuePair variables={variables} />
-        )}
-      </AccordionDetails>
-    </Accordion>
+          ) : (
+            <KeyValuePair variables={variables} />
+          )}
+        </AccordionDetails>
+      </Accordion>
+      <ConfirmationDialog
+        open={isDeleteGroup}
+        isPending={isPendingDeleteENVGroup}
+        title="Confirm ENV Group Delete"
+        onClose={handleCloseDelete}
+        onConfirm={onDeleteGroup}>
+        <Typography>Are you sure you want to delete the ENV Group?</Typography>
+      </ConfirmationDialog>
+    </>
   );
 };
 

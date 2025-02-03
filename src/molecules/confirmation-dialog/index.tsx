@@ -36,6 +36,7 @@ type ComponentProps = {
   onConfirm: () => void;
   children: React.ReactNode;
   title: string;
+  isPending: boolean;
 };
 
 const ConfirmationDialog: React.FC<ComponentProps> = ({
@@ -44,6 +45,7 @@ const ConfirmationDialog: React.FC<ComponentProps> = ({
   onConfirm = () => {},
   title = "Confirm Dialog",
   children,
+  isPending = false,
 }) => {
   const theme = useTheme();
   return (
@@ -64,10 +66,10 @@ const ConfirmationDialog: React.FC<ComponentProps> = ({
       </DialogTitle>
       <DialogContent sx={styles.dialogContent}>{children}</DialogContent>
       <DialogActions sx={styles.dialogAction}>
-        <Button variant="outlined" onClick={onClose}>
+        <Button disabled={isPending} variant="outlined" onClick={onClose}>
           Cancel
         </Button>
-        <Button variant="contained" onClick={onConfirm}>
+        <Button disabled={isPending} variant="contained" onClick={onConfirm}>
           Confirm
         </Button>
       </DialogActions>

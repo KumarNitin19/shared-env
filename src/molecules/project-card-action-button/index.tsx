@@ -22,7 +22,8 @@ const ProjectCardActionButton = ({ projectData }: ComponentProps) => {
   const [loading, setIsLoading] = useState<boolean>(false);
   const { refetch: refetchProjects } = useProjects();
   const { mutateAsync: editProject } = useEditProject();
-  const { mutateAsync: deleteProject } = useDeleteProject();
+  const { mutateAsync: deleteProject, isPending: isPendingDeleteProject } =
+    useDeleteProject();
   const { addAlert } = useSnackbar();
 
   const handleConfirmDelete = useCallback(() => setIsDelete(true), []);
@@ -110,7 +111,8 @@ const ProjectCardActionButton = ({ projectData }: ComponentProps) => {
         open={isDelete}
         title="Confirm Project Delete"
         onClose={handleCloseConfirmDelete}
-        onConfirm={onDelete}>
+        onConfirm={onDelete}
+        isPending={isPendingDeleteProject}>
         <Typography>Are you sure you want to delete the project?</Typography>
       </ConfirmationDialog>
       <AddProject
