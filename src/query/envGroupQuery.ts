@@ -72,3 +72,21 @@ export const useUpdateENVGroup = () => {
     },
   });
 };
+
+export const useDeleteENVGroup = () => {
+  return useMutation({
+    mutationKey: ["deleteENVGroup"],
+    mutationFn: async (groupId: string) => {
+      try {
+        const url = `/delete-group/${groupId}`;
+        const resp = await privateApiClient({
+          url,
+          method: "DELETE",
+        });
+        return resp?.data as Promise<any>;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+  });
+};
