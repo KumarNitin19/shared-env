@@ -3,10 +3,12 @@ import Projects from "../../molecules/project/components/Projects";
 import { Box } from "../../atoms/Box";
 import { useProjects } from "../../query/projectQuery";
 import Loader from "../../molecules/loader";
+import { useGithubRepos } from "../../query/githubQuery";
 
 const ProjectPage = () => {
   const { projectId = "" } = useParams<{ projectId: string }>();
   const { data: projects = [], isPending } = useProjects();
+  const { data } = useGithubRepos();
   return (
     <Box
       display="flex"

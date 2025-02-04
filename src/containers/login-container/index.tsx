@@ -1,7 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import SignIn from "../../molecules/auth/signin";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import { IdTokenResult, signInWithPopup, signOut } from "firebase/auth";
+import {
+  GithubAuthProvider,
+  IdTokenResult,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 import { auth, githubProvider } from "../../molecules/auth/utils/firebase";
 import { useSignIn } from "../../query/userQuery";
 import Loader from "../../molecules/loader";
@@ -24,6 +29,10 @@ const LoginContainer = () => {
           const user = result.user;
           const userClaims: IdTokenResult = await user.getIdTokenResult();
           const res = await signIn();
+
+          const credential = GithubAuthProvider.credentialFromResult(result);
+          const accessToken = credential?.accessToken;
+          console.log(accessToken);
           if (res?.user) {
             setItem("userDetails", {
               ...res?.user,
