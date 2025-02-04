@@ -1,21 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import { privateApiClient } from "../utils/apiUtils";
+import { GithubRepos } from "../types/project.type";
 
-export const useGithubRepos = () => {
+export const useGithubRepos = (githubAccessToken: string) => {
   return useQuery({
     queryKey: ["githubRepos"],
     queryFn: async () => {
       try {
         const url = "/github-repos";
-        const res = privateApiClient({
+        const res = await privateApiClient({
           url,
           params: {
-            githubAccessToken: "",
+            githubAccessToken: githubAccessToken,
           },
         });
-        console.log(res);
+        return res.data as Promise<GithubRepos[]>;
       } catch (error) {
-        console.log(error);
+        return Promise.reject<unknown>;
       }
     },
   });

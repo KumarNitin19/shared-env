@@ -32,11 +32,11 @@ const LoginContainer = () => {
 
           const credential = GithubAuthProvider.credentialFromResult(result);
           const accessToken = credential?.accessToken;
-          console.log(accessToken);
           if (res?.user) {
             setItem("userDetails", {
               ...res?.user,
               idToken: userClaims?.token,
+              githubAccessToken: accessToken,
             });
             if (userClaims?.claims.varVaultPrivateKey) {
               navigate("/dashboard");

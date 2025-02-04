@@ -4,11 +4,17 @@ import { Box } from "../../atoms/Box";
 import { useProjects } from "../../query/projectQuery";
 import Loader from "../../molecules/loader";
 import { useGithubRepos } from "../../query/githubQuery";
+import useUser from "../../hooks/useUser";
 
 const ProjectPage = () => {
   const { projectId = "" } = useParams<{ projectId: string }>();
   const { data: projects = [], isPending } = useProjects();
-  const { data } = useGithubRepos();
+  const userInfo = useUser();
+  const { data: githubRepos } = useGithubRepos(
+    userInfo?.githubAccessToken || ""
+  );
+
+  console.log(githubRepos);
   return (
     <Box
       display="flex"

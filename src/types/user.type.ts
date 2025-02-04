@@ -5,4 +5,5 @@ export type User = {
   picture: string;
   createdAt: string;
   varVaultPrivateKey?: string;
+  githubAccessToken: string;
 };

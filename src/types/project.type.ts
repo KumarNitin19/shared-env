@@ -11,3 +11,9 @@ export type ProjectData = {
   uid: string;
   groups: Array<unknown>;
 };
+
+export type GithubRepos = {
+  repo_name: string;
+  full_name: string;
+  github_url: string;
+};
