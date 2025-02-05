@@ -42,6 +42,7 @@ export async function logout() {
   signOut(auth)
     .then(() => {
       localStorage.removeItem("userDetails");
+      localStorage.removeItem("githubAccessToken");
       window.location.pathname = "/sign-in";
     })
     .catch((error) => {

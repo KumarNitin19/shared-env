@@ -13,7 +13,6 @@ import { GithubRepos } from "../../types/project.type";
 const styles = {
   dialog: (theme: Theme) => ({
     "& .MuiPaper-root": {
-      width: 520,
       backgroundColor: theme.palette.sidebarBG.main,
     },
   }),
@@ -37,7 +36,7 @@ type ComponentProps = {
   onInvite: () => void;
 };
 
-const LinkRepository = ({
+const LinkRepositoryDialog = ({
   open = false,
   onClose = () => {},
   githubRepos = [],
@@ -46,7 +45,7 @@ const LinkRepository = ({
   const theme = useTheme();
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>
+      <DialogTitle sx={styles.dialogTitle}>
         <Box>
           <Typography
             variant="h6"
@@ -58,7 +57,7 @@ const LinkRepository = ({
             Link repository to project
           </Typography>
         </Box>
-        <IconButton onClick={() => {}} sx={{ height: "fit-content" }}>
+        <IconButton onClick={onClose} sx={{ height: "fit-content" }}>
           <Icon
             icon="material-symbols:close-rounded"
             color={theme.palette.surface100.main}
@@ -66,14 +65,30 @@ const LinkRepository = ({
         </IconButton>
       </DialogTitle>
       <DialogContent sx={styles.dialogContent}>
-        <Box display="grid" rowGap={2}>
+        <Box display="flex" flexDirection="column" gap={2}>
           <Typography
             title="projectName"
             variant="subtitle2"
             color={theme.palette.surface100.main}>
-            Project Name
+            Repositories
           </Typography>
-          <Box display="grid" rowGap={1}></Box>
+          <Box display="flex" flexDirection="column" gap={1}>
+            {githubRepos?.map((repo) => (
+              <Box display="flex" gap={0.5}>
+                <Typography
+                  variant="caption"
+                  color={theme.palette.surface100.main}>
+                  {repo?.repo_name}
+                </Typography>
+                :
+                <Typography
+                  variant="caption"
+                  color={theme.palette.surface100.main}>
+                  {repo?.github_url}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
         </Box>
       </DialogContent>
       <DialogActions sx={styles.dialogAction}>
@@ -88,4 +103,4 @@ const LinkRepository = ({
   );
 };
 
-export default LinkRepository;
+export default LinkRepositoryDialog;

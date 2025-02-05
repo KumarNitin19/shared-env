@@ -36,8 +36,8 @@ const LoginContainer = () => {
             setItem("userDetails", {
               ...res?.user,
               idToken: userClaims?.token,
-              githubAccessToken: accessToken,
             });
+            setItem("githubAccessToken", accessToken);
             if (userClaims?.claims.varVaultPrivateKey) {
               navigate("/dashboard");
             } else {

@@ -1,8 +1,5 @@
-import { useParams } from "react-router-dom";
-import Loader from "../../molecules/loader";
 import ProjectPage from "../../pages/project";
-import { useProjects } from "../../query/projectQuery";
-import LinkRepositoryDialog from "../../molecules/link-repository-dialog";
+import LinkRepository from "../../molecules/link-repository";
 import { useCallback, useState } from "react";
 
 const ProjectContainer = () => {
@@ -21,7 +18,7 @@ const ProjectContainer = () => {
   return (
     <>
       <ProjectPage onLinkRepository={handleOpenLinkRepositoryDialog} />
-      <LinkRepositoryDialog
+      <LinkRepository
         open={isOpenLinkRrepositoryDialog}
         onClose={handleCloseLinkRepositoryDialog}
       />

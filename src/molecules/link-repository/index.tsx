@@ -1,23 +1,23 @@
 import { useCallback } from "react";
-import useUser from "../../hooks/useUser";
 import { useGithubRepos } from "../../query/githubQuery";
-import LinkRepository from "./LinkRepository";
+import LinkRepositoryDialog from "./LinkRepositoryDialog";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 type ComponentProps = {
   open: boolean;
   onClose: () => void;
 };
 
-const LinkRepositoryDialog = ({ open, onClose }: ComponentProps) => {
-  const userInfo = useUser();
+const LinkRepository = ({ open, onClose }: ComponentProps) => {
+  const { getItem } = useLocalStorage();
   const { data: githubRepos = [] } = useGithubRepos(
-    userInfo?.githubAccessToken || ""
+    getItem("githubAccessToken") || ""
   );
 
   const handleInvite = useCallback(() => {}, []);
 
   return (
-    <LinkRepository
+    <LinkRepositoryDialog
       open={open}
       onClose={onClose}
       githubRepos={githubRepos}
@@ -26,4 +26,4 @@ const LinkRepositoryDialog = ({ open, onClose }: ComponentProps) => {
   );
 };
 
-export default LinkRepositoryDialog;
+export default LinkRepository;
