@@ -26,9 +26,10 @@ const styles = {
 
 type Props = {
   projects: ProjectData;
+  onLinkRepository: () => void;
 };
 
-function Projects({ projects }: Props) {
+function Projects({ projects, onLinkRepository = () => {} }: Props) {
   const { projectName = "", projectId = "" } = projects;
   const { data: envGroups, isPending } = useEnvGroups(projectId);
   const { palette } = useTheme();
@@ -60,6 +61,7 @@ function Projects({ projects }: Props) {
         <Button
           startIcon={<Icon icon="logos:github-icon" color="#fff" />}
           disabled={envGroups?.length === 0 || isPending}
+          onClick={onLinkRepository}
           sx={styles.linkRepoBtn}>
           Link Repository
         </Button>
