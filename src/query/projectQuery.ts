@@ -70,14 +70,16 @@ export function useEditProject() {
 export function useDeleteProject() {
   return useMutation({
     mutationKey: ["deleteProject"],
-    mutationFn: async (projectId: string) => {
+    mutationFn: async (
+      projectId: string
+    ): Promise<{
+      message: string;
+      projectId: string;
+    }> => {
       const url = `/delete-project/${projectId}`;
       try {
         const res = await privateApiClient({ url, method: "DELETE" });
-        return res.data as Promise<{
-          message: string;
-          projectId: string;
-        }>;
+        return res.data;
       } catch (error) {
         return Promise.reject(error);
       }

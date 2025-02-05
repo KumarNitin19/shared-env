@@ -5,7 +5,7 @@ import { GithubRepos } from "../types/project.type";
 export const useGithubRepos = (githubAccessToken: string) => {
   return useQuery({
     queryKey: ["githubRepos"],
-    queryFn: async () => {
+    queryFn: async (): Promise<GithubRepos[]> => {
       try {
         const url = "/github-repos";
         const res = await privateApiClient({
@@ -14,9 +14,9 @@ export const useGithubRepos = (githubAccessToken: string) => {
             githubAccessToken: githubAccessToken,
           },
         });
-        return res.data as Promise<GithubRepos[]>;
+        return res.data;
       } catch (error) {
-        return Promise.reject<unknown>;
+        return Promise.reject(error);
       }
     },
   });
