@@ -21,7 +21,7 @@ const PageNotFound = lazy(
   () => import("../molecules/layout/components/PageNotFound")
 );
 
-const ProjectPage = lazy(() => import("../pages/project"));
+const ProjectContainer = lazy(() => import("../containers/project-container"));
 
 const router = createBrowserRouter([
   {
@@ -59,7 +59,7 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Suspense fallback={<Loader fullPage loader={true} />}>
-              <ProjectPage />
+              <ProjectContainer />
             </Suspense>
           </PrivateRoute>
         ),

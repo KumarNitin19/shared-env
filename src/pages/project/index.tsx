@@ -4,7 +4,11 @@ import { Box } from "../../atoms/Box";
 import { useProjects } from "../../query/projectQuery";
 import Loader from "../../molecules/loader";
 
-const ProjectPage = () => {
+const ProjectPage = ({
+  onLinkRepository = () => {},
+}: {
+  onLinkRepository: () => void;
+}) => {
   const { projectId = "" } = useParams<{ projectId: string }>();
   const { data: projects = [], isPending } = useProjects();
 
@@ -30,6 +34,7 @@ const ProjectPage = () => {
               groups: [],
             }
           }
+          onLinkRepository={onLinkRepository}
         />
       ) : (
         <Loader loader={true} />
