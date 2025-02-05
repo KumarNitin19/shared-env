@@ -36,6 +36,7 @@ const styles = {
     "&.MuiButton-contained.Mui-disabled": {
       backgroundColor: "#71af77",
     },
+    ["text-transform"]: "unset",
   },
 };
 

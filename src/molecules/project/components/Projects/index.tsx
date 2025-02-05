@@ -14,6 +14,16 @@ import { useEnvGroups } from "../../../../query/envGroupQuery";
 import Loader from "../../../loader";
 import ProjectPageZeroState from "../../../../organisms/projects/project-page-zero-state";
 
+const styles = {
+  linkRepoBtn: {
+    "& svg": {
+      "& path": {
+        fill: "#ffffff",
+      },
+    },
+  },
+};
+
 type Props = {
   projects: ProjectData;
 };
@@ -48,9 +58,10 @@ function Projects({ projects }: Props) {
           </Box>
         </Box>
         <Button
-          startIcon={<Icon icon="material-symbols:add" />}
-          disabled={envGroups?.length === 0 || isPending}>
-          Share
+          startIcon={<Icon icon="logos:github-icon" color="#fff" />}
+          disabled={envGroups?.length === 0 || isPending}
+          sx={styles.linkRepoBtn}>
+          Link Repository
         </Button>
       </Box>
       <Box
