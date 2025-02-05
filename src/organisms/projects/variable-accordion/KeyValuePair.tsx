@@ -31,7 +31,7 @@ const KeyValuePair = ({
         ? variables?.map((variable) => {
             const [key, value] = Object.entries(variable)[0];
             return (
-              <Box display="flex" gap={1}>
+              <Box key={key} display="flex" gap={1}>
                 <Box
                   display="flex"
                   alignItems="center"
