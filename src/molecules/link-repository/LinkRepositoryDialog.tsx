@@ -9,6 +9,7 @@ import { Typography } from "../../atoms/Typography";
 import { Icon } from "../../atoms/Icon";
 import { Button } from "../../atoms/Button";
 import { GithubRepos } from "../../types/project.type";
+import Autocomplete from "../../atoms/Autocomplete";
 
 const styles = {
   dialog: (theme: Theme) => ({
@@ -44,7 +45,7 @@ const LinkRepositoryDialog = ({
 }: ComponentProps) => {
   const theme = useTheme();
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog fullWidth maxWidth="sm" open={open} onClose={onClose}>
       <DialogTitle sx={styles.dialogTitle}>
         <Box>
           <Typography
@@ -73,7 +74,12 @@ const LinkRepositoryDialog = ({
             Repositories
           </Typography>
           <Box display="flex" flexDirection="column" gap={1}>
-            {githubRepos?.map((repo) => (
+            <Autocomplete
+              options={githubRepos?.map(
+                (repo) => repo?.repo_name + ": " + repo?.github_url
+              )}
+            />
+            {/* {githubRepos?.map((repo) => (
               <Box display="flex" gap={0.5}>
                 <Typography
                   variant="caption"
@@ -87,7 +93,7 @@ const LinkRepositoryDialog = ({
                   {repo?.github_url}
                 </Typography>
               </Box>
-            ))}
+            ))} */}
           </Box>
         </Box>
       </DialogContent>
