@@ -45,7 +45,12 @@ const LinkRepositoryDialog = ({
 }: ComponentProps) => {
   const theme = useTheme();
   return (
-    <Dialog fullWidth maxWidth="sm" open={open} onClose={onClose}>
+    <Dialog
+      fullWidth
+      maxWidth="sm"
+      open={open}
+      onClose={onClose}
+      sx={styles.dialog(theme)}>
       <DialogTitle sx={styles.dialogTitle}>
         <Box>
           <Typography
