@@ -17,7 +17,17 @@ const styles = {
       },
     },
   }),
-  autocomplete: (theme: Theme) => ({}),
+  autocomplete: (theme: Theme) => ({
+    "& .MuiInputBase-root": {
+      paddingX: 1,
+      paddingY: 0,
+    },
+    "& .MuiAutocomplete-endAdornment": {
+      "& .MuiSvgIcon-root": {
+        color: theme.palette.surface100.main,
+      },
+    },
+  }),
 };
 
 interface CustomAutocompleteProps
@@ -40,7 +50,7 @@ export default function Autocomplete(props: CustomAutocompleteProps) {
   return (
     <MuiAutocomplete
       {...props}
-      renderInput={(params) => <InputField {...params} label="Controllable" />}
+      renderInput={(params) => <InputField {...params} />}
       slotProps={{
         popper: {
           sx: styles.popper(theme, mode),
