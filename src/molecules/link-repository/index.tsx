@@ -1,20 +1,35 @@
 import { useCallback } from "react";
-import { useGithubRepos } from "../../query/githubQuery";
+import { useGithubRepos, useLinkGithubRepos } from "../../query/githubQuery";
 import LinkRepositoryDialog from "./LinkRepositoryDialog";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
 type ComponentProps = {
+  projectId: string;
   open: boolean;
   onClose: () => void;
 };
 
-const LinkRepository = ({ open, onClose }: ComponentProps) => {
+const LinkRepository = ({ projectId, open, onClose }: ComponentProps) => {
   const { getItem } = useLocalStorage();
-  const { data: githubRepos = [] } = useGithubRepos(
-    getItem("githubAccessToken") || ""
-  );
+  const githubAccessToken = getItem("githubAccessToken");
+  const { data: githubRepos = [] } = useGithubRepos(githubAccessToken || "");
+  const { mutateAsync: LinkGithubWithProject } = useLinkGithubRepos();
 
-  const handleInvite = useCallback(() => {}, []);
+  const handleInvite = useCallback(
+    async (githubRepo: string) => {
+      try {
+        const data = await LinkGithubWithProject({
+          projectId,
+          githubAccessToken,
+          githubRepo,
+        });
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [projectId, githubAccessToken]
+  );
 
   return (
     <LinkRepositoryDialog

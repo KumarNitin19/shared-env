@@ -10,6 +10,7 @@ import { Icon } from "../../atoms/Icon";
 import { Button } from "../../atoms/Button";
 import { GithubRepos } from "../../types/project.type";
 import Autocomplete from "../../atoms/Autocomplete";
+import { useCallback, useState } from "react";
 
 const styles = {
   dialog: (theme: Theme) => ({
@@ -34,7 +35,7 @@ type ComponentProps = {
   open: boolean;
   onClose: () => void;
   githubRepos: Array<GithubRepos>;
-  onInvite: () => void;
+  onInvite: (githubRepo: string) => void;
 };
 
 const LinkRepositoryDialog = ({
@@ -43,7 +44,16 @@ const LinkRepositoryDialog = ({
   githubRepos = [],
   onInvite = () => {},
 }: ComponentProps) => {
+  const [selectedRepo, setSelectedRepo] = useState<string>("");
+  const [inputValue, setInputValue] = useState("");
   const theme = useTheme();
+
+  const handleDialogClose = useCallback(() => {
+    onClose();
+    setSelectedRepo("");
+    setInputValue("");
+  }, []);
+
   return (
     <Dialog
       fullWidth
@@ -63,7 +73,7 @@ const LinkRepositoryDialog = ({
             Link repository to project
           </Typography>
         </Box>
-        <IconButton onClick={onClose} sx={{ height: "fit-content" }}>
+        <IconButton onClick={handleDialogClose} sx={{ height: "fit-content" }}>
           <Icon
             icon="material-symbols:close-rounded"
             color={theme.palette.surface100.main}
@@ -83,30 +93,23 @@ const LinkRepositoryDialog = ({
               options={githubRepos?.map(
                 (repo) => repo?.repo_name + ": " + repo?.github_url
               )}
+              value={selectedRepo}
+              inputValue={inputValue}
+              onInputChange={(_, newInputValue) => setInputValue(newInputValue)}
+              onChange={(_, value) => setSelectedRepo(value as string)}
             />
-            {/* {githubRepos?.map((repo) => (
-              <Box display="flex" gap={0.5}>
-                <Typography
-                  variant="caption"
-                  color={theme.palette.surface100.main}>
-                  {repo?.repo_name}
-                </Typography>
-                :
-                <Typography
-                  variant="caption"
-                  color={theme.palette.surface100.main}>
-                  {repo?.github_url}
-                </Typography>
-              </Box>
-            ))} */}
           </Box>
         </Box>
       </DialogContent>
       <DialogActions sx={styles.dialogAction}>
-        <Button variant="outlined" type="submit" onClick={onClose}>
+        <Button variant="outlined" type="submit" onClick={handleDialogClose}>
           Cancel
         </Button>
-        <Button variant="contained" type="submit" onClick={onInvite}>
+        <Button
+          variant="contained"
+          type="submit"
+          disabled={!selectedRepo}
+          onClick={() => onInvite(selectedRepo?.split(":")[0] || "")}>
           Link
         </Button>
       </DialogActions>
