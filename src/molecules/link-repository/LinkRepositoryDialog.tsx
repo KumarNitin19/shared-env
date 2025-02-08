@@ -10,7 +10,6 @@ import { Icon } from "../../atoms/Icon";
 import { Button } from "../../atoms/Button";
 import { GithubRepos } from "../../types/project.type";
 import Autocomplete from "../../atoms/Autocomplete";
-import { useCallback, useState } from "react";
 
 const styles = {
   dialog: (theme: Theme) => ({
@@ -36,23 +35,23 @@ type ComponentProps = {
   onClose: () => void;
   githubRepos: Array<GithubRepos>;
   onInvite: (githubRepo: string) => void;
+  selectedRepo: string;
+  setSelectedRepo: (val: string) => void;
+  inputValue: string;
+  setInputValue: (val: string) => void;
 };
 
 const LinkRepositoryDialog = ({
   open = false,
+  selectedRepo = "",
+  setSelectedRepo = () => {},
+  inputValue = "",
+  setInputValue = () => {},
   onClose = () => {},
   githubRepos = [],
   onInvite = () => {},
 }: ComponentProps) => {
-  const [selectedRepo, setSelectedRepo] = useState<string>("");
-  const [inputValue, setInputValue] = useState("");
   const theme = useTheme();
-
-  const handleDialogClose = useCallback(() => {
-    onClose();
-    setSelectedRepo("");
-    setInputValue("");
-  }, []);
 
   return (
     <Dialog
@@ -73,7 +72,7 @@ const LinkRepositoryDialog = ({
             Link repository to project
           </Typography>
         </Box>
-        <IconButton onClick={handleDialogClose} sx={{ height: "fit-content" }}>
+        <IconButton onClick={onClose} sx={{ height: "fit-content" }}>
           <Icon
             icon="material-symbols:close-rounded"
             color={theme.palette.surface100.main}
@@ -102,7 +101,7 @@ const LinkRepositoryDialog = ({
         </Box>
       </DialogContent>
       <DialogActions sx={styles.dialogAction}>
-        <Button variant="outlined" type="submit" onClick={handleDialogClose}>
+        <Button variant="outlined" type="submit" onClick={onClose}>
           Cancel
         </Button>
         <Button

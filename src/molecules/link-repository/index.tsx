@@ -1,7 +1,8 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useGithubRepos, useLinkGithubRepos } from "../../query/githubQuery";
 import LinkRepositoryDialog from "./LinkRepositoryDialog";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import useSnackbar from "../../hooks/useSnackbar";
 
 type ComponentProps = {
   projectId: string;
@@ -10,12 +11,19 @@ type ComponentProps = {
 };
 
 const LinkRepository = ({ projectId, open, onClose }: ComponentProps) => {
+  const [selectedRepo, setSelectedRepo] = useState<string>("");
+  const [inputValue, setInputValue] = useState("");
   const { getItem } = useLocalStorage();
   const githubAccessToken = getItem("githubAccessToken");
   const { data: githubRepos = [] } = useGithubRepos(githubAccessToken || "");
   const { mutateAsync: LinkGithubWithProject } = useLinkGithubRepos();
+  const { addAlert } = useSnackbar();
 
-  console.log(projectId);
+  const handleCloseDialog = useCallback(() => {
+    onClose();
+    setSelectedRepo("");
+    setInputValue("");
+  }, []);
 
   const handleInvite = useCallback(
     async (githubRepo: string) => {
@@ -23,15 +31,27 @@ const LinkRepository = ({ projectId, open, onClose }: ComponentProps) => {
         ?.find((repo) => repo?.repo_name === githubRepo)
         ?.full_name.split("/")[0];
       try {
-        const data = await LinkGithubWithProject({
+        await LinkGithubWithProject({
           projectId,
           githubAccessToken,
           githubUsername: githubUsername || "",
           githubRepo,
         });
-        console.log(data);
+
+        addAlert({
+          message: "Github repo linked successfully!!",
+          type: "success",
+          variant: "filled",
+        });
       } catch (error) {
         console.log(error);
+        addAlert({
+          message: "Something went wrong, please try again!!",
+          type: "error",
+          variant: "filled",
+        });
+      } finally {
+        handleCloseDialog();
       }
     },
     [projectId, githubAccessToken]
@@ -40,7 +60,11 @@ const LinkRepository = ({ projectId, open, onClose }: ComponentProps) => {
   return (
     <LinkRepositoryDialog
       open={open}
-      onClose={onClose}
+      selectedRepo={selectedRepo}
+      setSelectedRepo={setSelectedRepo}
+      inputValue={inputValue}
+      setInputValue={setInputValue}
+      onClose={handleCloseDialog}
       githubRepos={githubRepos}
       onInvite={handleInvite}
     />
