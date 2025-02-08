@@ -15,12 +15,18 @@ const LinkRepository = ({ projectId, open, onClose }: ComponentProps) => {
   const { data: githubRepos = [] } = useGithubRepos(githubAccessToken || "");
   const { mutateAsync: LinkGithubWithProject } = useLinkGithubRepos();
 
+  console.log(projectId);
+
   const handleInvite = useCallback(
     async (githubRepo: string) => {
+      const githubUsername = githubRepos
+        ?.find((repo) => repo?.repo_name === githubRepo)
+        ?.full_name.split("/")[0];
       try {
         const data = await LinkGithubWithProject({
           projectId,
           githubAccessToken,
+          githubUsername: githubUsername || "",
           githubRepo,
         });
         console.log(data);

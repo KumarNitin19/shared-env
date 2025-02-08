@@ -28,10 +28,12 @@ export const useLinkGithubRepos = () => {
     mutationFn: async ({
       githubAccessToken,
       projectId,
+      githubUsername,
       githubRepo,
     }: {
       githubAccessToken: string;
       projectId: string;
+      githubUsername: string;
       githubRepo: string;
     }): Promise<{
       message: string;
@@ -47,7 +49,7 @@ export const useLinkGithubRepos = () => {
             githubAccessToken,
             projectId,
           },
-          data: { githubRepo },
+          data: { githubUsername, githubRepo },
         });
         console.log(res?.data);
         return res.data;
