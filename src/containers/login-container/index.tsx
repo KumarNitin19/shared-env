@@ -7,11 +7,17 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { auth, githubProvider } from "../../molecules/auth/utils/firebase";
+import { auth } from "../../molecules/auth/utils/firebase";
 import { useSignIn } from "../../query/userQuery";
 import Loader from "../../molecules/loader";
 import { useState } from "react";
 import useSnackbar from "../../hooks/useSnackbar";
+
+const githubProvider = new GithubAuthProvider();
+
+// Request additional scopes for repo access
+githubProvider.addScope("repo"); // Allows fetching private repo collaborators
+githubProvider.addScope("read:org"); // Allows reading org repo details
 
 const LoginContainer = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
