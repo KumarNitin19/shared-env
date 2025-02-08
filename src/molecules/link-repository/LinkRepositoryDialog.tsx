@@ -32,6 +32,7 @@ const styles = {
 
 type ComponentProps = {
   open: boolean;
+  loading: boolean;
   onClose: () => void;
   githubRepos: Array<GithubRepos>;
   onInvite: (githubRepo: string) => void;
@@ -43,6 +44,7 @@ type ComponentProps = {
 
 const LinkRepositoryDialog = ({
   open = false,
+  loading = false,
   selectedRepo = "",
   setSelectedRepo = () => {},
   inputValue = "",
@@ -101,13 +103,17 @@ const LinkRepositoryDialog = ({
         </Box>
       </DialogContent>
       <DialogActions sx={styles.dialogAction}>
-        <Button variant="outlined" type="submit" onClick={onClose}>
+        <Button
+          disabled={loading}
+          variant="outlined"
+          type="submit"
+          onClick={onClose}>
           Cancel
         </Button>
         <Button
           variant="contained"
           type="submit"
-          disabled={!selectedRepo}
+          disabled={!selectedRepo || loading}
           onClick={() => onInvite(selectedRepo?.split(":")[0] || "")}>
           Link
         </Button>

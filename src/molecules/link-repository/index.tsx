@@ -16,7 +16,8 @@ const LinkRepository = ({ projectId, open, onClose }: ComponentProps) => {
   const { getItem } = useLocalStorage();
   const githubAccessToken = getItem("githubAccessToken");
   const { data: githubRepos = [] } = useGithubRepos(githubAccessToken || "");
-  const { mutateAsync: LinkGithubWithProject } = useLinkGithubRepos();
+  const { mutateAsync: LinkGithubWithProject, isPending } =
+    useLinkGithubRepos();
   const { addAlert } = useSnackbar();
 
   const handleCloseDialog = useCallback(() => {
@@ -60,6 +61,7 @@ const LinkRepository = ({ projectId, open, onClose }: ComponentProps) => {
   return (
     <LinkRepositoryDialog
       open={open}
+      loading={isPending}
       selectedRepo={selectedRepo}
       setSelectedRepo={setSelectedRepo}
       inputValue={inputValue}
