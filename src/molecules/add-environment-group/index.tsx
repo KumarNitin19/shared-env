@@ -19,6 +19,8 @@ const styles = {
   addVariableButton: { height: "fit-content", fontSize: 14 },
   iconButton: {
     padding: 0,
+    height: "fit-content",
+    margin: "auto",
   },
   inputField: {
     flex: 1,
@@ -48,7 +50,7 @@ function AddEnvironmentGroup({
   variables = [],
 }: Props) {
   const [variableGroupName, setVariableGroupName] = useState<string>(
-    groupName || ""
+    groupName !== "Add Environment Variable" ? groupName : ""
   );
   const [envVariable, setEnvVariable] = useState<
     Array<{
@@ -229,7 +231,7 @@ function AddEnvironmentGroup({
             Add New Variable
           </Button>
         </Box>
-        {variables?.length ? (
+        {envVariable?.length ? (
           <Box display="grid" rowGap={1}>
             <Box display="flex" gap={1}>
               <Typography

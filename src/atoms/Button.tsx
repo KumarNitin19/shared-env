@@ -4,37 +4,41 @@ const styles = {
   button: {
     height: 40,
     borderRadius: 2,
-    "&.MuiButton-contained": {
+    ["&.MuiButton-contained"]: {
       background: "#3c7c41",
     },
-    "&.MuiButton-outlined": {
+    ["&.MuiButton-outlined"]: {
       color: "#3c7c41",
       borderColor: "#3c7c41",
-      "&:hover": {
+      ["&:hover"]: {
         backgroundColor: "#3c7c410a",
       },
     },
-    "&.MuiButton-text": {
+    ["&.MuiButton-text"]: {
       paddingY: 0,
       color: "#3c7c41",
-      "&:hover": {
+      ["&:hover"]: {
         backgroundColor: "#3c7c410a",
       },
     },
-    "&.MuiButton-sizeSmall": {
+    ["&.MuiButton-sizeSmall"]: {
       fontSize: 13,
-      "&.MuiButton-text": {
+      ["&.MuiButton-text"]: {
         height: 24,
       },
     },
-    "& .iconify": {
+    ["& .iconify"]: {
       fontSize: "18px !important",
     },
-    "&.Mui-disabled": {
+    ["&.Mui-disabled"]: {
       color: "#ffffff99",
     },
-    "&.MuiButton-contained.Mui-disabled": {
+    ["&.MuiButton-contained.Mui-disabled"]: {
       backgroundColor: "#71af77",
+    },
+    ["&.MuiButton-outlined.Mui-disabled"]: {
+      color: "#71af77",
+      borderColor: "#71af77",
     },
     ["text-transform"]: "unset",
   },
