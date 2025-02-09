@@ -226,7 +226,7 @@ function AddEnvironmentGroup({
             }
             onClick={handleAddEnvVariable}
             sx={styles.addVariableButton}>
-            Add new Variable
+            Add New Variable
           </Button>
         </Box>
         {variables?.length ? (
@@ -279,15 +279,12 @@ function AddEnvironmentGroup({
             ))}
           </Box>
         ) : (
-          <Button
-            variant="text"
-            startIcon={
-              <Icon icon="fluent:add-16-regular" className="h-5 w-5" />
-            }
-            onClick={handleAddEnvVariable}
-            sx={styles.addVariableButton}>
-            Add new Variable
-          </Button>
+          <Typography
+            variant="body2"
+            color={theme.palette.surface80.main}
+            sx={{ margin: "auto" }}>
+            Start adding variables
+          </Typography>
         )}
       </Box>
 
