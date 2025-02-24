@@ -30,6 +30,16 @@ const styles = {
   },
 };
 
+const checkIsFormValid = (formValue: Array<any>) => {
+  let error = false;
+  if (formValue && Array.isArray(formValue)) {
+    for (let i = 0; i < formValue?.length; i++) {
+      error = error || Object.values(formValue[i])?.some((val) => !val);
+    }
+  }
+  return error;
+};
+
 type Props = {
   isEdit?: boolean;
   onCancel: () => void;
@@ -49,6 +59,7 @@ function AddEnvironmentGroup({
   projectId = "",
   variables = [],
 }: Props) {
+  const [isError, setIsError] = useState<boolean>(false);
   const [variableGroupName, setVariableGroupName] = useState<string>(
     groupName !== "Add Environment Variable" ? groupName : ""
   );
@@ -107,16 +118,20 @@ function AddEnvironmentGroup({
 
   // To manage the variable key value input
   const handleChangeEnvVariable = useCallback(
-    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, itemId: string) =>
-      setEnvVariable((prev) => {
-        return prev.map((variable) => {
+    (
+      e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+      itemId: string
+    ) => {
+      setEnvVariable((prev) =>
+        prev.map((variable) => {
           if (variable.id === itemId) {
             variable[e.target.name] = e.target.value;
           }
           return variable;
-        });
-      }),
-    []
+        })
+      );
+    },
+    [checkIsFormValid]
   );
 
   // To add key value pair
@@ -138,8 +153,15 @@ function AddEnvironmentGroup({
 
   // To submit the values of form
   const handleAddEnvironmentGroup = useCallback(async () => {
+    // Validating the form first
+    const isFormNotValid = !variableGroupName || checkIsFormValid(envVariable);
+    if (isFormNotValid) {
+      setIsError(true);
+      return;
+    }
+    setIsError(false);
     try {
-      if (variableGroupName) {
+      if (!isFormNotValid) {
         const envData = {
           projectId,
           groupName: variableGroupName,
@@ -255,7 +277,11 @@ function AddEnvironmentGroup({
                   name="key"
                   placeholder="Enter Variable Key"
                   value={variable?.key || ""}
+                  error={isError && !variable?.key}
                   onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
+                  helperText={
+                    isError && !variable?.key ? "Please fill some value" : ""
+                  }
                   sx={styles.inputField}
                 />
                 <InputField
@@ -263,7 +289,11 @@ function AddEnvironmentGroup({
                   name="value"
                   placeholder="Enter Variable Value"
                   value={variable?.value || ""}
+                  error={isError && !variable?.value}
                   onChange={(e) => handleChangeEnvVariable(e, variable?.id)}
+                  helperText={
+                    isError && !variable?.value ? "Please fill some value" : ""
+                  }
                   sx={styles.inputField}
                 />
                 <IconButton
