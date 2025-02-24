@@ -14,6 +14,8 @@ import { useAddENVGroup, useEnvGroups } from "../../../../query/envGroupQuery";
 import Loader from "../../../loader";
 import ProjectPageZeroState from "../../../../organisms/projects/project-page-zero-state";
 import { useCallback, useState } from "react";
+import DownloadJSON from "../../../download-json";
+import useUser from "../../../../hooks/useUser";
 
 const styles = {
   linkRepoBtn: {
@@ -36,7 +38,7 @@ function Projects({ projects, onLinkRepository = () => {} }: Props) {
   const { data: envGroups, isPending } = useEnvGroups(projectId);
   const { isPending: isAdding } = useAddENVGroup();
   const { palette } = useTheme();
-
+  const user = useUser();
   const handleAddENVGroup = useCallback(() => setIsAddENVGroup(true), []);
 
   const handleCloseENVGroup = useCallback(() => setIsAddENVGroup(false), []);
@@ -63,6 +65,21 @@ function Projects({ projects, onLinkRepository = () => {} }: Props) {
             </Typography>
             <Divider orientation="vertical" sx={{ height: 12 }} />
             <CopyText text={projectId} />
+            <Divider orientation="vertical" sx={{ height: 12 }} />
+            <DownloadJSON
+              fileData={{
+                varVaultPrivateKey: user?.varVaultPrivateKey || "",
+                projectId,
+              }}
+              buttonElement={
+                <Icon
+                  icon="material-symbols:download-rounded"
+                  color={palette.surface100.main}
+                  fontSize={20}
+                />
+              }
+              fileName="varVault.json"
+            />
           </Box>
         </Box>
         <Button
