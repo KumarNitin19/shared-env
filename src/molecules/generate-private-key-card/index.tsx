@@ -119,7 +119,7 @@ const GeneratePrivateKeyCard = () => {
                 <CopyText text={privateKey} fontSize={20} />
                 <DownloadJSON
                   fileData={{
-                    privateKey,
+                    varVaultPrivateKey: privateKey,
                   }}
                   buttonElement={
                     <Icon
