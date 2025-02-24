@@ -132,8 +132,6 @@ const VariableAccordion = ({
     }
   }, [deleteENVGroup, groupId, groupName, refetch, addAlert]);
 
-  console.log(isEditGroup);
-
   return (
     <>
       <Accordion expanded={isExpanded} sx={styles.accordion}>
