@@ -14,6 +14,7 @@ import { ThemeEnum } from "../../providers/ThemeProvider";
 import { useGeneratePrivateKey } from "../../query/userQuery";
 import { auth } from "../auth/utils/firebase";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import DownloadJSON from "../download-json";
 
 const styles = {
   generateKeyCard: (theme: string) => ({
@@ -99,6 +100,7 @@ const GeneratePrivateKeyCard = () => {
             display="flex"
             alignItems="center"
             justifyContent="space-between"
+            gap={2.5}
             flex={1}
             borderRadius={2}
             py={2}
@@ -113,17 +115,23 @@ const GeneratePrivateKeyCard = () => {
               {privateKey}
             </Typography>
             <Box display="flex" gap={1}>
-              <CopyText
-                text="78F9A2E7-9C1B-4A8D-AE67-82DF7D1F5C36"
-                fontSize={20}
+              <CopyText text={privateKey} fontSize={20} />
+              <DownloadJSON
+                fileData={{
+                  privateKey,
+                }}
+                buttonElement={
+                  <Icon
+                    icon="material-symbols:download-rounded"
+                    color={theme.palette.surface100.main}
+                    fontSize={20}
+                  />
+                }
+                fileName="varVaultPrivateKey.json"
               />
-              <IconButton sx={{ padding: 0 }}>
-                <Icon
-                  icon="material-symbols:download-rounded"
-                  color={theme.palette.surface100.main}
-                  fontSize={20}
-                />
-              </IconButton>
+              {/* <IconButton sx={{ padding: 0 }}>
+               
+              </IconButton> */}
             </Box>
           </Box>
           <Button variant="contained" onClick={onContinue}>
