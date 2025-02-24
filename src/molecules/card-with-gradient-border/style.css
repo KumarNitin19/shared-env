@@ -1,8 +1,21 @@
 .gradient-border-card {
-  background: linear-gradient(#f1f1f1 0 0) padding-box,
-    linear-gradient(rgb(11 11 15 / 3%), rgb(11 11 15 / 57%), rgb(11 11 15 / 6%))
-      border-box;
   border: 1px solid transparent;
   border-radius: 24px;
   backdrop-filter: blur(62px);
+}
+
+.light-card {
+  background: linear-gradient(#f1f1f1 0 0) padding-box,
+    linear-gradient(rgb(11 11 15 / 3%), rgb(11 11 15 / 57%), rgb(11 11 15 / 6%))
+      border-box;
+}
+
+.dark-card {
+  background: linear-gradient(#111114 0 0) padding-box,
+    linear-gradient(
+        rgb(255 255 255 / 3%),
+        rgb(255 255 255 / 57%),
+        rgb(255 255 255 / 6%)
+      )
+      border-box;
 }
