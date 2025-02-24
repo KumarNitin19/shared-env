@@ -67,7 +67,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/generate-private-key",
+    path: "/generate-private-key/",
     element: (
       <PrivateRoute>
         <Suspense fallback={<Loader fullPage loader={true} />}>

@@ -11,18 +11,18 @@ type Props = {
 function CopyText({ text = "", fontSize = 16 }: Props) {
   const theme = useTheme();
   const { copy, isCopied } = useCopyToClipboard();
-  if (isCopied) {
-    return (
-      <Icon icon="material-symbols:check" color="green" fontSize={fontSize} />
-    );
-  }
+
   return (
     <IconButton onClick={() => copy(text)} sx={{ padding: 0 }}>
-      <Icon
-        icon="fluent:copy-20-regular"
-        color={theme.palette.surface100.main}
-        fontSize={fontSize}
-      />
+      {isCopied ? (
+        <Icon icon="material-symbols:check" color="green" fontSize={fontSize} />
+      ) : (
+        <Icon
+          icon="fluent:copy-20-regular"
+          color={theme.palette.surface100.main}
+          fontSize={fontSize}
+        />
+      )}
     </IconButton>
   );
 }
