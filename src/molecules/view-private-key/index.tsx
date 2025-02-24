@@ -10,6 +10,7 @@ import { ThemeEnum } from "../../providers/ThemeProvider";
 import { useEffect, useState } from "react";
 import useUser from "../../hooks/useUser";
 import CardWithGradientBorder from "../card-with-gradient-border";
+import DownloadJSON from "../download-json";
 
 const styles = {
   dialog: (theme: string) => ({
@@ -88,6 +89,7 @@ const ViewPrivateKey = ({ open = false, onClose = () => {} }: Props) => {
             display="flex"
             alignItems="center"
             justifyContent="space-between"
+            gap={2.5}
             flex={1}
             borderRadius={2}
             py={2}
@@ -100,7 +102,22 @@ const ViewPrivateKey = ({ open = false, onClose = () => {} }: Props) => {
               color={theme.palette.surface100.main}>
               {privateKey}
             </Typography>
-            <CopyText text={privateKey} fontSize={20} />
+            <Box display="flex" gap={1}>
+              <CopyText text={privateKey} fontSize={20} />
+              <DownloadJSON
+                fileData={{
+                  privateKey,
+                }}
+                buttonElement={
+                  <Icon
+                    icon="material-symbols:download-rounded"
+                    color={theme.palette.surface100.main}
+                    fontSize={20}
+                  />
+                }
+                fileName="varVaultPrivateKey.json"
+              />
+            </Box>
           </Box>
         </DialogContent>
       </CardWithGradientBorder>

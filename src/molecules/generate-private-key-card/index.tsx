@@ -130,9 +130,6 @@ const GeneratePrivateKeyCard = () => {
                   }
                   fileName="varVaultPrivateKey.json"
                 />
-                {/* <IconButton sx={{ padding: 0 }}>
-               
-              </IconButton> */}
               </Box>
             </Box>
             <Button variant="contained" onClick={onContinue}>
