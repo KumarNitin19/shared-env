@@ -300,9 +300,9 @@ function Sidebar({
             </ListItemButton>
             <Box display="flex" gap={1.5} alignItems="center">
               <Divider sx={styles.verticalDivider} />
-              <IconButton sx={{ padding: 0 }}>
+              <Box>
                 <ToggleThemeIcon />
-              </IconButton>
+              </Box>
             </Box>
           </ListItem>
         </List>

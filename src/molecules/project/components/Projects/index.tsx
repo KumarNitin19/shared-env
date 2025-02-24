@@ -10,9 +10,10 @@ import { Divider } from "../../../../atoms/Divider";
 import { Button } from "../../../../atoms/Button";
 import { Icon } from "../../../../atoms/Icon";
 import { ProjectData } from "../../../../types/project.type";
-import { useEnvGroups } from "../../../../query/envGroupQuery";
+import { useAddENVGroup, useEnvGroups } from "../../../../query/envGroupQuery";
 import Loader from "../../../loader";
 import ProjectPageZeroState from "../../../../organisms/projects/project-page-zero-state";
+import { useCallback, useState } from "react";
 
 const styles = {
   linkRepoBtn: {
@@ -30,9 +31,15 @@ type Props = {
 };
 
 function Projects({ projects, onLinkRepository = () => {} }: Props) {
+  const [isAddENVGroup, setIsAddENVGroup] = useState<boolean>(false);
   const { projectName = "", projectId = "" } = projects;
   const { data: envGroups, isPending } = useEnvGroups(projectId);
+  const { isPending: isAdding } = useAddENVGroup();
   const { palette } = useTheme();
+
+  const handleAddENVGroup = useCallback(() => setIsAddENVGroup(true), []);
+
+  const handleCloseENVGroup = useCallback(() => setIsAddENVGroup(false), []);
 
   return (
     <Box
@@ -73,14 +80,22 @@ function Projects({ projects, onLinkRepository = () => {} }: Props) {
         borderRadius={3}
         overflow="auto"
         bgcolor={palette.surface20.main}>
-        {!isPending ? (
+        {!isPending && !isAdding ? (
           envGroups?.length ? (
             <EnvironmentVariableGroupList
+              isAddENVGroup={isAddENVGroup}
               projectId={projectId}
               groupDetail={envGroups}
+              handleAddENVGroup={handleAddENVGroup}
+              handleCloseENVGroup={handleCloseENVGroup}
             />
           ) : (
-            <ProjectPageZeroState />
+            <ProjectPageZeroState
+              projectId={projectId}
+              isAddENVGroup={isAddENVGroup}
+              handleAddENVGroup={handleAddENVGroup}
+              handleCloseENVGroup={handleCloseENVGroup}
+            />
           )
         ) : (
           <Loader loader={true} />

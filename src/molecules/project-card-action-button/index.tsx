@@ -37,8 +37,7 @@ const ProjectCardActionButton = ({ projectData }: ComponentProps) => {
   const onDelete = useCallback(async () => {
     setIsLoading(true);
     try {
-      const res = await deleteProject(projectData?.id);
-      console.log(res);
+      await deleteProject(projectData?.id);
       refetchProjects();
       addAlert({
         message: `${projectData?.projectName} deleted successfully!!`,

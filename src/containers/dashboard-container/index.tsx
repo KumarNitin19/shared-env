@@ -23,7 +23,6 @@ const DashboardContainer = () => {
       setIsLoading(true);
       try {
         const res = await addProject(body);
-
         if (res?.projectId) {
           refetch();
           addAlert({

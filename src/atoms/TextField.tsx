@@ -24,6 +24,11 @@ const styles = {
         borderColor: theme.palette.inputBorder.main,
       },
     },
+    "& .MuiFormHelperText-root.Mui-error": {
+      marginLeft: 0,
+      fontSize: 12,
+      fontWeight: 500,
+    },
   }),
 };
 
