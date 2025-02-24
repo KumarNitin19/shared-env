@@ -1,8 +1,8 @@
 import { useTheme } from "@mui/material/styles";
-import { Box } from "../../atoms/Box";
 import { useThemeToggle } from "../../hooks/useThemeToggle";
 import { Icon } from "../../atoms/Icon";
 import { ThemeEnum } from "../../providers/ThemeProvider";
+import IconButton from "@mui/material/IconButton";
 
 const styles = {
   lightIcon: (mode: string) => ({
@@ -12,6 +12,7 @@ const styles = {
     width: 20,
     scale: mode === ThemeEnum.LIGHT ? "100%" : 0,
     cursor: "pointer",
+    padding: 0,
   }),
   darkIcon: (mode: string) => ({
     position: "absolute",
@@ -21,6 +22,7 @@ const styles = {
     width: 20,
     scale: mode === ThemeEnum.DARK ? "100%" : 0,
     cursor: "pointer",
+    padding: 0,
   }),
 };
 
@@ -29,7 +31,7 @@ export const ToggleThemeIcon = () => {
   const { mode, toggleTheme } = useThemeToggle();
   return (
     <>
-      <Box
+      <IconButton
         onClick={() => toggleTheme(ThemeEnum.LIGHT)}
         sx={styles.darkIcon(mode)}>
         <Icon
@@ -37,16 +39,16 @@ export const ToggleThemeIcon = () => {
           color={theme.palette.surface80.main}
           fontSize={20}
         />
-      </Box>
-      <Box
+      </IconButton>
+      <IconButton
         onClick={() => toggleTheme(ThemeEnum.DARK)}
         sx={styles.lightIcon(mode)}>
         <Icon
-          icon="uil:sun"
+          icon="fluent:weather-sunny-16-regular"
           color={theme.palette.surface80.main}
           fontSize={20}
         />
-      </Box>
+      </IconButton>
     </>
   );
 };
