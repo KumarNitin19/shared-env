@@ -11,7 +11,7 @@ function PrivateRoute({ children }: { children: React.ReactNode }) {
     if (auth?.currentUser) {
       auth?.currentUser
         ?.getIdToken(true) // Pass `true` to force refresh
-        .then((idToken) => {
+        .then(() => {
           // console.log("Updated ID token with custom claims:", idToken);
         })
         .catch((error) => {

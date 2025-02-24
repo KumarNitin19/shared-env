@@ -52,6 +52,7 @@ function AddProject({
     projectName: "",
     projectDescription: "",
   });
+  const [isError, setIsError] = useState<boolean>(false);
   const theme = useTheme();
 
   useEffect(() => {
@@ -70,8 +71,29 @@ function AddProject({
     []
   );
 
+  const handleCloseAddProject = useCallback(() => {
+    setProjectDetails({
+      projectName: "",
+      projectDescription: "",
+    });
+    setIsError(false);
+    onClose();
+  }, [onClose]);
+
+  const handleAddProject = useCallback(() => {
+    const isFormValid = Object.values(projectDetails)?.every((val) => val);
+    if (isFormValid) {
+      handleSave(projectDetails);
+    } else {
+      setIsError(!isFormValid);
+    }
+  }, [projectDetails]);
+
   return (
-    <Dialog open={open} onClose={onClose} sx={styles.dialog(theme)}>
+    <Dialog
+      open={open}
+      onClose={handleCloseAddProject}
+      sx={styles.dialog(theme)}>
       <DialogTitle sx={styles.dialogTitle}>
         <Box>
           <Typography
@@ -86,7 +108,9 @@ function AddProject({
               : "Create project to add environment variables."}
           </Typography>
         </Box>
-        <IconButton onClick={onClose} sx={{ height: "fit-content" }}>
+        <IconButton
+          onClick={handleCloseAddProject}
+          sx={{ height: "fit-content" }}>
           <Icon
             icon="material-symbols:close-rounded"
             color={theme.palette.surface100.main}
@@ -106,7 +130,13 @@ function AddProject({
               id="name"
               name="projectName"
               placeholder="Enter Project Name"
+              error={!projectDetails?.projectName && isError}
               value={projectDetails?.projectName}
+              helperText={
+                !projectDetails?.projectName && isError
+                  ? "Please add project name."
+                  : ""
+              }
               onChange={handleForm}
             />
           </Box>
@@ -121,20 +151,26 @@ function AddProject({
               id="name"
               name="projectDescription"
               placeholder="Enter Project Description"
+              error={!projectDetails?.projectDescription && isError}
               value={projectDetails?.projectDescription}
+              helperText={
+                !projectDetails?.projectDescription && isError
+                  ? "Please add project description."
+                  : ""
+              }
               onChange={handleForm}
             />
           </Box>
         </Box>
       </DialogContent>
       <DialogActions sx={styles.dialogAction}>
-        <Button variant="outlined" type="submit" onClick={onClose}>
+        <Button
+          variant="outlined"
+          type="submit"
+          onClick={handleCloseAddProject}>
           Cancel
         </Button>
-        <Button
-          variant="contained"
-          type="submit"
-          onClick={() => handleSave(projectDetails)}>
+        <Button variant="contained" type="submit" onClick={handleAddProject}>
           {isEdit ? "Save" : "Add"}
         </Button>
       </DialogActions>
