@@ -4,8 +4,15 @@ import { Box } from "../../../atoms/Box";
 import VariableAccordion from "../variable-accordion";
 import { Button } from "../../../atoms/Button";
 import { Icon } from "../../../atoms/Icon";
-import { useCallback, useState } from "react";
 import { ENVGroup } from "../../../types/envGroup.type";
+
+type ComponentProps = {
+  projectId: string;
+  groupDetail: Array<ENVGroup>;
+  handleAddENVGroup: () => void;
+  handleCloseENVGroup: () => void;
+  isAddENVGroup: boolean;
+};
 
 const styles = {
   createEnvironmentGroupBtn: {
@@ -14,24 +21,19 @@ const styles = {
 };
 
 function EnvironmentVariableGroupList({
+  isAddENVGroup = false,
   projectId = "",
   groupDetail = [],
-}: {
-  projectId: string;
-  groupDetail: Array<ENVGroup>;
-}) {
-  const [isAddENVGroup, setIsAddENVGroup] = useState<boolean>(false);
+  handleAddENVGroup = () => {},
+  handleCloseENVGroup = () => {},
+}: ComponentProps) {
   const { palette } = useTheme();
-
-  const handleAddENVGroup = useCallback(() => setIsAddENVGroup(true), []);
-
-  const handleCloseENVGroup = useCallback(() => setIsAddENVGroup(false), []);
 
   return (
     <Box
       display="flex"
       flexDirection="column"
-      gap={5}
+      gap={2}
       height="100%"
       width="100%"
       overflow="hidden">
@@ -50,6 +52,7 @@ function EnvironmentVariableGroupList({
           variant="text"
           size="small"
           startIcon={<Icon icon="fluent:add-16-regular" />}
+          disabled={isAddENVGroup}
           onClick={handleAddENVGroup}
           sx={styles.createEnvironmentGroupBtn}>
           Add Environment Group

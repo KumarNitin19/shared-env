@@ -90,10 +90,14 @@ const VariableAccordion = ({
   const { mutateAsync: deleteENVGroup, isPending: isPendingDeleteENVGroup } =
     useDeleteENVGroup();
 
-  const toggleAccordion = useCallback(
-    () => setIsExpanded((prev: boolean) => !prev),
-    []
-  );
+  const toggleAccordion = useCallback(() => {
+    setIsExpanded((prev: boolean) => {
+      if (prev) {
+        setIsEditGroup(false);
+      }
+      return !prev;
+    });
+  }, []);
 
   const handleOpenEdit = useCallback(() => {
     setIsEditGroup(true);
@@ -104,7 +108,7 @@ const VariableAccordion = ({
     setIsEditGroup(false);
     setIsExpanded(false);
     if (onCancel) onCancel();
-  }, []);
+  }, [onCancel]);
 
   const handleDelete = useCallback(() => setIsDeleteGroup(true), []);
 
@@ -127,6 +131,8 @@ const VariableAccordion = ({
       });
     }
   }, [deleteENVGroup, groupId, groupName, refetch, addAlert]);
+
+  console.log(isEditGroup);
 
   return (
     <>
