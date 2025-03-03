@@ -35,10 +35,13 @@ type Props = {
 function Projects({ projects, onLinkRepository = () => {} }: Props) {
   const [isAddENVGroup, setIsAddENVGroup] = useState<boolean>(false);
   const { projectName = "", projectId = "" } = projects;
-  const { data: envGroups, isPending } = useEnvGroups(projectId);
+  const user = useUser();
+  const { data: envGroups, isPending } = useEnvGroups(
+    projectId,
+    user?.varVaultPrivateKey || ""
+  );
   const { isPending: isAdding } = useAddENVGroup();
   const { palette } = useTheme();
-  const user = useUser();
   const handleAddENVGroup = useCallback(() => setIsAddENVGroup(true), []);
 
   const handleCloseENVGroup = useCallback(() => setIsAddENVGroup(false), []);
