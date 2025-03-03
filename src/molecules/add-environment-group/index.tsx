@@ -14,6 +14,7 @@ import {
   useUpdateENVGroup,
 } from "../../query/envGroupQuery";
 import useSnackbar from "../../hooks/useSnackbar";
+import useUser from "../../hooks/useUser";
 
 const styles = {
   addVariableButton: { height: "fit-content", fontSize: 14 },
@@ -75,7 +76,11 @@ function AddEnvironmentGroup({
     },
   ]);
   const theme = useTheme();
-  const { refetch: refetchGroups } = useEnvGroups(projectId);
+  const user = useUser();
+  const { refetch: refetchGroups } = useEnvGroups(
+    projectId,
+    user?.varVaultPrivateKey || ""
+  );
   const { mutateAsync: addENVGroup, isPending: isAddingGroup } =
     useAddENVGroup();
   const { mutateAsync: updateENVGroup, isPending: isUpdatingGroup } =
@@ -170,9 +175,16 @@ function AddEnvironmentGroup({
         };
         let res;
         if (isEdit) {
-          res = await updateENVGroup({ groupId: groupId, formData: envData });
+          res = await updateENVGroup({
+            groupId: groupId,
+            formData: envData,
+            varVaultPrivateKey: user?.varVaultPrivateKey || "",
+          });
         } else {
-          res = await addENVGroup(envData);
+          res = await addENVGroup({
+            formData: envData,
+            varVaultPrivateKey: user?.varVaultPrivateKey || "",
+          });
         }
         refetchGroups();
         addAlert({
