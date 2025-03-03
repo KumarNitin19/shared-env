@@ -13,6 +13,7 @@ import { Divider } from "../../../atoms/Divider";
 import ConfirmationDialog from "../../../molecules/confirmation-dialog";
 import useSnackbar from "../../../hooks/useSnackbar";
 import { useDeleteENVGroup, useEnvGroups } from "../../../query/envGroupQuery";
+import useUser from "../../../hooks/useUser";
 
 const KeyValuePair = lazy(() => import("./KeyValuePair"));
 
@@ -86,7 +87,8 @@ const VariableAccordion = ({
   const [isDeleteGroup, setIsDeleteGroup] = useState<boolean>(false);
   const theme = useTheme();
   const { addAlert } = useSnackbar();
-  const { refetch } = useEnvGroups(projectId);
+  const user = useUser();
+  const { refetch } = useEnvGroups(projectId, user?.varVaultPrivateKey || "");
   const { mutateAsync: deleteENVGroup, isPending: isPendingDeleteENVGroup } =
     useDeleteENVGroup();
 
